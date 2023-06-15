@@ -1,0 +1,66 @@
+.email {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+.email form {
+  width: 100%;
+}
+
+.sendEmail {
+  width: 100%;
+  background: #e31221;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  height: 38px;
+  margin-bottom: 16px;
+  margin-top: 18px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+.input label {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.input label svg {
+  margin-bottom: 4px;
+}
+.input input {
+  width: 100%;
+  background: #ced4da;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+  height: 38px;
+  padding-left: 13px;
+  margin-bottom: 16px;
+  outline: none;
+}
+.account {
+  margin-top: 12px !important;
+}
+
+.account svg {
+  margin-right: 11px;
+}

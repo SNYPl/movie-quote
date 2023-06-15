@@ -1,0 +1,57 @@
+body {
+  background: #11101a;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  /* margin: 0; */
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+
+@font-face {
+  font-family: Helvetica66Med;
+  src: url(./assets/font/Helvetica\ Neue\ W01\ 66\ Medium\ It.otf);
+}
+
+@font-face {
+  font-family: helveticaLight;
+  src: url(./assets/font/Helvetica\ Neue\ UltraLight.otf);
+}
+
+@font-face {
+  font-family: helveticaGeoMed;
+  src: url(./assets/font/Helvetica\ Neue\ LT\ GEO\ 65\ Medium.ttf);
+}
+
+@font-face {
+  font-family: helveticaGeoLight;
+  src: url(./assets/font/Helvetica\ Neue\ LT\ GEO\ 45\ Light.ttf);
+}
+
+@font-face {
+  font-family: helveticaGeoHeavy;
+  src: url(./assets/font/Helvetica\ Neue\ LT\ GEO\ 85\ Heavy.ttf);
+}
+
+@font-face {
+  font-family: helveticaGeo75Bold;
+  src: url(./assets/font/Helvetica\ Neue\ LT\ GEO\ 75\ Bold.ttf);
+}
+
+@font-face {
+  font-family: helveticaGeo55;
+  src: url(./assets/font/HelveticaNeueLTGEOCaps-55Roman.ttf);
+}

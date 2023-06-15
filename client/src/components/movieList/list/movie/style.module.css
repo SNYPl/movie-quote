@@ -1,0 +1,33 @@
+.movie {
+  width: 30%;
+}
+
+.movieImg {
+  width: 100%;
+}
+
+.movieImg img {
+  width: 100%;
+}
+
+.movieTitle {
+  margin: 16px 0 18px 0;
+  font-family: helveticaGeo75Bold;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.commentInfo {
+  display: flex;
+  color: #fff;
+  align-items: center;
+}
+.commentInfo span {
+  margin-right: 12px;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+}

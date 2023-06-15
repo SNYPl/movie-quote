@@ -1,0 +1,68 @@
+.quote {
+  padding: 24px 32px;
+  background-color: #1c1b2b;
+  border-radius: 10px;
+  width: 57%;
+  margin-bottom: 40px;
+}
+.quoteTitle {
+  border-bottom: 1px solid rgba(239, 239, 239, 0.3);
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+  padding-bottom: 24px;
+  justify-content: space-between;
+}
+.quotePhoto {
+  width: 240px;
+  height: 140px;
+}
+.quotePhoto img {
+  width: 100%;
+}
+.quoteTitle h4 {
+  margin: 0;
+  font-family: helveticaGeo55;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  color: #ced4da;
+}
+.menuDot {
+  align-self: flex-start;
+  cursor: pointer;
+  position: relative;
+}
+.menuDot svg {
+  cursor: pointer;
+}
+.reactions {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+  margin: 24px 0 0 0;
+}
+.commentsCount {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+}
+.likes p,
+.commentsCount p {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.likes {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+}
+
+.comments {
+  margin-bottom: 24px;
+}

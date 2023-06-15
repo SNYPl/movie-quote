@@ -1,0 +1,14 @@
+.navBtn {
+  display: flex;
+  column-gap: 16px;
+}
+
+.signBtn {
+  background: #e31221;
+  border: 1px solid #e31221;
+}
+
+.logBtn {
+  border: 1px solid #ffffff;
+  background-color: transparent;
+}

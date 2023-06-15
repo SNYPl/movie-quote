@@ -1,0 +1,122 @@
+.signIn {
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.title h3 {
+  margin: 0;
+  margin-bottom: 12px;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.title p {
+  margin: 0;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.input label {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.input input {
+  width: 100%;
+  background: #ced4da;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+  height: 38px;
+  padding-left: 13px;
+  margin-bottom: 16px;
+  outline: none;
+}
+.username {
+}
+.password {
+}
+
+.forgotPassword {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.account a,
+.forgotPassword a {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-decoration-line: underline;
+  color: #0d6efd;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.checkbox label {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 8px;
+  color: #ffffff;
+}
+.signBtn {
+  width: 100%;
+  background: #e31221;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  height: 38px;
+  margin-bottom: 16px;
+}
+
+.account {
+  margin: 0;
+  margin-top: 32px;
+  width: 100%;
+  text-align: center;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+}

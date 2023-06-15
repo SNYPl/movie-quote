@@ -1,0 +1,22 @@
+.forget {
+}
+
+.forget h3 {
+  margin: 0;
+  margin-bottom: 14px;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.forget p {
+  margin: 0;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+  text-align: center;
+}

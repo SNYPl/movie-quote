@@ -1,0 +1,14 @@
+.descriptionContainer {
+  width: 100%;
+  padding-top: 32px;
+}
+
+.descriptionContainer h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 32px;
+}

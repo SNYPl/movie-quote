@@ -1,0 +1,139 @@
+.news {
+  background: #11101a;
+  padding: 24px 24px 41px 24px;
+  border-radius: 12px;
+  margin-bottom: 45px;
+}
+.author {
+  margin-bottom: 16px;
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}
+.photo {
+  width: 52px;
+  height: 52px;
+  background-color: #fff;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.author h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+}
+.quote {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 28px;
+  color: #ffffff;
+}
+.newsImg img {
+  width: 100%;
+}
+
+.reactions {
+  border-bottom: 1px solid rgba(239, 239, 239, 0.3);
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+  margin: 24px 0;
+  padding-bottom: 24px;
+}
+.commentsCount {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+}
+.likes p,
+.commentsCount p {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.likes {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+}
+
+.comments {
+  margin-bottom: 24px;
+}
+.comment {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+}
+.commentPhoto {
+  width: 52px;
+  height: 52px;
+  background-color: #fff;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 24px;
+}
+
+.commentInfo {
+  border-bottom: 1px solid rgba(239, 239, 239, 0.3);
+  padding-bottom: 24px;
+  width: calc(95% - 50px);
+}
+.commentInfo h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 11px;
+}
+.commentInfo p {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+}
+.commentWrite {
+  display: flex;
+}
+.writeAuthorPhoto {
+  width: 52px;
+  height: 52px;
+  background-color: #fff;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 24px;
+}
+.commentWrite input {
+  background: #24222f;
+  opacity: 0.6;
+  border-radius: 10px;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ced4da;
+  padding-left: 27px;
+  width: 100%;
+  border: none;
+  outline: none;
+}

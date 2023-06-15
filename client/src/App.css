@@ -1,0 +1,19 @@
+button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 13px;
+  width: 109px;
+  height: 38px;
+  border-radius: 4px;
+  outline: none;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  cursor: pointer;
+  color: #ffffff;
+  border: none;
+}

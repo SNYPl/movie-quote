@@ -1,0 +1,47 @@
+.thanks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.thanks svg {
+  margin-bottom: 20px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.title h3 {
+  margin: 0;
+  margin-bottom: 32px;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.title p {
+  margin: 0;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.newsFd {
+  width: 100%;
+  background: #e31221;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  height: 38px;
+  margin-bottom: 16px;
+  margin-top: 18px;
+}

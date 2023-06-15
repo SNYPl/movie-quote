@@ -1,0 +1,34 @@
+.navigation {
+  display: flex;
+  column-gap: 36px;
+  align-items: center;
+}
+
+.notf {
+  position: relative;
+  cursor: pointer;
+}
+
+.circle {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: #e33812;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+  border-radius: 50%;
+  top: -6px;
+  right: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lgtBtn {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+}

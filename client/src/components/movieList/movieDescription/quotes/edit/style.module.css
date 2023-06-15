@@ -1,0 +1,178 @@
+.overlay {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.54);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+}
+
+.popUp {
+  background: #11101a;
+  border-radius: 12px;
+  padding: 40px 0;
+  width: 50%;
+  margin-top: 25px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(239, 239, 239, 0.2);
+  position: relative;
+  margin-bottom: 30px;
+  padding: 0 32px 24px 32px;
+}
+.title h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: capitalize;
+  color: #ffffff;
+}
+.closeIcon {
+  cursor: pointer;
+}
+
+.author {
+  margin-bottom: 28px;
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+  padding: 0 32px;
+}
+.photo {
+  width: 52px;
+  height: 52px;
+  background-color: #fff;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.author h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.forms {
+  padding: 0 32px;
+}
+.forms form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.forms input {
+  height: 48px;
+  background: #11101a;
+  border: 1px solid #6c757d;
+  border-radius: 4.8px;
+  font-family: helveticaGeoLight;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  outline: none;
+  padding: 14px;
+  width: 100%;
+  padding-right: 75px;
+  padding-left: 10px;
+}
+.input span {
+  position: absolute;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #6c757d;
+  right: 14px;
+  top: 12px;
+}
+.forms input::placeholder {
+  font-family: helveticaGeoLight;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  font-style: italic;
+}
+.input {
+  width: 100%;
+  position: relative;
+}
+
+.desc {
+  height: 86px;
+}
+.desc input {
+  height: 100%;
+  padding-left: 16px;
+  padding-top: 0;
+  padding-bottom: 0.4em;
+  padding-right: 0.4em;
+}
+
+.addBtn {
+  background: #e31221;
+  border-radius: 4.8px;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.photoQuot {
+  width: 100%;
+  position: relative;
+}
+.photoQuot img {
+  width: 100%;
+}
+
+.titleIcon {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  cursor: pointer;
+}
+
+.titleIcon p {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ced4da;
+}
+
+.changePhoto {
+  background: linear-gradient(
+    187.16deg,
+    #181623 0.07%,
+    #191725 51.65%,
+    #0d0b14 98.75%
+  );
+  border-radius: 10px;
+  width: 135px;
+  height: 84px;
+  position: absolute;
+  top: 37%;
+  left: 45%;
+}

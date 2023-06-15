@@ -1,0 +1,59 @@
+.menu {
+  padding: 32px 180px 0 70px;
+  row-gap: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+  width: 234px;
+}
+
+.profileImg {
+  width: 60px;
+  height: 60px;
+  background: #d9d9d9;
+  border: 2px solid #e31221;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.profileInfo h3 {
+  margin: 0;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.profileInfo a {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ced4da;
+  text-decoration: none;
+}
+
+.menuSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 43px;
+  padding-left: 10px;
+}
+
+.menuSection a {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+}

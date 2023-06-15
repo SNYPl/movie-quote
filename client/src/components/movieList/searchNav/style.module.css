@@ -1,0 +1,92 @@
+.search {
+  margin-bottom: 68px;
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.title {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.addCont {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.searchInp {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.searchInp svg {
+  position: absolute;
+}
+.searchInp input {
+  display: flex;
+  background: transparent;
+  height: 48px;
+  outline: none;
+  border: none;
+  padding-left: 30px;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ced4da;
+  width: 150px;
+  padding-right: 10px;
+}
+.searchInp input::placeholder {
+  color: #ced4da;
+}
+.searchInp input[type="search"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.searchInp input[type="search"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* clears the 'X' from Chrome */
+.searchInp input[type="search"]::-webkit-search-decoration,
+.searchInp input[type="search"]::-webkit-search-cancel-button,
+.searchInp input[type="search"]::-webkit-search-results-button,
+.searchInp input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+.searchInp input[type="search"]::-webkit-search-cancel-button,
+.searchInp input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.addCont button {
+  background: #e31221;
+  border-radius: 4.8px;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  width: 154px;
+  font-size: 20px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+
+.addCont button span {
+  margin-right: 8px;
+}

@@ -1,0 +1,56 @@
+.emailSent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.emailSent svg {
+  margin-bottom: 20px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.title h3 {
+  margin: 0;
+  margin-bottom: 32px;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.title p {
+  margin: 0;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.emailBtn {
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.emailBtnCont {
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+  margin-top: 18px;
+  background: #e31221;
+  border-radius: 4px;
+}

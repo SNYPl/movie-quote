@@ -1,0 +1,73 @@
+import React, { useState } from "react";
+import style from "./style.module.css";
+import LandingMovie from "./landingMovie/LandingMovie";
+import Navigation from "../navigation/Navigation";
+import LandNavigation from "../navigation/landingNavigation/LandingNav";
+import img1 from "../../assets/img/landing/img1.jpg";
+import img2 from "../../assets/img/landing/img2.jpg";
+import img3 from "../../assets/img/landing/img3.jpg";
+import PopUpWrapper from "../popUpWrapper/PopUp";
+import SignIn from "../signIn/SignIn";
+import SignUp from "../signUp/SignUp";
+import ForgetPassword from "../forgotPassword/Forgot";
+
+const Landing: React.FC = () => {
+  const [userMode, setUserMode] = useState<string>("");
+
+  const landingInfo = [
+    {
+      mainTitle: "You have to leave somethig behind to go forward",
+      title: "Interstellar, 2014",
+      img: img1,
+    },
+    {
+      mainTitle:
+        "I think we're just gonna have to be secretly in love with earch other and leave it that",
+      title: "The Royal Tenenbaums,2001 ",
+      img: img2,
+    },
+    {
+      mainTitle:
+        "I think we're just gonna have to be secretly in love with earch other and leave it that",
+      title: "The Royal Tenenbaums,2001 ",
+      img: img3,
+    },
+  ];
+  return (
+    // <section className={style.containerScroll}>
+    <>
+      {userMode === "loginModal" && (
+        <PopUpWrapper setUserMode={setUserMode}>
+          <SignIn />
+        </PopUpWrapper>
+      )}
+      {userMode === "signUpModal" && <SignUp setUserMode={setUserMode} />}
+
+      <div className={style.landing}>
+        <Navigation>
+          <LandNavigation setUserMode={setUserMode} />
+        </Navigation>
+        <section className={style.info}>
+          <h2>
+            Find any quote in <br /> millions of movie lines
+          </h2>
+          <button className={style.startBtn}>GET STARTED</button>
+        </section>
+        <div
+          className={style.bgrPhoto}
+          style={{ backgroundImage: `url(${img1})` }}
+        ></div>
+      </div>
+      {landingInfo.map((item) => (
+        <LandingMovie
+          mainTitle={item.mainTitle}
+          title={item.title}
+          img={item.img}
+        />
+      ))}
+    </>
+    // </section>
+  );
+};
+
+export default Landing;

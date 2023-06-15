@@ -1,0 +1,21 @@
+.overlay {
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.54);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+}
+
+.popUp {
+  background: #222030;
+  border-radius: 10px;
+  padding: 57px 105px 45px 115px;
+  width: 601px;
+  /* width: 41%; */
+}

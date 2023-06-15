@@ -1,0 +1,38 @@
+.menu {
+  padding: 32px 40px;
+  background: #24222f;
+  border-radius: 10px;
+  width: 220px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 20px;
+}
+.menuItem {
+  column-gap: 16px;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.menuItem h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #ffffff;
+}
+
+.view:hover {
+  color: red;
+}
+
+.edit h4:hover,
+.delete h4:hover,
+.view h4:hover {
+  color: #978f8f;
+}

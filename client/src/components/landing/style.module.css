@@ -1,0 +1,54 @@
+.landing {
+  background: linear-gradient(
+    187.16deg,
+    #181623 0.07%,
+    #191725 51.65%,
+    #0d0b14 98.75%
+  );
+  /* scroll-snap-align: start;
+  height: 100vh; */
+  transition: all 1s ease-out;
+}
+
+.containerScroll {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  transition: all 1s ease-out;
+}
+
+.landing .info {
+  display: flex;
+  height: calc(70vh - 93px);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bgrPhoto {
+  height: 30vh;
+}
+
+.info h2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 150%;
+  text-align: center;
+  color: #ddccaa;
+}
+
+.info button {
+  background: #e31221;
+  border: 1px solid #e31221;
+  border-radius: 4.8px;
+  font-family: "Helvetica Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #ffffff;
+  padding: 9px 17px;
+  width: 133px;
+  height: 48px;
+}

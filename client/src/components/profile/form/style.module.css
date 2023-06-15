@@ -1,0 +1,88 @@
+.profileForm {
+  padding-top: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.profileForm form {
+  width: 56%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 56px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.input label {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.input label svg {
+  margin-bottom: 4px;
+}
+.input input {
+  width: 100%;
+  background: #ced4da;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+  height: 48px;
+  padding-left: 13px;
+  outline: none;
+}
+
+.inputContainer {
+  display: flex;
+  column-gap: 30px;
+  align-items: center;
+}
+
+.editBtn {
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ced4da;
+  margin: 0;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+
+.saveBtns {
+  column-gap: 9px;
+  display: flex;
+  position: absolute;
+  bottom: -70px;
+  right: 0;
+}
+
+.saveBtns button {
+  border-radius: 4.8px;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  height: 48px;
+}
+
+.cancelBtn {
+  width: 101px;
+  background-color: transparent;
+  color: #ced4da;
+}
+.saveBtn {
+  width: 160px;
+  background: #e31221;
+  color: #ffffff;
+}

@@ -1,0 +1,55 @@
+.writeNew {
+  display: flex;
+  column-gap: 24px;
+  margin-bottom: 16px;
+}
+
+.writeNew button {
+  display: flex;
+  column-gap: 24px;
+  padding-left: 16px;
+  background: #24222f;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: left;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.writeBtn {
+  width: 76%;
+  transition: all 0.4s ease-in;
+}
+
+.smWidth {
+  width: 24%;
+  transition: all 0.4s ease-in;
+}
+.searchInp {
+  border-bottom: 1px solid rgba(239, 239, 239, 0.3);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.searchInp svg {
+  position: absolute;
+}
+.searchInp input {
+  display: flex;
+  background: transparent;
+  height: 30px;
+  outline: none;
+  border: none;
+  padding-left: 30px;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(239, 239, 239, 0.6);
+  width: 100%;
+}

@@ -1,0 +1,29 @@
+.navigation {
+  display: flex;
+  padding: 24px 70px;
+  justify-content: space-between;
+}
+
+.navigation h1 {
+  width: 145px;
+  height: 24px;
+  font-family: helveticaMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-transform: uppercase;
+  color: #ddccaa;
+}
+
+.nav {
+  display: flex;
+}
+
+.nav select {
+  background: rgba(255, 255, 255, 1e-6);
+  color: #fff;
+  border: none;
+  outline: none;
+  margin-right: 35px;
+}

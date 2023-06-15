@@ -1,0 +1,23 @@
+.profile {
+  padding-top: 32px;
+  width: 100%;
+}
+
+.profile h3 {
+  margin: 0;
+  margin-bottom: 54px;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #ffffff;
+  padding-left: 52px;
+}
+
+.profileContainer {
+  background: #11101a;
+  border-radius: 12px;
+  width: 70%;
+  position: relative;
+  padding-bottom: 120px;
+}

@@ -1,0 +1,140 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+
+.movie {
+  display: grid;
+  grid-template-columns: 1.9fr 1.4fr;
+  column-gap: 21px;
+}
+.moviePhoto {
+  width: 100%;
+}
+.moviePhoto img {
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title h3 {
+  margin: 0;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #ddccaa;
+}
+
+.titleIcon {
+  padding: 12px 25px;
+  background: #24222f;
+  border-radius: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 144px;
+}
+
+.titleIcon svg {
+  cursor: pointer;
+}
+
+.hXaz {
+  width: 1px;
+  height: 100%;
+  background-color: #6c757d;
+}
+.genres {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 9px;
+  margin-bottom: 20px;
+}
+.genres p {
+  margin: 0;
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #6c757d;
+  border-radius: 4px;
+  padding: 6.6px 12px;
+}
+.director {
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #ced4da;
+  margin: 0;
+  margin-bottom: 20px;
+}
+.director span {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+}
+.descriptionText {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: #ced4da;
+}
+.addBtns {
+  display: flex;
+  column-gap: 16px;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.addBtns p {
+  font-family: helveticaGeo55;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.addBtns button {
+  background: #e31221;
+  border-radius: 4.8px;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  width: 154px;
+  font-size: 20px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+
+.addBtns button span {
+  margin-right: 8px;
+}
+
+.hXazz {
+  width: 1px;
+  height: 26px;
+  background-color: #6c757d;
+}
