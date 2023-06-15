@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Finish: React.FC = () => {
+  let location = useLocation();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const tokenUrl = location.pathname.split("=")[1];
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json; charset=UTF-9",
+      "Access-Control-Allow-Origin": "*",
+      Accept: "application/json",
+      Authorization: `Bearer ${tokenUrl}`,
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .put("http://localhost:3001/verify/:token", { token: tokenUrl })
+      .then((res) => setSuccess(res.status === 200))
+      .catch((err) => setError(err.response.data.message));
+  });
+
   return (
     <div className={style.thanks}>
       <svg
@@ -18,11 +42,13 @@ const Finish: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        <h3>Thank You!</h3>
-        <p>Your account has been activated.</p>
+        {success && <h3>Thank You!</h3>}
+        {error && <h3>Error</h3>}
+        {success && <p>Your account has been activated.</p>}
+        {error && <p>{error}</p>}
       </article>
 
-      <button className={`${style.newsFd} `}>Go to my news feed</button>
+      <button className={`${style.newsFd} `}>Log In</button>
     </div>
   );
 };

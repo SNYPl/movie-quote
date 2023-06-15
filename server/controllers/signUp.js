@@ -42,7 +42,7 @@ exports.postSignUp = async (req, res, next) => {
               <body style="font-family: sans-serif;">
                 <div style="display: block; margin: auto; max-width: 600px;" class="main">
                   <h1 style="font-size: 18px; font-weight: bold; margin-top: 20px">Welcome ${username}</h1>
-                  <a href="http://localhost:3000/verified/token=${accessToken}">Click to Verify , link will be valid for 10 minute</a>
+                  <a href="http://localhost:3000/verify/token=${accessToken}">Click to Verify , link will be valid for 10 minute</a>
                 </div>
                 <style>
                   .main { background-color: white; }
@@ -76,5 +76,32 @@ exports.postSignUp = async (req, res, next) => {
     );
   } catch (err) {
     return res.status(401).send(err);
+  }
+};
+
+exports.verifyAccount = async (req, res, next) => {
+  const token = req.body.token;
+
+  if (!token) {
+    return res.status(401).send({ message: "unauthorized access" });
+  }
+
+  try {
+    jwt.verify(token, "verify", function (err, decoded) {
+      if (err) throw new Error("token is expired, try again");
+    });
+
+    User.findOneAndUpdate(
+      { token: token },
+      { $set: { verified: true }, $unset: { token: "" } },
+      { new: true }
+    ).catch((err) => console.log(err));
+
+    res.status(200).send("account was verified");
+  } catch (err) {
+    console.log(err);
+    return res.status(401).send({
+      message: "Error while verify, try again",
+    });
   }
 };

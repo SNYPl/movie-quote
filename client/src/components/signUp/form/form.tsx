@@ -59,7 +59,7 @@ const Registration: React.FC<signUpMode> = ({
           setUserEmail(res.data.email);
         }
       })
-      .catch((err) => setError(err.response.data));
+      .catch((err) => console.log(err));
   };
 
   return (

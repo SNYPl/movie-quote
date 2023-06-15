@@ -10,9 +10,15 @@ import PopUpWrapper from "../popUpWrapper/PopUp";
 import SignIn from "../signIn/SignIn";
 import SignUp from "../signUp/SignUp";
 import ForgetPassword from "../forgotPassword/Forgot";
+import { useLocation } from "react-router-dom";
 
 const Landing: React.FC = () => {
+  let location = useLocation();
+  const path: string = location.pathname;
+  const includePath: boolean = path.includes("verify");
   const [userMode, setUserMode] = useState<string>("");
+  const [verifyThanksPage, setVerifyThanksPage] =
+    useState<boolean>(includePath);
 
   const landingInfo = [
     {
@@ -33,15 +39,27 @@ const Landing: React.FC = () => {
       img: img3,
     },
   ];
+
   return (
     // <section className={style.containerScroll}>
     <>
       {userMode === "loginModal" && (
-        <PopUpWrapper setUserMode={setUserMode}>
+        <PopUpWrapper
+          setUserMode={setUserMode}
+          setVerifyThanksPage={setVerifyThanksPage}
+        >
           <SignIn />
         </PopUpWrapper>
       )}
-      {userMode === "signUpModal" && <SignUp setUserMode={setUserMode} />}
+      {userMode === "signUpModal" || verifyThanksPage ? (
+        <SignUp
+          setUserMode={setUserMode}
+          pathName={verifyThanksPage}
+          setVerifyThanksPage={setVerifyThanksPage}
+        />
+      ) : (
+        ""
+      )}
 
       <div className={style.landing}>
         <Navigation>

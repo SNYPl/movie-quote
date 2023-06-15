@@ -1,9 +1,9 @@
-.emailSent {
+.thanks {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.emailSent svg {
+.thanks svg {
   margin-bottom: 20px;
 }
 

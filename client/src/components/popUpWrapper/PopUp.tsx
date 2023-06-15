@@ -4,6 +4,7 @@ import style from "./style.module.css";
 type children = {
   children: React.ReactNode;
   setUserMode: React.Dispatch<React.SetStateAction<string>>;
+  setVerifyThanksPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Wrapper: React.FC<children> = (props) => {
@@ -13,6 +14,7 @@ const Wrapper: React.FC<children> = (props) => {
       onClick={(e: React.MouseEvent) => {
         if ((e.target as HTMLInputElement).classList.contains("popUpOverlay")) {
           props.setUserMode("");
+          props.setVerifyThanksPage(false);
         }
       }}
     >
@@ -21,6 +23,7 @@ const Wrapper: React.FC<children> = (props) => {
         onKeyDown={(e) => {
           if (e.code === "Escape") {
             props.setUserMode("");
+            props.setVerifyThanksPage(false);
           }
         }}
       >

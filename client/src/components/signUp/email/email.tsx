@@ -6,9 +6,7 @@ interface signUpMode {
 }
 
 const RegEmailSent: React.FC<signUpMode> = ({ userEmail }) => {
-  console.log(userEmail);
   const email = userEmail.split("@")[1];
-  console.log(email);
   return (
     <div className={style.emailSent}>
       <svg
