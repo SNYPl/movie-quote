@@ -4,7 +4,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const port = 3001;
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
 const signUpRoutes = require("./routes/signUpRoutes");
+const signInRoutes = require("./routes/loginRoutes");
+
+app.use(cookieParser());
 
 const corsOptions = {
   origin: "*",
@@ -17,6 +22,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(signInRoutes);
 app.use(signUpRoutes);
 
 app.use((err, req, res, next) => {

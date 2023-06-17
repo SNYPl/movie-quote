@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import LandingMovie from "./landingMovie/LandingMovie";
 import Navigation from "../navigation/Navigation";
@@ -11,14 +11,16 @@ import SignIn from "../signIn/SignIn";
 import SignUp from "../signUp/SignUp";
 import ForgetPassword from "../forgotPassword/Forgot";
 import { useLocation } from "react-router-dom";
+import { signUpCtrx } from "../../store/signUpContx";
 
 const Landing: React.FC = () => {
   let location = useLocation();
   const path: string = location.pathname;
   const includePath: boolean = path.includes("verify");
-  const [userMode, setUserMode] = useState<string>("");
   const [verifyThanksPage, setVerifyThanksPage] =
     useState<boolean>(includePath);
+
+  const { userMode, setUserMode } = useContext(signUpCtrx);
 
   const landingInfo = [
     {
@@ -44,16 +46,12 @@ const Landing: React.FC = () => {
     // <section className={style.containerScroll}>
     <>
       {userMode === "loginModal" && (
-        <PopUpWrapper
-          setUserMode={setUserMode}
-          setVerifyThanksPage={setVerifyThanksPage}
-        >
+        <PopUpWrapper setVerifyThanksPage={setVerifyThanksPage}>
           <SignIn />
         </PopUpWrapper>
       )}
       {userMode === "signUpModal" || verifyThanksPage ? (
         <SignUp
-          setUserMode={setUserMode}
           pathName={verifyThanksPage}
           setVerifyThanksPage={setVerifyThanksPage}
         />
@@ -63,7 +61,7 @@ const Landing: React.FC = () => {
 
       <div className={style.landing}>
         <Navigation>
-          <LandNavigation setUserMode={setUserMode} />
+          <LandNavigation />
         </Navigation>
         <section className={style.info}>
           <h2>

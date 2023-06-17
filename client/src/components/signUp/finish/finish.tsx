@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import style from "./style.module.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { signUpCtrx } from "../../../store/signUpContx";
+import { useNavigate } from "react-router-dom";
 
 const Finish: React.FC = () => {
   let location = useLocation();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const { setUserMode } = useContext(signUpCtrx);
+  const navigate = useNavigate();
 
   const tokenUrl = location.pathname.split("=")[1];
 
@@ -48,7 +52,15 @@ const Finish: React.FC = () => {
         {error && <p>{error}</p>}
       </article>
 
-      <button className={`${style.newsFd} `}>Log In</button>
+      <button
+        className={`${style.newsFd} `}
+        onClick={() => {
+          setUserMode("loginModal");
+          navigate("/");
+        }}
+      >
+        Log In
+      </button>
     </div>
   );
 };

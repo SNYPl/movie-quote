@@ -1,0 +1,50 @@
+.emailSent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.emailSent svg {
+  margin-bottom: 20px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.title p {
+  color: #ffffff;
+  margin: 4px 0;
+}
+
+.title h3 {
+  color: #ffffff;
+  font-size: 24px;
+  margin: 4px 0;
+}
+
+.emailBtn {
+  width: 20%;
+  background: #e31221;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  height: 38px;
+  margin-bottom: 16px;
+  margin-top: 18px;
+}
+
+.skip {
+  margin-top: 12px !important;
+}
+
+.mailTitle {
+  color: #fff;
+  font-size: 20px;
+  margin: 6px 0;
+}

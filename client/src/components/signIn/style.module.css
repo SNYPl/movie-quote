@@ -120,3 +120,17 @@
   font-size: 16px;
   color: #6c757d;
 }
+
+.input p {
+  margin: 0;
+  color: red;
+  font-family: helveticaGeo55;
+  margin-bottom: 16px;
+}
+
+.errText {
+  margin: 0;
+  color: red;
+  font-family: helveticaGeo55;
+  margin-bottom: 16px;
+}

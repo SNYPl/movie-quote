@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { signUpCtrx } from "../../../store/signUpContx";
 
 type FormValues = {
   username: string;
@@ -26,6 +27,7 @@ const Registration: React.FC<signUpMode> = ({
   setUserEmail,
 }) => {
   const [error, setError] = useState<string>("");
+  const { setUserMode } = useContext(signUpCtrx);
 
   const {
     register,
@@ -59,7 +61,7 @@ const Registration: React.FC<signUpMode> = ({
           setUserEmail(res.data.email);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.response.data));
   };
 
   return (
@@ -231,7 +233,16 @@ const Registration: React.FC<signUpMode> = ({
         <button className={`${style.signUpBtn} `}>Sign Up Chrome</button>
       </form>
       <p className={`${style.account}`}>
-        Already have an account? <a href="#">Log in</a>
+        Already have an account?{" "}
+        <a
+          href="/"
+          onClick={(e: any) => {
+            e.preventDefault();
+            setUserMode("loginModal");
+          }}
+        >
+          Log in
+        </a>
       </p>
     </div>
   );

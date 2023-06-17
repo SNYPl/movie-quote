@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./style.module.css";
+import { signUpCtrx } from "../../store/signUpContx";
 
 type children = {
   children: React.ReactNode;
-  setUserMode: React.Dispatch<React.SetStateAction<string>>;
   setVerifyThanksPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Wrapper: React.FC<children> = (props) => {
+  const { userMode, setUserMode } = useContext(signUpCtrx);
+
   return (
     <article
       className={`${style.overlay} popUpOverlay`}
       onClick={(e: React.MouseEvent) => {
         if ((e.target as HTMLInputElement).classList.contains("popUpOverlay")) {
-          props.setUserMode("");
+          setUserMode("");
           props.setVerifyThanksPage(false);
         }
       }}
@@ -22,7 +24,7 @@ const Wrapper: React.FC<children> = (props) => {
         className={style.popUp}
         onKeyDown={(e) => {
           if (e.code === "Escape") {
-            props.setUserMode("");
+            setUserMode("");
             props.setVerifyThanksPage(false);
           }
         }}
