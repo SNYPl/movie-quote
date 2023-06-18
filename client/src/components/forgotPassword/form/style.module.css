@@ -64,3 +64,11 @@
 .account svg {
   margin-right: 11px;
 }
+
+.account a {
+  font-family: helveticaGeo55;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 16px;
+  color: #6c757d;
+}

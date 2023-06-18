@@ -161,7 +161,15 @@ const SignIn: React.FC = () => {
             />
             <label htmlFor="rememberLogin">Remember Me</label>
           </div>
-          <a href="/reset">Forgot Password?</a>
+          <a
+            href="/"
+            onClick={(e: any) => {
+              e.preventDefault();
+              setUserMode("forgotPassword");
+            }}
+          >
+            Forgot Password?
+          </a>
         </section>
         <button className={`${style.signBtn}`} type="submit">
           Sign in

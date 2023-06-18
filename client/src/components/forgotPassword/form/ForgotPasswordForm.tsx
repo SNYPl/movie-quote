@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
+import { signUpCtrx } from "../../../store/signUpContx";
 
 type FormValues = {
   email: string;
@@ -8,6 +9,7 @@ type FormValues = {
 
 const ForgotEmail: React.FC = () => {
   const [error, setError] = useState<string>("");
+  const { userMode, setUserMode } = useContext(signUpCtrx);
 
   const {
     register,
@@ -67,7 +69,16 @@ const ForgotEmail: React.FC = () => {
             fill="white"
           />
         </svg>
-        Back to login
+        <a
+          href="/"
+          onClick={(e: any) => {
+            e.preventDefault();
+            setUserMode("loginModal");
+          }}
+        >
+          {" "}
+          Back to login
+        </a>
       </p>
     </div>
   );

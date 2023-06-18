@@ -4,11 +4,10 @@ import { signUpCtrx } from "../../store/signUpContx";
 
 type children = {
   children: React.ReactNode;
-  setVerifyThanksPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Wrapper: React.FC<children> = (props) => {
-  const { userMode, setUserMode } = useContext(signUpCtrx);
+  const { setUserMode, setVerifyThanksPage } = useContext(signUpCtrx);
 
   return (
     <article
@@ -16,7 +15,7 @@ const Wrapper: React.FC<children> = (props) => {
       onClick={(e: React.MouseEvent) => {
         if ((e.target as HTMLInputElement).classList.contains("popUpOverlay")) {
           setUserMode("");
-          props.setVerifyThanksPage(false);
+          setVerifyThanksPage(false);
         }
       }}
     >
@@ -25,7 +24,7 @@ const Wrapper: React.FC<children> = (props) => {
         onKeyDown={(e) => {
           if (e.code === "Escape") {
             setUserMode("");
-            props.setVerifyThanksPage(false);
+            setVerifyThanksPage(false);
           }
         }}
       >

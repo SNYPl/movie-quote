@@ -17,10 +17,15 @@ const Landing: React.FC = () => {
   let location = useLocation();
   const path: string = location.pathname;
   const includePath: boolean = path.includes("verify");
-  const [verifyThanksPage, setVerifyThanksPage] =
-    useState<boolean>(includePath);
+  // const [verifyThanksPage, setVerifyThanksPage] =
+  //   useState<boolean>(includePath);
 
-  const { userMode, setUserMode } = useContext(signUpCtrx);
+  const { userMode, setUserMode, verifyThanksPage, setVerifyThanksPage } =
+    useContext(signUpCtrx);
+
+  if (includePath) {
+    setVerifyThanksPage(includePath);
+  }
 
   const landingInfo = [
     {
@@ -46,18 +51,17 @@ const Landing: React.FC = () => {
     // <section className={style.containerScroll}>
     <>
       {userMode === "loginModal" && (
-        <PopUpWrapper setVerifyThanksPage={setVerifyThanksPage}>
+        <PopUpWrapper>
           <SignIn />
         </PopUpWrapper>
       )}
       {userMode === "signUpModal" || verifyThanksPage ? (
-        <SignUp
-          pathName={verifyThanksPage}
-          setVerifyThanksPage={setVerifyThanksPage}
-        />
+        <SignUp pathName={verifyThanksPage} />
       ) : (
         ""
       )}
+
+      {userMode === "forgotPassword" && <ForgetPassword />}
 
       <div className={style.landing}>
         <Navigation>

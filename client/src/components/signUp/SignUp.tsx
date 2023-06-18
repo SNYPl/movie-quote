@@ -8,10 +8,9 @@ import { signUpCtrx } from "../../store/signUpContx";
 
 interface userMode {
   pathName: boolean;
-  setVerifyThanksPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SignUp: React.FC<userMode> = ({ pathName, setVerifyThanksPage }) => {
+const SignUp: React.FC<userMode> = ({ pathName }) => {
   const [signUpMode, setSignUpMode] = useState<string>("form");
   const [userEmail, setUserEmail] = useState<string>("");
   const { userMode, setUserMode } = useContext(signUpCtrx);
@@ -23,7 +22,7 @@ const SignUp: React.FC<userMode> = ({ pathName, setVerifyThanksPage }) => {
   }, []);
 
   return (
-    <PopUpWrapper setVerifyThanksPage={setVerifyThanksPage}>
+    <PopUpWrapper>
       {signUpMode === "form" && (
         <SignUpForm setSignUpMode={setSignUpMode} setUserEmail={setUserEmail} />
       )}
