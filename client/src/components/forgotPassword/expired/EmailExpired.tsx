@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const EmailExpired: React.FC = () => {
+  let location = useLocation();
+  const getPath = location.pathname.split("=");
+  const [success, setSuccess] = useState("");
+
+  const email = getPath[3];
+
+  const sendMail = () => {
+    axios
+      .post(
+        "http://localhost:3001/forget/password/:token/change/repeat",
+        {
+          email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-9",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) setSuccess("email was sent");
+      });
+  };
+
   return (
     <div className={style.expired}>
       <svg
@@ -44,10 +71,12 @@ const EmailExpired: React.FC = () => {
 
       <article className={style.title}>
         <h3>Link expired!</h3>
-        <p>Login link has expired, because you haven't used it</p>
+        <p>password change link has expired, because you haven't used it</p>
       </article>
-
-      <button className={`${style.newsFd} `}>Request another link</button>
+      {success && <p className={style.succesText}>{success}</p>}
+      <button className={`${style.newsFd} `} onClick={sendMail}>
+        Request another link
+      </button>
     </div>
   );
 };

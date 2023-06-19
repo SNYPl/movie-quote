@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { signUpCtrx } from "../../../store/signUpContx";
+import axios from "axios";
 
 type FormValues = {
   email: string;
@@ -9,7 +10,8 @@ type FormValues = {
 
 const ForgotEmail: React.FC = () => {
   const [error, setError] = useState<string>("");
-  const { userMode, setUserMode } = useContext(signUpCtrx);
+  const { setUserMode, setForgotPasswordMode, setForgotPasswordEmail } =
+    useContext(signUpCtrx);
 
   const {
     register,
@@ -18,7 +20,28 @@ const ForgotEmail: React.FC = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit = () => {};
+  const onSubmit = (data: any) => {
+    axios
+      .post(
+        "http://localhost:3001/forgot/password",
+        {
+          email: data.email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-9",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setForgotPasswordMode("step2");
+          setForgotPasswordEmail(res.data.email);
+        }
+      })
+      .catch((err) => setError(err.response.data.message));
+  };
 
   return (
     <div className={style.email}>
@@ -31,11 +54,11 @@ const ForgotEmail: React.FC = () => {
       </article>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={`${style.input} ${style.username}`}>
-          <label htmlFor="username">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
             placeholder="Enter your email"
-            id="username"
+            id="email"
             {...register("email", {
               onChange: () => setError(""),
               required: {
@@ -46,10 +69,17 @@ const ForgotEmail: React.FC = () => {
                 value: 3,
                 message: "minimum length 3",
               },
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "wrong email format",
+              },
             })}
           />
           {errors.email && <p>{errors.email.message}</p>}
         </div>
+
+        {error && <p className={style.errorText}>{error}</p>}
 
         <button className={`${style.sendEmail}`} type="submit">
           Send Instructions

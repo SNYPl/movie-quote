@@ -10,8 +10,6 @@ import SendVerifyMail from "./components/signIn/SendMail";
 function App() {
   const { setLogin, login, setEmail, setUsername } = useContext(loginContx);
 
-  console.log(login);
-
   const cookies = new Cookies();
   useEffect(() => {
     if (cookies.get("login") === true) {
@@ -26,7 +24,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />}>
           <Route path="/verify/:token" element={<Landing />} />
+          <Route path="/forgot/password/:token" element={<Landing />} />
         </Route>
+        <Route path="/noPass" element={<p>No Pass</p>} />
         <Route
           path="/dashboard"
           element={

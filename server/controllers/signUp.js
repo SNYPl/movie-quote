@@ -23,11 +23,13 @@ exports.postSignUp = async (req, res, next) => {
 
         const userToken = { username: username };
 
-        const accessToken = jwt.sign(userToken, "verify", {
-          expiresIn: "1d",
-        });
-
-        // const accessToken = jwt.sign(userToken, "verify");
+        const accessToken = jwt.sign(
+          userToken,
+          process.env.SECRET_VERIFY_EMAIL,
+          {
+            expiresIn: "1d",
+          }
+        );
 
         const mailOptions = {
           from: sender,
@@ -87,7 +89,7 @@ exports.verifyAccount = async (req, res, next) => {
   }
 
   try {
-    jwt.verify(token, "verify", function (err, decoded) {
+    jwt.verify(token, process.env.SECRET_VERIFY_EMAIL, function (err, decoded) {
       if (err) throw new Error("token is expired, try again");
     });
 
@@ -95,11 +97,12 @@ exports.verifyAccount = async (req, res, next) => {
       { token: token },
       { $set: { verified: true }, $unset: { token: "" } },
       { new: true }
-    ).catch((err) => console.log(err));
+    ).catch((err) => {
+      if (err) throw new Error("cant verify");
+    });
 
     res.status(200).send("account was verified");
   } catch (err) {
-    console.log(err);
     return res.status(401).send({
       message: "Error while verify, try again",
     });

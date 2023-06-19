@@ -19,17 +19,26 @@
   color: #ffffff;
 }
 
-.emailBtn {
-  width: 100%;
-  background: #e31221;
-  border-radius: 4px;
-  font-weight: 400;
-  font-size: 16px;
-  height: 38px;
-  margin-bottom: 16px;
-  margin-top: 18px;
-}
-
 .skip {
   margin-top: 12px !important;
+}
+
+.emailBtnCont {
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+  margin-top: 18px;
+  background: #e31221;
+  border-radius: 4px;
+}
+
+.emailBtn {
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+  color: #fff;
+  text-decoration: none;
 }

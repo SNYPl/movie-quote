@@ -22,7 +22,8 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState<string>("");
   const { setLogin, login, setEmail, setUsername } = useContext(loginContx);
   const [remember, setRemember] = useState(false);
-  const { userMode, setUserMode } = useContext(signUpCtrx);
+  const { userMode, setUserMode, setForgotPasswordMode } =
+    useContext(signUpCtrx);
 
   const cookies = new Cookies();
 
@@ -99,8 +100,6 @@ const SignIn: React.FC = () => {
 
           navigate("/dashboard");
         }
-
-        console.log(res);
       })
       .catch((err) => setError(err.response.data.message));
   };
@@ -166,6 +165,7 @@ const SignIn: React.FC = () => {
             onClick={(e: any) => {
               e.preventDefault();
               setUserMode("forgotPassword");
+              setForgotPasswordMode("step1");
             }}
           >
             Forgot Password?

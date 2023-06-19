@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./style.module.css";
+import { signUpCtrx } from "../../../store/signUpContx";
 
 const RegEmailSent: React.FC = () => {
+  const { forgotPasswordEmail, setUserMode } = useContext(signUpCtrx);
+
+  const email = forgotPasswordEmail?.split("@")[1];
+
   return (
     <div className={style.emailSent}>
       <svg
@@ -29,9 +34,18 @@ const RegEmailSent: React.FC = () => {
         <h3>Check your email</h3>
         <p>We have sent a password recover instructions to your email</p>
       </article>
-
-      <button className={`${style.emailBtn} `}>Go to my email</button>
-      <p className={`${style.skip} `}>Skip, I'll confirm later</p>
+      <div className={`${style.emailBtnCont}`}>
+        <a
+          href={`https://${email}`}
+          className={`${style.emailBtn} `}
+          target="_blank"
+        >
+          Go to my email
+        </a>
+      </div>
+      <p className={`${style.skip} `} onClick={() => setUserMode("")}>
+        Skip, I'll confirm later
+      </p>
     </div>
   );
 };

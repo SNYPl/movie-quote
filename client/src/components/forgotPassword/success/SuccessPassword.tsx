@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./style.module.css";
+import { useNavigate } from "react-router-dom";
+import { signUpCtrx } from "../../../store/signUpContx";
 
 const Finish: React.FC = () => {
+  const navigate = useNavigate();
+  const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
+
   return (
     <div className={style.thanks}>
       <svg
@@ -19,11 +24,20 @@ const Finish: React.FC = () => {
 
       <article className={style.title}>
         <h3>Thank You!</h3>
-        <p>Your email changed successfully.</p>
-        {/* <p>Your password changed successfully.</p> */}
+        {/* <p>Your email changed successfully.</p> */}
+        <p>Your password changed successfully.</p>
       </article>
 
-      <button className={`${style.newsFd} `}>Log in</button>
+      <button
+        className={`${style.newsFd} `}
+        onClick={(e: any) => {
+          e.preventDefault();
+          navigate("/");
+          setUserMode("loginModal");
+        }}
+      >
+        Log in
+      </button>
     </div>
   );
 };

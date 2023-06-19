@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -8,6 +9,7 @@ const cookieParser = require("cookie-parser");
 
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
+const forgotPssword = require("./routes/forgotPasswordRoutes");
 
 app.use(cookieParser());
 
@@ -24,6 +26,7 @@ app.use(bodyParser.json());
 
 app.use(signInRoutes);
 app.use(signUpRoutes);
+app.use(forgotPssword);
 
 app.use((err, req, res, next) => {
   res.status(500).render("500", {});

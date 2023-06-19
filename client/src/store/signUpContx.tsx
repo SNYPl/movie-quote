@@ -5,6 +5,10 @@ type contxCreate = {
   setUserMode: React.Dispatch<React.SetStateAction<string>>;
   verifyThanksPage: boolean;
   setVerifyThanksPage: React.Dispatch<React.SetStateAction<boolean>>;
+  forgotPasswordMode: string;
+  setForgotPasswordMode: React.Dispatch<React.SetStateAction<string>>;
+  forgotPasswordEmail: string;
+  setForgotPasswordEmail: React.Dispatch<React.SetStateAction<string>>;
 };
 
 type contxProv = {
@@ -16,11 +20,17 @@ export const signUpCtrx = createContext<contxCreate>({
   setUserMode: () => {},
   verifyThanksPage: false,
   setVerifyThanksPage: () => {},
+  forgotPasswordMode: "step1",
+  setForgotPasswordMode: () => {},
+  forgotPasswordEmail: "",
+  setForgotPasswordEmail: () => {},
 });
 
 export const SignUpProvider: React.FC<contxProv> = ({ children }) => {
   const [userMode, setUserMode] = useState<string>("");
   const [verifyThanksPage, setVerifyThanksPage] = useState<boolean>(false);
+  const [forgotPasswordMode, setForgotPasswordMode] = useState<string>("step1");
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState<string>("");
 
   return (
     <signUpCtrx.Provider
@@ -29,6 +39,10 @@ export const SignUpProvider: React.FC<contxProv> = ({ children }) => {
         setUserMode,
         verifyThanksPage,
         setVerifyThanksPage,
+        forgotPasswordMode,
+        setForgotPasswordMode,
+        forgotPasswordEmail,
+        setForgotPasswordEmail,
       }}
     >
       {children}

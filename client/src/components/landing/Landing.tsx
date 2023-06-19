@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import style from "./style.module.css";
 import LandingMovie from "./landingMovie/LandingMovie";
 import Navigation from "../navigation/Navigation";
@@ -10,22 +10,54 @@ import PopUpWrapper from "../popUpWrapper/PopUp";
 import SignIn from "../signIn/SignIn";
 import SignUp from "../signUp/SignUp";
 import ForgetPassword from "../forgotPassword/Forgot";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../store/signUpContx";
+
+import axios from "axios";
 
 const Landing: React.FC = () => {
   let location = useLocation();
   const path: string = location.pathname;
   const includePath: boolean = path.includes("verify");
-  // const [verifyThanksPage, setVerifyThanksPage] =
-  //   useState<boolean>(includePath);
+  const includePathForgot: boolean = path.includes("forgot");
+  const {
+    userMode,
+    setUserMode,
+    verifyThanksPage,
+    setVerifyThanksPage,
+    setForgotPasswordMode,
+  } = useContext(signUpCtrx);
 
-  const { userMode, setUserMode, verifyThanksPage, setVerifyThanksPage } =
-    useContext(signUpCtrx);
+  const navigate = useNavigate();
 
-  if (includePath) {
-    setVerifyThanksPage(includePath);
-  }
+  useEffect(() => {
+    if (includePath) {
+      setVerifyThanksPage(includePath);
+    }
+
+    const getPath = location.pathname.split("=");
+    if (includePathForgot) {
+      const token = getPath[1];
+      const email = getPath[3];
+
+      axios
+        .post("http://localhost:3001/forgot/password/:token", { token, email })
+        .then((res) => {
+          if (res.status === 200) {
+            setForgotPasswordMode("step3");
+            setUserMode("forgotPassword");
+          }
+        })
+        .catch((err) => {
+          if (err.response.data.message === "Invalid token") {
+            setForgotPasswordMode("expired");
+            setUserMode("forgotPassword");
+          } else {
+            navigate("/noPass");
+          }
+        });
+    }
+  }, [path]);
 
   const landingInfo = [
     {
