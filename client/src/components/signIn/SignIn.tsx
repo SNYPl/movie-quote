@@ -22,8 +22,7 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState<string>("");
   const { setLogin, login, setEmail, setUsername } = useContext(loginContx);
   const [remember, setRemember] = useState(false);
-  const { userMode, setUserMode, setForgotPasswordMode } =
-    useContext(signUpCtrx);
+  const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
 
   const cookies = new Cookies();
 
@@ -92,7 +91,7 @@ const SignIn: React.FC = () => {
           });
 
           if (remember) {
-            cookies.set("login", login, {
+            cookies.set("login", true, {
               path: "/",
               expires: expiration,
             });

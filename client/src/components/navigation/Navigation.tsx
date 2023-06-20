@@ -11,7 +11,7 @@ const Navigation: React.FC<children> = (props) => {
       <h1>MOVIE QUOTES</h1>
       <section className={style.nav}>
         <select name="Lang" id="language" className={style.lang}>
-          <option value="en" selected>
+          <option value="en" defaultValue={"EN"}>
             EN
           </option>
           <option value="ge">GE</option>

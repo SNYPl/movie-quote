@@ -14,7 +14,7 @@ type contxProv = {
 };
 
 export const loginContx = createContext<contxCreate>({
-  login: false,
+  login: "",
   setLogin: () => {},
   username: "",
   setUsername: () => "",
@@ -23,7 +23,7 @@ export const loginContx = createContext<contxCreate>({
 });
 
 export const LoginProvider: React.FC<contxProv> = ({ children }) => {
-  const [login, setLogin] = useState<boolean | string>(false);
+  const [login, setLogin] = useState<boolean | string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 

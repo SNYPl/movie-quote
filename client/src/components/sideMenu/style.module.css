@@ -16,11 +16,13 @@
   width: 60px;
   height: 60px;
   background: #d9d9d9;
-  border: 2px solid #e31221;
   border-radius: 50%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+.profileBorder {
+  border: 2px solid #e31221;
 }
 
 .profileInfo h3 {
@@ -56,4 +58,12 @@
   font-size: 24px;
   color: #ffffff;
   text-decoration: none;
+}
+
+.newsFeed svg path {
+  fill: red;
+}
+
+.movieList svg path {
+  fill: red;
 }

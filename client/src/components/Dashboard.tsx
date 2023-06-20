@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./style.module.css";
 import SideMenu from "./sideMenu/SideMenu";
-import MyProfile from "./profile/Profile";
 import Navigation from "./navigation/Navigation";
 import DashboardNavigation from "./navigation/dashboardNavigation/DashboardNav";
-import NewsFeed from "./newsFeed/NewsFeed";
-import MovieList from "./movieList/MovieList";
+import { loginContx } from "../store/LoginContext";
+import { DashbCtrx } from "../store/dashboardContext";
+import { Outlet } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
+  const { username } = useContext(loginContx);
+  const { dashBoardNav } = useContext(DashbCtrx);
+
   return (
     <div className={style.dashboard}>
       <header className={style.nav}>
@@ -18,7 +21,7 @@ const Dashboard: React.FC = () => {
       <section className={style.dashboardInfo}>
         <SideMenu />
         <section className={style.dashboardContent}>
-          <MyProfile />
+          <Outlet />
         </section>
       </section>
     </div>

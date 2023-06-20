@@ -1,21 +1,39 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import img from "../../assets/img/landing/img1.jpg";
+import { DashbCtrx } from "../../store/dashboardContext";
+import { NavLink } from "react-router-dom";
 
 const SideMenu: React.FC = () => {
+  // const { dashBoardNav, setDashboardNav } = useContext(DashbCtrx);
+  const [dashBoardNav, setDashboardNav] = useState("newsFeed");
+
   return (
     <section className={style.menu}>
       <section className={style.profile}>
         <div
-          className={style.profileImg}
+          className={`${style.profileImg} ${
+            dashBoardNav === "profileBorder" && style.profileBorder
+          }`}
           style={{ backgroundImage: `url(${img})` }}
         ></div>
-        <article className={style.profileInfo}>
+        <article className={`${style.profileInfo} `}>
           <h3>Nino Tabagari</h3>
-          <a href="#">Edit your profile</a>
+          <NavLink
+            to="/dashboard/profile"
+            onClick={(e: any) => {
+              setDashboardNav("profileBorder");
+            }}
+          >
+            Edit your profile
+          </NavLink>
         </article>
       </section>
-      <section className={style.menuSection}>
+      <section
+        className={`${style.menuSection} ${
+          dashBoardNav === "newsFeed" && style.newsFeed
+        }`}
+      >
         <svg
           width="32"
           height="32"
@@ -24,21 +42,32 @@ const SideMenu: React.FC = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M4.00029 26.9996V13.9996H6.00029V26.9996C6.00029 27.2649 6.10564 27.5192 6.29318 27.7067C6.48072 27.8943 6.73507 27.9996 7.00029 27.9996H25.0003C25.2655 27.9996 25.5199 27.8943 25.7074 27.7067C25.8949 27.5192 26.0003 27.2649 26.0003 26.9996V13.9996H28.0003V26.9996C28.0003 27.7953 27.6842 28.5583 27.1216 29.121C26.559 29.6836 25.7959 29.9996 25.0003 29.9996H7.00029C6.20464 29.9996 5.44158 29.6836 4.87897 29.121C4.31636 28.5583 4.00029 27.7953 4.00029 26.9996ZM26.0003 4.99964V11.9996L22.0003 7.99964V4.99964C22.0003 4.73442 22.1056 4.48007 22.2932 4.29253C22.4807 4.10499 22.7351 3.99964 23.0003 3.99964H25.0003C25.2655 3.99964 25.5199 4.10499 25.7074 4.29253C25.8949 4.48007 26.0003 4.73442 26.0003 4.99964Z"
             fill="white"
           />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M14.5863 2.99964C14.9613 2.62469 15.47 2.41406 16.0003 2.41406C16.5306 2.41406 17.0392 2.62469 17.4143 2.99964L30.7083 16.2916C30.8961 16.4794 31.0015 16.7341 31.0015 16.9996C31.0015 17.2652 30.8961 17.5199 30.7083 17.7076C30.5205 17.8954 30.2658 18.0009 30.0003 18.0009C29.7347 18.0009 29.4801 17.8954 29.2923 17.7076L16.0003 4.41364L2.70829 17.7076C2.52051 17.8954 2.26584 18.0009 2.00029 18.0009C1.73474 18.0009 1.48006 17.8954 1.29229 17.7076C1.10451 17.5199 0.999023 17.2652 0.999023 16.9996C0.999023 16.7341 1.10451 16.4794 1.29229 16.2916L14.5863 2.99964Z"
             fill="white"
           />
         </svg>
-        <a href="#">News feed</a>
+        <NavLink
+          to="/dashboard"
+          onClick={(e: any) => {
+            setDashboardNav("newsFeed");
+          }}
+        >
+          News feed
+        </NavLink>
       </section>
-      <section className={style.menuSection}>
+      <section
+        className={`${style.menuSection} ${
+          dashBoardNav === "movieList" && style.movieList
+        }`}
+      >
         <svg
           width="32"
           height="32"
@@ -46,7 +75,7 @@ const SideMenu: React.FC = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_20542_8792)">
+          <g clipPath="url(#clip0_20542_8792)">
             <path
               d="M12 6C12 7.5913 11.3679 9.11742 10.2426 10.2426C9.11742 11.3679 7.5913 12 6 12C4.4087 12 2.88258 11.3679 1.75736 10.2426C0.632141 9.11742 0 7.5913 0 6C0 4.4087 0.632141 2.88258 1.75736 1.75736C2.88258 0.632141 4.4087 0 6 0C7.5913 0 9.11742 0.632141 10.2426 1.75736C11.3679 2.88258 12 4.4087 12 6ZM2 6C2 7.06087 2.42143 8.07828 3.17157 8.82843C3.92172 9.57857 4.93913 10 6 10C7.06087 10 8.07828 9.57857 8.82843 8.82843C9.57857 8.07828 10 7.06087 10 6C10 4.93913 9.57857 3.92172 8.82843 3.17157C8.07828 2.42143 7.06087 2 6 2C4.93913 2 3.92172 2.42143 3.17157 3.17157C2.42143 3.92172 2 4.93913 2 6Z"
               fill="white"
@@ -67,7 +96,14 @@ const SideMenu: React.FC = () => {
           </defs>
         </svg>
 
-        <a href="#">List of movies</a>
+        <NavLink
+          to="/dashboard/movie-list"
+          onClick={(e: any) => {
+            setDashboardNav("movieList");
+          }}
+        >
+          List of movies
+        </NavLink>
       </section>
     </section>
   );

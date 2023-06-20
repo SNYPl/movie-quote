@@ -5,6 +5,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { LoginProvider } from "./store/LoginContext";
 import { SignUpProvider } from "./store/signUpContx";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,11 +14,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoginProvider>
-        <SignUpProvider>
-          <App />
-        </SignUpProvider>
-      </LoginProvider>
+      <QueryClientProvider client={queryClient}>
+        <LoginProvider>
+          <SignUpProvider>
+            <App />
+          </SignUpProvider>
+        </LoginProvider>
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

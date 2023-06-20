@@ -110,11 +110,12 @@ const Landing: React.FC = () => {
           style={{ backgroundImage: `url(${img1})` }}
         ></div>
       </div>
-      {landingInfo.map((item) => (
+      {landingInfo.map((item, index) => (
         <LandingMovie
           mainTitle={item.mainTitle}
           title={item.title}
           img={item.img}
+          key={index}
         />
       ))}
     </>

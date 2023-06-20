@@ -72,12 +72,7 @@ const QuoteForm: React.FC = () => {
                 />
               </svg>
               <select className={style.selectMovie}>
-                <option
-                  value=""
-                  disabled
-                  defaultValue={"Choose Movie"}
-                  selected
-                >
+                <option value="" disabled defaultValue={"Choose Movie"}>
                   Choose Movie
                 </option>
                 <option>Harry Potter</option>
