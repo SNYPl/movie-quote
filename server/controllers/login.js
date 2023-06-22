@@ -25,12 +25,22 @@ exports.signIn = async (req, res, next) => {
       expiresIn: "180m",
     });
 
+    
+
+    // const expiration = new Date();
+
+    // expiration.setHours(expiration.getHours() + 3);
+    
+    // res.cookie('jwt',accessToken, { maxAge: expiration, httpOnly: true });
+    
+
     res.status(200).json({
       message: "Logged in successfully",
       token: accessToken,
       username: username,
       verified: user.verified,
     });
+    res.send();
   } catch (err) {
     return res.status(401).send({ message: err.message });
   }

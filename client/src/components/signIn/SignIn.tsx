@@ -64,7 +64,7 @@ const SignIn: React.FC = () => {
           },
         };
 
-        return axios.post(
+        return  axios.post(
           "http://localhost:3001/login",
           {
             username: data.username,
@@ -94,6 +94,11 @@ const SignIn: React.FC = () => {
             cookies.set("login", true, {
               path: "/",
               expires: expiration,
+            });
+            cookies.set("user", res.data.username, {
+              path: "/",
+              expires: expiration,
+              secure: false,
             });
           }
 

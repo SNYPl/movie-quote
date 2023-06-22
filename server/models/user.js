@@ -25,6 +25,13 @@ const userSchema = new Schema({
   token: {
     type: String,
   },
+  image:{
+    type:String
+  },
+  
+},
+{
+  collection:"users"
 });
 
 module.exports = mongoose.model("users", userSchema);

@@ -1,12 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
 import img from "../../assets/img/landing/img1.jpg";
 import { DashbCtrx } from "../../store/dashboardContext";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useLocation } from "react-router-dom";
+import axios from "axios";
 const SideMenu: React.FC = () => {
   // const { dashBoardNav, setDashboardNav } = useContext(DashbCtrx);
-  const [dashBoardNav, setDashboardNav] = useState("newsFeed");
+
+  let location = useLocation();
+
+  const defaultNav = location.pathname === "/dashboard" ? "newsFeed" : location.pathname === "/dashboard/profile" ? "profileBorder" :  location.pathname === "/dashboard/movie-list" ? "movieList": "";
+
+  const [dashBoardNav, setDashboardNav] = useState(defaultNav);
+
 
   return (
     <section className={style.menu}>

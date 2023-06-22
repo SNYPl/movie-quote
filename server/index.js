@@ -1,21 +1,27 @@
 require("dotenv").config();
 const express = require("express");
+const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const port = 3001;
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
+
+
+
 
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
 const forgotPssword = require("./routes/forgotPasswordRoutes");
+const newsFeedRoutes = require("./routes/newsFeed")
 
-app.use(cookieParser());
 
 const corsOptions = {
   origin: "*",
   credentials: true,
+  origin: 'http://localhost:3000'
   // optionSuccessStatus: 200,
   // exposedHeaders: ["set-cookie"],
 };
@@ -27,6 +33,7 @@ app.use(bodyParser.json());
 app.use(signInRoutes);
 app.use(signUpRoutes);
 app.use(forgotPssword);
+app.use(newsFeedRoutes)
 
 app.use((err, req, res, next) => {
   res.status(500).render("500", {});

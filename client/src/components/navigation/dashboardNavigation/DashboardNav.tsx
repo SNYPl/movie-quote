@@ -10,7 +10,8 @@ const DashboardNavigation: React.FC = () => {
   const logout = () => {
     setLogin(false);
     cookies.remove("login");
-    cookies.remove("token");
+    cookies.remove("token"); 
+    cookies.remove("user");
   };
 
   return (
