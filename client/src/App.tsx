@@ -12,7 +12,7 @@ import MyProfile from "./components/profile/Profile";
 import MovieList from "./components/movieList/MovieList";
 
 function App() {
-  const { setLogin, login, setUsername } = useContext(loginContx);
+  const { setLogin, login } = useContext(loginContx);
   const navigate = useNavigate();
   let location = useLocation();
 

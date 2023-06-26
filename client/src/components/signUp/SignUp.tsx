@@ -27,7 +27,7 @@ const SignUp: React.FC<userMode> = ({ pathName }) => {
         <SignUpForm setSignUpMode={setSignUpMode} setUserEmail={setUserEmail} />
       )}
       {signUpMode === "emailSender" && <EmailSent userEmail={userEmail} />}
-      {signUpMode === "finished" && <Finish />}
+      {signUpMode === "finished" && <Finish  />}
     </PopUpWrapper>
   );
 };

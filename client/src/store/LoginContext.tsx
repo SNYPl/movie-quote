@@ -1,7 +1,12 @@
 import React, { useState, createContext } from "react";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
-
+interface userNameData {
+  email: string;
+  image: string;
+  movies: any[];
+  username: string;
+}
 
 type contxCreate = {
   login: boolean | string;
@@ -12,7 +17,7 @@ type contxCreate = {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const userName= cookies.get("user")
+const userName = cookies.get("user");
 
 type contxProv = {
   children: React.ReactNode;
@@ -21,6 +26,12 @@ type contxProv = {
 export const loginContx = createContext<contxCreate>({
   login: "",
   setLogin: () => {},
+  // username: {
+  //   email: "",
+  //   image: "",
+  //   movies: [],
+  //   username: userName,
+  // },
   username: userName,
   setUsername: () => "",
   email: "",
@@ -29,6 +40,12 @@ export const loginContx = createContext<contxCreate>({
 
 export const LoginProvider: React.FC<contxProv> = ({ children }) => {
   const [login, setLogin] = useState<boolean | string>("");
+  // const [username, setUsername] = useState<userNameData>({
+  //   email: "",
+  //   image: "",
+  //   movies: [],
+  //   username: userName,
+  // });
   const [username, setUsername] = useState<string>(userName);
   const [email, setEmail] = useState<string>("");
 

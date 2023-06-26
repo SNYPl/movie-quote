@@ -3,16 +3,25 @@ import style from "./style.module.css";
 import img from "../../assets/img/landing/img1.jpg";
 import { DashbCtrx } from "../../store/dashboardContext";
 import { NavLink, useLocation } from "react-router-dom";
-import axios from "axios";
+import { loginContx } from "../../store/LoginContext";
+import { RotatingLines } from "react-loader-spinner";
+
 const SideMenu: React.FC = () => {
-  // const { dashBoardNav, setDashboardNav } = useContext(DashbCtrx);
+  const { profileImageUpdated } = useContext(DashbCtrx);
+  const { username } = useContext(loginContx);
 
   let location = useLocation();
 
-  const defaultNav = location.pathname === "/dashboard" ? "newsFeed" : location.pathname === "/dashboard/profile" ? "profileBorder" :  location.pathname === "/dashboard/movie-list" ? "movieList": "";
+  const defaultNav =
+    location.pathname === "/dashboard"
+      ? "newsFeed"
+      : location.pathname === "/dashboard/profile"
+      ? "profileBorder"
+      : location.pathname === "/dashboard/movie-list"
+      ? "movieList"
+      : "";
 
   const [dashBoardNav, setDashboardNav] = useState(defaultNav);
-
 
   return (
     <section className={style.menu}>
@@ -21,10 +30,20 @@ const SideMenu: React.FC = () => {
           className={`${style.profileImg} ${
             dashBoardNav === "profileBorder" && style.profileBorder
           }`}
-          style={{ backgroundImage: `url(${img})` }}
-        ></div>
+          style={{ backgroundImage: `url(${profileImageUpdated})` }}
+        >
+          {!profileImageUpdated && (
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="40"
+              visible={true}
+            />
+          )}
+        </div>
         <article className={`${style.profileInfo} `}>
-          <h3>Nino Tabagari</h3>
+          <h3>{username}</h3>
           <NavLink
             to="/dashboard/profile"
             onClick={(e: any) => {

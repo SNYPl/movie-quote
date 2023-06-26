@@ -5,11 +5,12 @@ import axios from "axios";
 import { signUpCtrx } from "../../../store/signUpContx";
 import { useNavigate } from "react-router-dom";
 
+
 const Finish: React.FC = () => {
   let location = useLocation();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const { setUserMode } = useContext(signUpCtrx);
+  const { setUserMode,setVerifyThanksPage} = useContext(signUpCtrx);
   const navigate = useNavigate();
 
   const tokenUrl = location.pathname.split("=")[1];
@@ -54,9 +55,16 @@ const Finish: React.FC = () => {
 
       <button
         className={`${style.newsFd} `}
-        onClick={() => {
+        onClick={(e:any) => {
+          setVerifyThanksPage(false);
           setUserMode("loginModal");
-          navigate("/");
+          
+  try {
+    navigate("/"); // Omit optional second argument
+  } catch (error) {
+   console.log('error')
+  }
+         
         }}
       >
         Log In

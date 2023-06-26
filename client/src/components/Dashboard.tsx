@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
 import SideMenu from "./sideMenu/SideMenu";
 import Navigation from "./navigation/Navigation";
@@ -9,29 +9,49 @@ import { Outlet } from "react-router-dom";
 import axios from "axios";
 // import axios from '../utils/axios';
 
+// type MyType = {
+//   name: string;
+//   image: string;
+//   year: string;
+//   genre: string[];
+//   description: string;
+//   director: string;
+//   budget: string;
+//   quotes: any[];
+// };
+
+type MyType = {};
+
 const Dashboard: React.FC = () => {
-  const { username } = useContext(loginContx);
-  const { dashBoardNav } = useContext(DashbCtrx);
+  const { username, setUsername, setEmail } = useContext(loginContx);
+  const { setProfileImage, setMovies, setProfileImageUpdated } = useContext(
+    DashbCtrx
+  );
+  const [movies, setMovie] = useState<MyType[]>([{}]);
 
-  console.log(username)
-
-  
   useEffect(() => {
     axios.defaults.withCredentials = true;
-    axios.get("http://localhost:3001/dashboard",
-      {
+    axios
+      .get("http://localhost:3001/dashboard", {
         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
-           " Access-Control-Allow-Credentials": true
-            
-
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
         },
-        withCredentials: true
-    }).then(res=> console.log(res)).catch(err => console.log(err))
-
-  });
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status == 200) {
+          setUsername(res.data.username);
+          setEmail(res.data.email);
+          setProfileImageUpdated(res.data.image);
+          // setMovies((prev) => [...prev, res.data.movies]);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className={style.dashboard}>

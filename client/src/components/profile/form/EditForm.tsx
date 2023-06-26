@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { DashbCtrx } from "../../../store/dashboardContext";
 
 type FormValues = {
   username: string;
@@ -10,6 +12,9 @@ type FormValues = {
 
 const ProfileForm: React.FC = () => {
   const [error, setError] = useState<string>("");
+  const { profileImage, setProfileImageUpdated, setProfileImage } = useContext(
+    DashbCtrx
+  );
 
   const {
     register,
@@ -18,10 +23,29 @@ const ProfileForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit = () => {};
+  let headers = {
+    "Content-Type": "multipart/form-data",
+    "Access-Control-Allow-Origin": "*",
+    Accept: "application/json",
+  };
+
+  const formData = new FormData();
+  formData.append("image", profileImage);
+
+  const onSubmit = () => {
+    axios
+      .patch("http://localhost:3001/profile/upload-photo", formData, {
+        headers,
+      })
+      .then((res) => {
+        setProfileImageUpdated(res.data.img);
+        setProfileImage(res.data.img);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className={style.profileForm}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
         <div className={`${style.input} ${style.username}`}>
           <label htmlFor="username">Username </label>
           <div className={style.inputContainer}>
@@ -32,7 +56,7 @@ const ProfileForm: React.FC = () => {
               {...register("username", {
                 onChange: () => setError(""),
                 required: {
-                  value: true,
+                  value: false,
                   message: "Fill field",
                 },
                 minLength: {
@@ -56,12 +80,11 @@ const ProfileForm: React.FC = () => {
               {...register("email", {
                 onChange: () => setError(""),
                 required: {
-                  value: true,
+                  value: false,
                   message: "fill fields",
                 },
                 pattern: {
-                  value:
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   message: "wrong email format",
                 },
               })}
@@ -79,7 +102,7 @@ const ProfileForm: React.FC = () => {
               placeholder="At least 8 & max.15 lower case characters"
               {...register("password", {
                 required: {
-                  value: true,
+                  value: false,
                   message: "Fill field",
                 },
               })}
@@ -88,11 +111,13 @@ const ProfileForm: React.FC = () => {
           </div>
           {errors.password && <p>{errors.password.message}</p>}
         </div>
+        <article className={style.saveBtns}>
+          <button className={style.cancelBtn}>Cancel</button>
+          <button className={style.saveBtn} type="submit">
+            Save changes
+          </button>
+        </article>
       </form>
-      <article className={style.saveBtns}>
-        <button className={style.cancelBtn}>Cancel</button>
-        <button className={style.saveBtn}>Save changes</button>
-      </article>
     </div>
   );
 };

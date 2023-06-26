@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const profileControllers = require("../controllers/profile");
+const isAuth = require("../middleware/isAuth");
+const fileUpload = require("../middleware/file-upload");
 
-// router.post("/logins", isAuth, signInControllers.signIns);
+router.patch(
+  "/profile/upload-photo",
+  isAuth,
+  fileUpload.single("image"),
+  profileControllers.uploadPhoto
+);
 
 module.exports = router;

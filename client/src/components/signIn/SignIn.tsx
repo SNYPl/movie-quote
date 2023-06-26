@@ -64,7 +64,7 @@ const SignIn: React.FC = () => {
           },
         };
 
-        return  axios.post(
+        return axios.post(
           "http://localhost:3001/login",
           {
             username: data.username,
@@ -80,7 +80,7 @@ const SignIn: React.FC = () => {
           } else {
             setLogin("unVerified");
           }
-          setUsername(res.data.username);
+          // setUsername(res.data.username);
 
           const expiration = new Date();
 

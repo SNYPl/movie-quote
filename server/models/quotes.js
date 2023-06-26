@@ -19,8 +19,13 @@ const quoteSchema = new Schema({
     type: Number,
   },
   comments: [{
-    author: String,
-    text:String,
+    author:{
+      type:mongoose.Schema.Types.ObjectId, ref: "users"
+    },
+    text : {
+      type:String
+    }
+   
  }]
   
   
@@ -29,4 +34,4 @@ const quoteSchema = new Schema({
   collection:"quotes"
 });
 
-module.exports = mongoose.model("quote", quoteSchema);
+module.exports = mongoose.model("Quote", quoteSchema);
