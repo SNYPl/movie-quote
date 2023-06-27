@@ -7,7 +7,6 @@ import { loginContx } from "../store/LoginContext";
 import { DashbCtrx } from "../store/dashboardContext";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-// import axios from '../utils/axios';
 
 // type MyType = {
 //   name: string;
@@ -23,14 +22,15 @@ import axios from "axios";
 type MyType = {};
 
 const Dashboard: React.FC = () => {
-  const { username, setUsername, setEmail } = useContext(loginContx);
-  const { setProfileImage, setMovies, setProfileImageUpdated } = useContext(
+  const { setUsername, setEmail } = useContext(loginContx);
+  const { setMovies, setProfileImageUpdated, profileImageUpdated } = useContext(
     DashbCtrx
   );
   const [movies, setMovie] = useState<MyType[]>([{}]);
 
   useEffect(() => {
     axios.defaults.withCredentials = true;
+    setProfileImageUpdated("loading");
     axios
       .get("http://localhost:3001/dashboard", {
         headers: {
@@ -42,7 +42,6 @@ const Dashboard: React.FC = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         if (res.status == 200) {
           setUsername(res.data.username);
           setEmail(res.data.email);

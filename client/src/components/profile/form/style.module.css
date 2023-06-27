@@ -9,7 +9,7 @@
   width: 56%;
   display: flex;
   flex-direction: column;
-  row-gap: 56px;
+  row-gap: 40px;
 }
 
 .input {
@@ -85,4 +85,23 @@
   width: 160px;
   background: #e31221;
   color: #ffffff;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.input .errMsg {
+  color: red;
+}
+
+.scMsg {
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+}
+.errMsg {
+  color: red;
+  font-size: 20px;
+  text-align: center;
 }

@@ -7,7 +7,6 @@ const UploadPhoto: React.FC = () => {
   const { setProfileImage, profileImage, profileImageUpdated } = useContext(
     DashbCtrx
   );
-  // const [imageChoosed, setImageChoosed] = useState(false);
 
   const onChangeInput = (e: any) => {
     let reader = new FileReader();
@@ -18,7 +17,6 @@ const UploadPhoto: React.FC = () => {
     reader?.readAsDataURL(e?.target?.files[0]);
     reader.onload = () => {
       setProfileImage(reader?.result);
-      // setImageChoosed(true);
     };
 
     reader.onerror = (error) => {
@@ -36,7 +34,7 @@ const UploadPhoto: React.FC = () => {
           })`,
         }}
       >
-        {!profileImageUpdated && (
+        {profileImageUpdated === "loading" && !profileImage ? (
           <RotatingLines
             strokeColor="grey"
             strokeWidth="5"
@@ -44,6 +42,8 @@ const UploadPhoto: React.FC = () => {
             width="40"
             visible={true}
           />
+        ) : (
+          ""
         )}
         <input
           type="file"

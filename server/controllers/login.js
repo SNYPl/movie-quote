@@ -25,14 +25,11 @@ exports.signIn = async (req, res, next) => {
       expiresIn: "180m",
     });
 
-    
-
     // const expiration = new Date();
 
     // expiration.setHours(expiration.getHours() + 3);
-    
+
     // res.cookie('jwt',accessToken, { maxAge: expiration, httpOnly: true });
-    
 
     res.status(200).json({
       message: "Logged in successfully",

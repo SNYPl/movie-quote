@@ -8,7 +8,7 @@ router.patch(
   "/profile/upload-photo",
   isAuth,
   fileUpload.single("image"),
-  profileControllers.uploadPhoto
+  profileControllers.updateUsername
 );
 
 module.exports = router;

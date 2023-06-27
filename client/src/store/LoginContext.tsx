@@ -17,7 +17,7 @@ type contxCreate = {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const userName = cookies.get("user");
+// const userName = cookies.get("user");
 
 type contxProv = {
   children: React.ReactNode;
@@ -32,7 +32,7 @@ export const loginContx = createContext<contxCreate>({
   //   movies: [],
   //   username: userName,
   // },
-  username: userName,
+  username: "",
   setUsername: () => "",
   email: "",
   setEmail: () => "",
@@ -46,7 +46,7 @@ export const LoginProvider: React.FC<contxProv> = ({ children }) => {
   //   movies: [],
   //   username: userName,
   // });
-  const [username, setUsername] = useState<string>(userName);
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
   return (

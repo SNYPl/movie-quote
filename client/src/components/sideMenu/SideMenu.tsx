@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
-import img from "../../assets/img/landing/img1.jpg";
 import { DashbCtrx } from "../../store/dashboardContext";
 import { NavLink, useLocation } from "react-router-dom";
 import { loginContx } from "../../store/LoginContext";
@@ -32,7 +31,7 @@ const SideMenu: React.FC = () => {
           }`}
           style={{ backgroundImage: `url(${profileImageUpdated})` }}
         >
-          {!profileImageUpdated && (
+          {profileImageUpdated === "loading" ? (
             <RotatingLines
               strokeColor="grey"
               strokeWidth="5"
@@ -40,6 +39,8 @@ const SideMenu: React.FC = () => {
               width="40"
               visible={true}
             />
+          ) : (
+            ""
           )}
         </div>
         <article className={`${style.profileInfo} `}>

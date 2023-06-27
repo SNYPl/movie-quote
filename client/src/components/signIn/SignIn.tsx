@@ -80,7 +80,6 @@ const SignIn: React.FC = () => {
           } else {
             setLogin("unVerified");
           }
-          // setUsername(res.data.username);
 
           const expiration = new Date();
 
@@ -95,11 +94,11 @@ const SignIn: React.FC = () => {
               path: "/",
               expires: expiration,
             });
-            cookies.set("user", res.data.username, {
-              path: "/",
-              expires: expiration,
-              secure: false,
-            });
+            // cookies.set("user", res.data.username, {
+            //   path: "/",
+            //   expires: expiration,
+            //   secure: false,
+            // });
           }
 
           navigate("/dashboard");
