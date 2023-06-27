@@ -1,7 +1,11 @@
 import React from "react";
 import style from "./style.module.css";
 
-const SearchMovie: React.FC = () => {
+interface addMovie {
+  setAddMovie: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SearchMovie: React.FC<addMovie> = ({ setAddMovie }) => {
   return (
     <section className={style.search}>
       <h2 className={style.title}>
@@ -24,7 +28,7 @@ const SearchMovie: React.FC = () => {
 
           <input type="search" placeholder="Search" />
         </div>
-        <button>
+        <button onClick={() => setAddMovie(true)}>
           <span>
             <svg
               width="16"
@@ -55,7 +59,7 @@ const SearchMovie: React.FC = () => {
                 </clipPath>
               </defs>
             </svg>
-          </span>{" "}
+          </span>
           Add movie
         </button>
       </div>

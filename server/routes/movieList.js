@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const profileControllers = require("../controllers/profile");
+const movieListControllers = require("../controllers/movieList");
+const isAuth = require("../middleware/isAuth");
 
-// router.post("/logins", isAuth, signInControllers.signIns);
+router.post("/movie-list/add-movie", isAuth, movieListControllers.addMovie);
 
 module.exports = router;

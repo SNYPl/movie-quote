@@ -6,8 +6,8 @@ import MovieDescription from "./movieDescription/MovieDescription";
 const MovieList: React.FC = () => {
   return (
     <section className={style.movieList}>
-      {/* <List /> */}
-      <MovieDescription />
+      <List />
+      {/* <MovieDescription /> */}
     </section>
   );
 };

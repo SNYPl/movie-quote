@@ -8,9 +8,14 @@ const movieSchema = new Schema(
       required: true,
       unique: true,
     },
-    image: {
+    nameGeo: {
       type: String,
       required: true,
+      unique: true,
+    },
+    image: {
+      type: String,
+      required: false,
       unique: true,
     },
     year: {
@@ -18,14 +23,22 @@ const movieSchema = new Schema(
       required: true,
     },
     genre: {
-      type: Array,
+      type: [String],
       required: true,
     },
     description: {
       type: String,
       required: true,
     },
+    descriptionGeo: {
+      type: String,
+      required: true,
+    },
     director: {
+      type: String,
+      required: true,
+    },
+    directorGeo: {
       type: String,
       required: true,
     },

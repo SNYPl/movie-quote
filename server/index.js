@@ -11,9 +11,10 @@ app.use(cookieParser());
 
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
-const forgotPssword = require("./routes/forgotPasswordRoutes");
+const forgotPassword = require("./routes/forgotPasswordRoutes");
 const newsFeedRoutes = require("./routes/newsFeed");
 const profileRoutes = require("./routes/profile");
+const movieListRoutes = require("./routes/movieList");
 
 const corsOptions = {
   origin: "*",
@@ -29,9 +30,10 @@ app.use(bodyParser.json());
 
 app.use(signInRoutes);
 app.use(signUpRoutes);
-app.use(forgotPssword);
+app.use(forgotPassword);
 app.use(newsFeedRoutes);
 app.use(profileRoutes);
+app.use(movieListRoutes);
 
 app.use((err, req, res, next) => {
   res.status(500).render("500", {});
