@@ -32,11 +32,9 @@ const userSchema = new Schema(
     },
     movies: [
       {
-        movie: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "movie",
-          default: [{}],
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "movie",
+        default: [{}],
       },
     ],
   },

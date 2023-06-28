@@ -73,8 +73,6 @@ const ProfileForm: React.FC = () => {
       })
       .then((res) => {
         if (res.data.token) {
-          console.log("shemovida Cookie");
-
           const expiration = new Date();
 
           expiration.setHours(expiration.getHours() + 3);

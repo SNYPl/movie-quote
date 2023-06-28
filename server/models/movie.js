@@ -16,7 +16,6 @@ const movieSchema = new Schema(
     image: {
       type: String,
       required: false,
-      unique: true,
     },
     year: {
       type: String,

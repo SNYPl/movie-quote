@@ -73,14 +73,7 @@
   height: 84px;
   display: flex;
   align-items: center;
-  padding: 0 17px;
   color: #fff;
-}
-.uploadPhoto input {
-  border: none !important;
-}
-
-.uploadInput {
 }
 
 .forms {
@@ -126,6 +119,11 @@
   width: 100%;
   position: relative;
 }
+.input p {
+  color: red;
+  font-family: helveticaGeoLight;
+  font-size: 16px;
+}
 
 .desc {
   height: 86px;
@@ -152,4 +150,20 @@
   font-weight: 400;
   font-size: 20px;
   color: #ffffff;
+}
+
+.dargNdrop {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  max-width: none !important;
+}
+
+.dargNdrop span {
+  font-size: 18px !important;
+}
+
+.dargNdrop svg {
+  width: 45px !important;
+  height: 45px !important;
 }

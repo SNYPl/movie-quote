@@ -1,14 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { loginContx } from "../../../store/LoginContext";
 import { DashbCtrx } from "../../../store/dashboardContext";
 import axios from "axios";
+import { FileUploader } from "react-drag-drop-files";
 
 type movie = {
   name: string;
   nameGeo: string;
-  genre: string[];
+  genre: any[] | Blob;
   year: string;
   director: string;
   directorGeo: string;
@@ -21,9 +22,22 @@ interface addMovie {
   setAddMovie: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const fileTypes = ["JPG", "PNG", "JPEG"];
+
 const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
   const { username } = useContext(loginContx);
   const { profileImageUpdated } = useContext(DashbCtrx);
+  const [error, setError] = useState("");
+  const [succ, setSucc] = useState("");
+  const [image, setImage] = useState<any>();
+
+  const handleChange = (file: any) => {
+    let reader = new FileReader();
+    reader?.readAsDataURL(file);
+    reader.onload = () => {
+      setImage(reader?.result);
+    };
+  };
 
   const {
     register,
@@ -33,29 +47,31 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
   } = useForm<movie>();
 
   let headers = {
-    "Content-Type": "application/json; charset=UTF-9",
+    "Content-Type": "multipart/form-data",
     "Access-Control-Allow-Origin": "*",
+    Accept: "application/json",
   };
+  const formData = new FormData();
+
   const onSubmit = (data: any) => {
-    console.log(data);
-    const genres = data.genre.split(",");
+    formData.append("name", data.name);
+    formData.append("nameGeo", data.nameGeo);
+    formData.append("genre", data.genre);
+    formData.append("year", data.year);
+    formData.append("director", data.director);
+    formData.append("directorGeo", data.directorGeo);
+    formData.append("description", data.description);
+    formData.append("descriptionGeo", data.descriptionGeo);
+    formData.append("budget", data.budget);
+    formData.append("image", image);
+
     axios
-      .post(
-        "http://localhost:3001/movie-list/add-movie",
-        {
-          name: data.name,
-          nameGeo: data.nameGeo,
-          genre: [...genres],
-          year: data.year,
-          director: data.director,
-          directorGeo: data.directorGeo,
-          description: data.description,
-          descriptionGeo: data.descriptionGeo,
-          budget: data.budget,
-        },
-        { headers }
-      )
-      .then((res) => console.log(res))
+      .patch("http://localhost:3001/movie-list/add-movie", formData, {
+        headers,
+      })
+      .then((res) => {
+        if (res.data.status === 200) setSucc(res.data.message);
+      })
       .catch((err) => console.log(err));
   };
   return (
@@ -116,6 +132,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                   required: {
                     value: true,
                     message: "Fill field",
+                  },
+                  pattern: {
+                    value: /[\u10A0-\u10FF]/,
+                    message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
               />
@@ -179,6 +199,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     value: true,
                     message: "Fill field",
                   },
+                  pattern: {
+                    value: /[\u10A0-\u10FF]/,
+                    message: "მხოლოდ ქართულად ასოები !",
+                  },
                 })}
               />
               {errors.directorGeo && <p>{errors.directorGeo.message}</p>}
@@ -226,14 +250,25 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     value: true,
                     message: "Fill field",
                   },
+                  pattern: {
+                    value: /[\u10A0-\u10FF]/,
+                    message: "მხოლოდ ქართულად ასოები !",
+                  },
                 })}
               />
               {errors.descriptionGeo && <p>{errors.descriptionGeo.message}</p>}
             </div>
 
             <div className={style.uploadPhoto}>
-              <input type="file" />
-              <input type="file" className={style.uploadInput} />
+              <FileUploader
+                handleChange={handleChange}
+                name="file"
+                types={fileTypes}
+                required
+                maxSize="1"
+                classes={style.dargNdrop}
+                label="Upload or drop image here"
+              />
             </div>
 
             <button type="submit" className={style.addBtn}>

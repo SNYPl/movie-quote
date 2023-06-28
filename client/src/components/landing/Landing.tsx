@@ -79,8 +79,6 @@ const Landing: React.FC = () => {
     },
   ];
 
-  console.log(verifyThanksPage)
-
   return (
     // <section className={style.containerScroll}>
     <>
