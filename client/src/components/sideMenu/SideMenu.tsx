@@ -1,13 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
-import { DashbCtrx } from "../../store/dashboardContext";
 import { NavLink, useLocation } from "react-router-dom";
-import { loginContx } from "../../store/LoginContext";
 import { RotatingLines } from "react-loader-spinner";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const SideMenu: React.FC = () => {
-  const { profileImageUpdated } = useContext(DashbCtrx);
-  const { username } = useContext(loginContx);
+  const { isLoading, error, data } = useQuery("userInfo", () =>
+    axios.get("http://localhost:3001/dashboard", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+        " Access-Control-Allow-Credentials": true,
+      },
+      withCredentials: true,
+    })
+  );
 
   let location = useLocation();
 
@@ -29,9 +38,9 @@ const SideMenu: React.FC = () => {
           className={`${style.profileImg} ${
             dashBoardNav === "profileBorder" && style.profileBorder
           }`}
-          style={{ backgroundImage: `url(${profileImageUpdated})` }}
+          style={{ backgroundImage: `url(${data?.data.image})` }}
         >
-          {profileImageUpdated === "loading" ? (
+          {isLoading && (
             <RotatingLines
               strokeColor="grey"
               strokeWidth="5"
@@ -39,12 +48,10 @@ const SideMenu: React.FC = () => {
               width="40"
               visible={true}
             />
-          ) : (
-            ""
           )}
         </div>
         <article className={`${style.profileInfo} `}>
-          <h3>{username}</h3>
+          <h3>{data?.data.username}</h3>
           <NavLink
             to="/dashboard/profile"
             onClick={(e: any) => {

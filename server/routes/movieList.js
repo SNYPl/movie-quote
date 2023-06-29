@@ -11,4 +11,6 @@ router.patch(
   movieListControllers.addMovie
 );
 
+router.get("/movie-list", isAuth, movieListControllers.getAllMovie);
+
 module.exports = router;

@@ -7,6 +7,7 @@ import { loginContx } from "../store/LoginContext";
 import { DashbCtrx } from "../store/dashboardContext";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 // type MyType = {
 //   name: string;
@@ -19,38 +20,42 @@ import axios from "axios";
 //   quotes: any[];
 // };
 
-type MyType = {};
-
 const Dashboard: React.FC = () => {
-  const { setUsername, setEmail } = useContext(loginContx);
-  const { setMovies, setProfileImageUpdated, profileImageUpdated } = useContext(
-    DashbCtrx
-  );
-  const [movies, setMovie] = useState<MyType[]>([{}]);
+  // useEffect(() => {
+  //   axios.defaults.withCredentials = true;
+  //
+  //   axios
+  //     .get("http://localhost:3001/dashboard", {
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "http://localhost:3000/",
+  //         " Access-Control-Allow-Credentials": true,
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.status == 200) {
+  //         setUsername(res.data.username);
+  //         setEmail(res.data.email);
+  //         setProfileImageUpdated(res.data.image);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
-  useEffect(() => {
-    axios.defaults.withCredentials = true;
-    setProfileImageUpdated("loading");
-    axios
-      .get("http://localhost:3001/dashboard", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          setUsername(res.data.username);
-          setEmail(res.data.email);
-          setProfileImageUpdated(res.data.image);
-          // setMovies((prev) => [...prev, res.data.movies]);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { isLoading, error, data } = useQuery("userInfo", () =>
+    axios.get("http://localhost:3001/dashboard", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+        " Access-Control-Allow-Credentials": true,
+      },
+      withCredentials: true,
+    })
+  );
 
   return (
     <div className={style.dashboard}>

@@ -70,10 +70,11 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
         headers,
       })
       .then((res) => {
-        if (res.data.status === 200) setSucc(res.data.message);
+        if (res.status === 200) setSucc(res.data.message);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.response.data));
   };
+
   return (
     <section className={style.overlay}>
       <article className={style.popUp}>
@@ -270,6 +271,9 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                 label="Upload or drop image here"
               />
             </div>
+
+            {succ && <p className={style.scrMsg}>{succ}</p>}
+            {error && <p className={style.errMsg}>{error}</p>}
 
             <button type="submit" className={style.addBtn}>
               Add Movie

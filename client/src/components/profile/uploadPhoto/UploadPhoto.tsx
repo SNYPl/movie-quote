@@ -1,11 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import style from "./style.module.css";
 import { DashbCtrx } from "../../../store/dashboardContext";
 import { RotatingLines } from "react-loader-spinner";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const UploadPhoto: React.FC = () => {
-  const { setProfileImage, profileImage, profileImageUpdated } = useContext(
-    DashbCtrx
+  const { setProfileImage, profileImage } = useContext(DashbCtrx);
+
+  const { isLoading, error, data } = useQuery("userInfo", () =>
+    axios.get("http://localhost:3001/dashboard", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+        " Access-Control-Allow-Credentials": true,
+      },
+      withCredentials: true,
+    })
   );
 
   const onChangeInput = (e: any) => {
@@ -30,11 +42,11 @@ const UploadPhoto: React.FC = () => {
         className={style.hiddenFileInput}
         style={{
           backgroundImage: `url(${
-            profileImage ? profileImage : profileImageUpdated
+            profileImage ? profileImage : data?.data.image
           })`,
         }}
       >
-        {profileImageUpdated === "loading" && !profileImage ? (
+        {isLoading && !profileImage ? (
           <RotatingLines
             strokeColor="grey"
             strokeWidth="5"

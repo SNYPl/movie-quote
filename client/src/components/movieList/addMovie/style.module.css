@@ -167,3 +167,16 @@
   width: 45px !important;
   height: 45px !important;
 }
+
+.scrMsg {
+  font-size: 18px;
+  color: green;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}
+.errMsg {
+  font-size: 18px;
+  color: red;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}

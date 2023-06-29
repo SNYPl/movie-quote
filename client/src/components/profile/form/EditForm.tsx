@@ -3,8 +3,8 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { DashbCtrx } from "../../../store/dashboardContext";
-import { loginContx } from "../../../store/LoginContext";
 import Cookies from "universal-cookie";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 type FormValues = {
   username: string;
@@ -23,21 +23,28 @@ type InputsEdit = {
 };
 
 const ProfileForm: React.FC = () => {
-  const [error, setError] = useState<string>("");
+  const [erroR, setErroR] = useState<string>("");
   const [success, setSuccess] = useState("");
-
-  const {
-    profileImage,
-    setProfileImageUpdated,
-    setProfileImage,
-    profileImageUpdated,
-  } = useContext(DashbCtrx);
-  const { username, email, setUsername, setEmail } = useContext(loginContx);
+  const { profileImage, setProfileImage } = useContext(DashbCtrx);
   const [editInputs, setEditInputs] = useState<InputsEdit>({
     username: false,
     email: false,
     password: false,
   });
+
+  const queryClient = useQueryClient();
+
+  const { isLoading, error, data } = useQuery("userInfo", () =>
+    axios.get("http://localhost:3001/dashboard", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+        " Access-Control-Allow-Credentials": true,
+      },
+      withCredentials: true,
+    })
+  );
 
   const {
     register,
@@ -55,24 +62,23 @@ const ProfileForm: React.FC = () => {
 
   const cookies = new Cookies();
 
-  const formData = new FormData();
-
-  const onSubmit = (data: any) => {
-    if (!profileImage || profileImageUpdated === profileImage) {
-      formData.append("image", profileImageUpdated);
-    } else {
-      formData.append("image", profileImage);
-    }
-    formData.append("username", data.NewUsername);
-    formData.append("password", data.newPassword);
-    formData.append("email", data.newEmail);
-
-    axios
-      .patch("http://localhost:3001/profile/upload-photo", formData, {
-        headers,
-      })
-      .then((res) => {
+  const { mutate } = useMutation(
+    (userInfo: typeof formData) => {
+      return axios.patch(
+        "http://localhost:3001/profile/upload-photo",
+        userInfo,
+        {
+          headers,
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("userInfo");
+        console.log(res);
         if (res.data.token) {
+          cookies.remove("token");
           const expiration = new Date();
 
           expiration.setHours(expiration.getHours() + 3);
@@ -80,16 +86,30 @@ const ProfileForm: React.FC = () => {
             path: "/",
             expires: expiration,
           });
-          setUsername(res.data.username);
         }
-
-        setProfileImageUpdated(res.data.img);
-        setProfileImage(res.data.img);
         setSuccess(res.data.message);
-      })
-      .catch((err) => {
-        setError(err.response.data);
-      });
+        setErroR("");
+        // setProfileImageUpdated(res.data.img);
+        setProfileImage(res.data.img);
+      },
+      onError: (errs) => {
+        setErroR("Error while edit profile");
+        setSuccess("");
+      },
+    }
+  );
+
+  const formData = new FormData();
+
+  const onSubmit = (data: any) => {
+    if (profileImage) {
+      formData.append("image", profileImage);
+    }
+    formData.append("username", data.NewUsername);
+    formData.append("password", data.newPassword);
+    formData.append("email", data.newEmail);
+
+    mutate(formData);
   };
 
   return (
@@ -100,10 +120,10 @@ const ProfileForm: React.FC = () => {
           <div className={style.inputContainer}>
             <input
               type="text"
-              placeholder={username}
+              placeholder={data?.data.username}
               id="username"
               {...register("username", {
-                onChange: () => setError(""),
+                onChange: () => setErroR(""),
                 disabled: true,
               })}
             />
@@ -125,7 +145,7 @@ const ProfileForm: React.FC = () => {
                 placeholder="Enter new username"
                 id="NewUsername"
                 {...register("NewUsername", {
-                  onChange: () => setError(""),
+                  onChange: () => setErroR(""),
                   required: {
                     value: true,
                     message: "Fill field",
@@ -150,9 +170,9 @@ const ProfileForm: React.FC = () => {
             <input
               type="text"
               id="email"
-              placeholder={email}
+              placeholder={data?.data.email}
               {...register("email", {
-                onChange: () => setError(""),
+                onChange: () => setErroR(""),
 
                 disabled: true,
               })}
@@ -175,7 +195,7 @@ const ProfileForm: React.FC = () => {
                 id="newEmail"
                 placeholder="Enter new email"
                 {...register("newEmail", {
-                  onChange: () => setError(""),
+                  onChange: () => setErroR(""),
                   required: {
                     value: true,
                     message: "fill fields",
@@ -286,8 +306,8 @@ const ProfileForm: React.FC = () => {
           </>
         )}
 
-        {error && (
-          <p className={style.errMsg}>something wrong error: {error}</p>
+        {erroR && (
+          <p className={style.errMsg}>something wrong error: {erroR}</p>
         )}
         {success && <p className={style.scMsg}>{success}</p>}
         <article className={style.saveBtns}>
