@@ -76,7 +76,6 @@ const ProfileForm: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("userInfo");
-        console.log(res);
         if (res.data.token) {
           cookies.remove("token");
           const expiration = new Date();
@@ -89,7 +88,6 @@ const ProfileForm: React.FC = () => {
         }
         setSuccess(res.data.message);
         setErroR("");
-        // setProfileImageUpdated(res.data.img);
         setProfileImage(res.data.img);
       },
       onError: (errs) => {

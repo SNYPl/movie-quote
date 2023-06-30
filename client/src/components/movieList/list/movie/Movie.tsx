@@ -1,16 +1,30 @@
 import React from "react";
 import style from "./style.module.css";
-import img from "../../../../assets/img/movie.png";
 
-const Movie: React.FC = () => {
+interface movie {
+  name: string;
+  year: string;
+  quotesLength: number;
+  image: string;
+  id: string;
+}
+
+const Movie: React.FC<movie> = ({ name, year, quotesLength, image, id }) => {
   return (
     <article className={style.movie}>
       <div className={style.movieImg}>
-        <img src={img} alt="movie" />
+        <img src={image} alt="movie" />
       </div>
-      <h5 className={style.movieTitle}>Loki Mobius (2021) </h5>
+      <h5 className={style.movieTitle}>
+        <a
+          className={style.title}
+          href={`/dashboard/movie-list/movie/movie=${id}`}
+        >
+          {name} ({year}){" "}
+        </a>
+      </h5>
       <div className={style.commentInfo}>
-        <span>5</span>
+        <span>{quotesLength}</span>
         <svg
           width="32"
           height="30"

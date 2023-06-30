@@ -2,9 +2,9 @@ import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { loginContx } from "../../../store/LoginContext";
-import { DashbCtrx } from "../../../store/dashboardContext";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 type movie = {
   name: string;
@@ -25,9 +25,22 @@ interface addMovie {
 const fileTypes = ["JPG", "PNG", "JPEG"];
 
 const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
+  const { isLoading, error, data } = useQuery("userInfo", () =>
+    axios.get("http://localhost:3001/dashboard", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+        " Access-Control-Allow-Credentials": true,
+      },
+      withCredentials: true,
+    })
+  );
+
+  const queryClient = useQueryClient();
+
   const { username } = useContext(loginContx);
-  const { profileImageUpdated } = useContext(DashbCtrx);
-  const [error, setError] = useState("");
+  const [errorUser, setErrorUser] = useState("");
   const [succ, setSucc] = useState("");
   const [image, setImage] = useState<any>();
 
@@ -42,7 +55,6 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<movie>();
 
@@ -51,6 +63,32 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
     "Access-Control-Allow-Origin": "*",
     Accept: "application/json",
   };
+
+  const { mutate } = useMutation(
+    (userInfo: typeof formData) => {
+      return axios.patch(
+        "http://localhost:3001/movie-list/add-movie",
+        userInfo,
+        {
+          headers,
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("moviesList");
+        if (res.status === 200) setSucc(res.data.message);
+        setAddMovie(false);
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          setErrorUser(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
   const formData = new FormData();
 
   const onSubmit = (data: any) => {
@@ -65,14 +103,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
     formData.append("budget", data.budget);
     formData.append("image", image);
 
-    axios
-      .patch("http://localhost:3001/movie-list/add-movie", formData, {
-        headers,
-      })
-      .then((res) => {
-        if (res.status === 200) setSucc(res.data.message);
-      })
-      .catch((err) => setError(err.response.data));
+    mutate(formData);
   };
 
   return (
@@ -97,7 +128,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
         <article className={style.author}>
           <div
             className={style.photo}
-            style={{ backgroundImage: `url(${profileImageUpdated})` }}
+            style={{ backgroundImage: `url(${data?.data.image})` }}
           ></div>
           <h4>{username}</h4>
         </article>
@@ -273,7 +304,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
             </div>
 
             {succ && <p className={style.scrMsg}>{succ}</p>}
-            {error && <p className={style.errMsg}>{error}</p>}
+            {errorUser && <p className={style.errMsg}>{errorUser}</p>}
 
             <button type="submit" className={style.addBtn}>
               Add Movie

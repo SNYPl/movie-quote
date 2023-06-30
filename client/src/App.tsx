@@ -10,6 +10,8 @@ import SendVerifyMail from "./components/signIn/SendMail";
 import NewsFeed from "./components/newsFeed/NewsFeed";
 import MyProfile from "./components/profile/Profile";
 import MovieList from "./components/movieList/MovieList";
+import List from "./components/movieList/list/List";
+import MovieDescription from "./components/movieList/movieDescription/MovieDescription";
 
 function App() {
   const { setLogin, login } = useContext(loginContx);
@@ -58,7 +60,13 @@ function App() {
         >
           <Route index element={<NewsFeed />} />
           <Route path="profile" element={<MyProfile />} />
-          <Route path="movie-list" element={<MovieList />} />
+          <Route path="movie-list" element={<MovieList />}>
+            <Route index element={<List />} />
+            <Route
+              path="/dashboard/movie-list/movie/:test"
+              element={<MovieDescription />}
+            />
+          </Route>
         </Route>
       </Routes>
     </div>

@@ -1,13 +1,11 @@
 import React from "react";
 import style from "./style.module.css";
-import List from "./list/List";
-import MovieDescription from "./movieDescription/MovieDescription";
+import { Outlet } from "react-router";
 
 const MovieList: React.FC = () => {
   return (
     <section className={style.movieList}>
-      <List />
-      {/* <MovieDescription /> */}
+      <Outlet />
     </section>
   );
 };

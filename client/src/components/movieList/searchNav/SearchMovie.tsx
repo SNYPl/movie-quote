@@ -1,15 +1,31 @@
 import React from "react";
 import style from "./style.module.css";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 interface addMovie {
   setAddMovie: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SearchMovie: React.FC<addMovie> = ({ setAddMovie }) => {
+  const { isLoading, error, data } = useQuery("moviesList", () =>
+    axios.get("http://localhost:3001/movie-list", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+        " Access-Control-Allow-Credentials": true,
+      },
+      withCredentials: true,
+    })
+  );
+
+  const movieLength = data?.data.movies.length;
+
   return (
     <section className={style.search}>
       <h2 className={style.title}>
-        My list of movies (Total <span>25</span>)
+        My list of movies (Total <span>{movieLength}</span>)
       </h2>
       <div className={style.addCont}>
         <div className={`${style.searchInp}`}>

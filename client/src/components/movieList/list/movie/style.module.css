@@ -1,5 +1,8 @@
 .movie {
   width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .movieImg {
@@ -8,16 +11,21 @@
 
 .movieImg img {
   width: 100%;
+  height: 400px;
 }
 
 .movieTitle {
-  margin: 16px 0 18px 0;
-  font-family: helveticaGeo75Bold;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  text-transform: uppercase;
+  margin: 8px 0 8px 0;
+}
+
+.movieTitle .title {
   color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 24px;
+  font-family: helveticaGeo75Bold;
 }
 .commentInfo {
   display: flex;

@@ -1,21 +1,46 @@
 import React from "react";
 import style from "./style.module.css";
-import movieImg from "../../../../assets/img/desc1.png";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
+  name: string;
+  nameGeo: string;
+  description: string;
+  descriptionGeo: string;
+  budget: string;
+  director: string;
+  directorGeo: string;
+  year: string;
+  image: string;
+  quotesLength: number;
+  genre: [];
 }
 
-const Description: React.FC<addBtn> = ({ add }) => {
+const Description: React.FC<addBtn> = ({
+  add,
+  name,
+  nameGeo,
+  director,
+  directorGeo,
+  description,
+  descriptionGeo,
+  year,
+  budget,
+  image,
+  genre,
+  quotesLength,
+}) => {
   return (
     <section className={style.description}>
       <article className={style.movie}>
         <div className={style.moviePhoto}>
-          <img src={movieImg} alt="movie" />
+          <img src={image} alt="movieImg" />
         </div>
         <article className={style.movieDesc}>
           <div className={style.title}>
-            <h3>COMMITMENT HASAN (1999)</h3>
+            <h3>
+              {name} ({year})
+            </h3>
             <div className={style.titleIcon}>
               <svg
                 width="20"
@@ -53,28 +78,26 @@ const Description: React.FC<addBtn> = ({ add }) => {
           </div>
 
           <div className={style.genres}>
-            <p>Drama</p>
-            <p>Romance</p>
+            {genre.map((el: string) => (
+              <p>{el}</p>
+            ))}
           </div>
 
           <p className={style.director}>
-            Director: <span>Nick cassavates</span>
+            Director: <span>{director}</span>
           </p>
 
-          <pre className={style.descriptionText}>
-            In a nursing home, resident Duke reads a romance story to an old
-            woman who has senile dementia with memory loss. In the late 1930s,
-            wealthy seventeen year-old Allie Hamilton is spending summer
-            vacation in Seabrook. Local worker Noah Calhoun meets Allie at a
-            carnival In a nursing home, resident Duke reads a romance story to
-            an old woman who has senile dementia with memory loss.
-          </pre>
+          <p className={style.director}>
+            Budget: <span>{budget}</span>
+          </p>
+
+          <pre className={style.descriptionText}>{description}</pre>
         </article>
       </article>
 
       <article className={style.addBtns}>
         <p>
-          Quotes (total <span>7</span>)
+          Quotes (total <span>{quotesLength}</span>)
         </p>
         <div className={style.hXazz}></div>
         <button className={style.quoteBtn} onClick={() => add(true)}>

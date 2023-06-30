@@ -12,7 +12,9 @@ exports.addMovie = async (req, res, next) => {
       $or: [{ name: req.body.name }, { nameGeo: req.body.nameGeo }],
     });
     if (userExist.length > 0)
-      return res.status(400).send("movie on that name, already added");
+      return res
+        .status(400)
+        .send({ message: "movie on that name, already added" });
 
     const movie = new Movie({
       name: req.body.name,
@@ -52,4 +54,15 @@ exports.getAllMovie = async (req, res, next) => {
   const records = await Movie.find().where("_id").in(user.movies).exec();
 
   return res.status(200).send({ movies: records });
+};
+
+exports.getMovie = async (req, res, next) => {
+  const username = req.user.username;
+  console.log(req);
+  console.log("aqaa");
+
+  // const user = await User.findOne({ username: username }, "movies _id");
+  // const records = await Movie.find().where("_id").in(user.movies).exec();
+
+  // return res.status(200).send({ movies: records });
 };
