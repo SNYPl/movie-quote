@@ -56,13 +56,58 @@ exports.getAllMovie = async (req, res, next) => {
   return res.status(200).send({ movies: records });
 };
 
-exports.getMovie = async (req, res, next) => {
+// exports.getMovie = async (req, res, next) => {
+//   const username = req.user.username;
+//   console.log(req);
+//   console.log("aqaa");
+
+// const user = await User.findOne({ username: username }, "movies _id");
+// const records = await Movie.find().where("_id").in(user.movies).exec();
+
+// return res.status(200).send({ movies: records });
+// };
+
+exports.editMovie = async (req, res, next) => {
   const username = req.user.username;
-  console.log(req);
-  console.log("aqaa");
+  const movieId = req.body.id;
 
-  // const user = await User.findOne({ username: username }, "movies _id");
-  // const records = await Movie.find().where("_id").in(user.movies).exec();
+  if (!username) return res.status(401).send("invalid username or token");
 
-  // return res.status(200).send({ movies: records });
+  const genres = req.body.genre.split(",");
+
+  try {
+    Movie.findByIdAndUpdate(movieId, {
+      name: req.body.updatedName,
+      nameGeo: req.body.nameGeo,
+      genre: genres,
+      year: req.body.year,
+      director: req.body.director,
+      directorGeo: req.body.directorGeo,
+      description: req.body.description,
+      descriptionGeo: req.body.descriptionGeo,
+      budget: req.body.budget,
+      image: req.body.image,
+    }).then((res) => console.log("edited"));
+
+    res.status(200).send({ message: "movie edited" });
+  } catch (err) {
+    res.status(403).send(err.message);
+  }
+};
+
+exports.deleteMovie = async (req, res, next) => {
+  const username = req.user.username;
+  const movieId = req.body.id;
+
+  if (!username) return res.status(401).send("invalid username or token");
+
+  try {
+    Movie.findByIdAndDelete(movieId).then((res) =>
+      res.status(200).send({ message: "movie deleted" })
+    );
+
+    res.status(200).send({ message: "movie deleted" });
+  } catch (err) {
+    res.status(403).send(err.message);
+  }
 };

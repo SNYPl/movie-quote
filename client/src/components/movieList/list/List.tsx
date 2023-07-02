@@ -50,6 +50,7 @@ const List: React.FC = () => {
               quotesLength={el.quotes.length}
               image={el.image}
               id={el._id}
+              key={el._id}
             />
           ))}
         </article>

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import { loginContx } from "../../../store/LoginContext";
 import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -39,7 +38,6 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
 
   const queryClient = useQueryClient();
 
-  const { username } = useContext(loginContx);
   const [errorUser, setErrorUser] = useState("");
   const [succ, setSucc] = useState("");
   const [image, setImage] = useState<any>();
@@ -130,7 +128,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
             className={style.photo}
             style={{ backgroundImage: `url(${data?.data.image})` }}
           ></div>
-          <h4>{username}</h4>
+          <h4>{data?.data.username}</h4>
         </article>
 
         <section className={style.forms}>
@@ -149,6 +147,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                   minLength: {
                     value: 3,
                     message: "minimum length 3",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9_ ]*$/,
+                    message: "only english words !",
                   },
                 })}
               />
@@ -199,6 +201,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     value: true,
                     message: "Fill field",
                   },
+                  pattern: {
+                    value: /^[0-9]*$/,
+                    message: "only numbers!",
+                  },
                 })}
               />
               {errors.year && <p>{errors.year.message}</p>}
@@ -214,6 +220,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                   required: {
                     value: true,
                     message: "Fill field",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9_ ]*$/,
+                    message: "only english words !",
                   },
                 })}
               />
@@ -250,6 +260,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     value: true,
                     message: "Fill field",
                   },
+                  pattern: {
+                    value: /^[0-9]*$/,
+                    message: "only numbers!",
+                  },
                 })}
               />
               {errors.budget && <p>{errors.budget.message}</p>}
@@ -265,6 +279,10 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                   required: {
                     value: true,
                     message: "Fill field",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9_ ]*$/,
+                    message: "only english words !",
                   },
                 })}
               />

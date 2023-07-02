@@ -11,8 +11,21 @@ router.patch(
   movieListControllers.addMovie
 );
 
+router.patch(
+  "/movie-list/edit-movie",
+  isAuth,
+  fileUpload.single("image"),
+  movieListControllers.editMovie
+);
+
+router.delete(
+  "/movie-list/delete-movie",
+  isAuth,
+  movieListControllers.deleteMovie
+);
+
 router.get("/movie-list", isAuth, movieListControllers.getAllMovie);
 
-router.get("/movie-list/movie/:movie", isAuth, movieListControllers.getMovie);
+// router.get("/movie-list/movie/:movie", isAuth, movieListControllers.getMovie);
 
 module.exports = router;

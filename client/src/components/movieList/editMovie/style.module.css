@@ -70,17 +70,17 @@
 
 .uploadPhoto {
   border: 1px solid #6c757d;
-  height: 84px;
   display: flex;
   align-items: center;
-  padding: 0 17px;
+  padding: 18px 17px 18px 24px;
   color: #fff;
 }
-.uploadPhoto input {
-  border: none !important;
-}
 
-.uploadInput {
+.uploadPhoto img {
+  width: 430px;
+  height: 150px;
+  border: 1px dashed #dca;
+  object-fit: cover;
 }
 
 .forms {
@@ -89,14 +89,13 @@
 .forms form {
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
+  row-gap: 16px;
 }
 
 .forms input {
   height: 48px;
   background: #11101a;
-  border: 1px solid #6c757d;
-  border-radius: 4.8px;
+  border: none;
   font-family: helveticaGeoLight;
   font-weight: 400;
   font-size: 20px;
@@ -125,6 +124,17 @@
 .input {
   width: 100%;
   position: relative;
+  background: #11101a;
+  border: 1px solid #6c757d;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4.8px;
+}
+.valueText {
+  white-space: nowrap;
+  color: #6c757d;
+  font-family: helveticaGeoHeavy;
 }
 
 .desc {
@@ -151,4 +161,44 @@
   font-weight: 400;
   font-size: 20px;
   color: #ffffff;
+}
+
+.desc input {
+  padding-left: 16px;
+}
+
+.dargNdrop {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  max-width: none !important;
+  flex-direction: column !important;
+}
+
+.dargNdrop span {
+  font-size: 18px !important;
+}
+
+.dargNdrop svg {
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.scrMsg {
+  font-size: 18px;
+  color: green;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}
+.errMsg {
+  font-size: 18px;
+  color: red;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}
+
+.inpErr {
+  color: red;
+  font-size: 16px;
+  margin: 0;
 }

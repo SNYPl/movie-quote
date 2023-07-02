@@ -1,0 +1,80 @@
+.overlay {
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.54);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+}
+
+.popUp {
+  background: #11101a;
+  border-radius: 12px;
+  padding: 40px 0;
+  width: 50%;
+  margin-top: 25px;
+  padding-bottom: 70px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(239, 239, 239, 0.2);
+  position: relative;
+  margin-bottom: 30px;
+}
+.title h4 {
+  margin: 0;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: capitalize;
+  color: #ffffff;
+}
+.title svg {
+  cursor: pointer;
+  position: absolute;
+  right: 35px;
+}
+
+.popUp p {
+  text-align: center;
+  color: #fff;
+  font-size: 35px;
+  font-family: helveticaGeoLight;
+}
+
+.addBtn {
+  background: #e31221;
+  border-radius: 26.8px;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: helveticaGeoLight;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+}
+.btnNo {
+  background: #e31221;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  column-gap: 24px;
+}

@@ -27,7 +27,6 @@ const Description: React.FC = () => {
   );
 
   const movie = data?.data.movies.filter((el: any) => el._id === movieId);
-
   return (
     <>
       {addQuote && <AddQuote add={setAddQuote} />}
@@ -60,6 +59,7 @@ const Description: React.FC = () => {
             image={movie[0]?.image}
             budget={movie[0]?.budget}
             quotesLength={movie[0]?.quotes.length}
+            id={movie[0]._id}
           />
         )}
         {/* {!isLoading && movie[0].quotes.map((el: any) => <Quote />)} */}
