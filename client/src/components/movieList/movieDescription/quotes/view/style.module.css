@@ -130,9 +130,12 @@
 .photoQuot {
   width: 100%;
   position: relative;
+  height: 500px;
 }
 .photoQuot img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .titleIcon {
@@ -248,7 +251,7 @@
   height: 52px;
   background-color: #fff;
   border-radius: 50%;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
   margin-right: 24px;

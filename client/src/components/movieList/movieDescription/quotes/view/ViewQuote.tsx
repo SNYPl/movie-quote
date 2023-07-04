@@ -2,6 +2,9 @@ import React from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import quoteImg from "../../../../../assets/img/desc1.png";
+import { useQuery } from "react-query";
+import { useLocation } from "react-router";
+import axios from "axios";
 
 type movie = {
   quotes: string;
@@ -16,9 +19,46 @@ const ViewQuote: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<movie>();
+
+  const user = useQuery(
+    "userInfo",
+    () =>
+      axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
+  );
+
+  let location = useLocation();
+  const quoteId = location.pathname.split("=")[1];
+
+  const { error, isLoading, data } = useQuery(
+    "getQuote",
+    () =>
+      axios.get(
+        `http://localhost:3001/movie-list/quote/quote=${quoteId}/get-quote`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
+    { refetchOnWindowFocus: false }
+  );
+
+  console.log(data);
 
   const onSubmit = () => {};
   return (
@@ -79,9 +119,11 @@ const ViewQuote: React.FC = () => {
           <article className={style.author}>
             <div
               className={style.photo}
-              style={{ backgroundImage: `url(${quoteImg})` }}
+              style={{
+                backgroundImage: `url(${data?.data.quoteAuthorData.image})`,
+              }}
             ></div>
-            <h4>Maia Nakashidze</h4>
+            <h4>{data?.data.quoteAuthorData.name}</h4>
           </article>
         </section>
 
@@ -93,14 +135,11 @@ const ViewQuote: React.FC = () => {
                 type="textarea"
                 placeholder="Quote in English."
                 id="description"
+                value={data?.data.quote.text}
                 {...register("quotes", {
-                  required: {
-                    value: true,
-                    message: "Fill field",
-                  },
+                  disabled: true,
                 })}
               />
-              {errors.quotes && <p>{errors.quotes.message}</p>}
             </div>
 
             <div className={`${style.input}  ${style.desc}`}>
@@ -109,22 +148,19 @@ const ViewQuote: React.FC = () => {
                 type="textarea"
                 placeholder="ციტატა ქართულ ენაზე"
                 id="descriptionGeo"
+                value={data?.data.quote.text}
                 {...register("quotesGeo", {
-                  required: {
-                    value: true,
-                    message: "Fill field",
-                  },
+                  disabled: true,
                 })}
               />
-              {errors.quotesGeo && <p>{errors.quotesGeo.message}</p>}
             </div>
 
             <div className={style.photoQuot}>
-              <img src={quoteImg} alt="img" />
+              <img src={data?.data.quote.image} alt="img" />
             </div>
             <article className={style.reactions}>
               <div className={style.commentsCount}>
-                <p>3</p>
+                <p>{data?.data.quote.comments.length}</p>
                 <svg
                   width="32"
                   height="31"
@@ -139,7 +175,7 @@ const ViewQuote: React.FC = () => {
                 </svg>
               </div>
               <div className={style.likes}>
-                <p>10</p>
+                <p>{data?.data.quote.likes}</p>
                 <svg
                   width="32"
                   height="30"
@@ -156,41 +192,29 @@ const ViewQuote: React.FC = () => {
             </article>
 
             <section className={style.comments}>
-              <article className={style.comment}>
-                <div
-                  className={style.commentPhoto}
-                  style={{ backgroundImage: `url(${quoteImg})` }}
-                ></div>
-                <div className={style.commentInfo}>
-                  <h4>Nina Baladze</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pellentesque nunc vel massa facilisis consequat elit morbi
-                    convallis convallis. Volutpat vitae et nisl et. Adipiscing
-                    enim integer mi leo nisl. Arcu vitae mauris odio eget.
-                  </p>
-                </div>
-              </article>
-              <article className={style.comment}>
-                <div
-                  className={style.commentPhoto}
-                  style={{ backgroundImage: `url(${quoteImg})` }}
-                ></div>
-                <div className={style.commentInfo}>
-                  <h4>Nika Cecxladze</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pellentesque nunc vel massa facilisis consequat elit morbi
-                    convallis convallis.
-                  </p>
-                </div>
-              </article>
+              {data?.data.quote.comments.map((el: any) => (
+                <article className={style.comment}>
+                  <div
+                    className={style.commentPhoto}
+                    style={{ backgroundImage: `url(${quoteImg})` }}
+                  ></div>
+                  <div className={style.commentInfo}>
+                    <h4>Nina Baladze</h4>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Pellentesque nunc vel massa facilisis consequat elit morbi
+                      convallis convallis. Volutpat vitae et nisl et. Adipiscing
+                      enim integer mi leo nisl. Arcu vitae mauris odio eget.
+                    </p>
+                  </div>
+                </article>
+              ))}
             </section>
 
             <section className={style.commentWrite}>
               <div
                 className={style.writeAuthorPhoto}
-                style={{ backgroundImage: `url(${quoteImg})` }}
+                style={{ backgroundImage: `url(${user.data?.data.image})` }}
               ></div>
               <input type="text" placeholder="Write a comment" />
             </section>

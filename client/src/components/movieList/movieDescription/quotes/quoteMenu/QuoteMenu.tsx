@@ -2,7 +2,6 @@ import React from "react";
 import style from "./style.module.css";
 import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router";
 import { Oval } from "react-loader-spinner";
 
 interface quoteMode {
@@ -11,7 +10,6 @@ interface quoteMode {
 
 const Menu: React.FC<quoteMode> = ({ id }) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation(
     (movie: any) => {
