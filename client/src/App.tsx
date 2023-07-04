@@ -12,6 +12,8 @@ import MyProfile from "./components/profile/Profile";
 import MovieList from "./components/movieList/MovieList";
 import List from "./components/movieList/list/List";
 import MovieDescription from "./components/movieList/movieDescription/MovieDescription";
+import ViewQuote from "./components/movieList/movieDescription/quotes/view/ViewQuote";
+import EditQuote from "./components/movieList/movieDescription/quotes/edit/EditQuote";
 
 function App() {
   const { setLogin, login } = useContext(loginContx);
@@ -63,8 +65,16 @@ function App() {
           <Route path="movie-list" element={<MovieList />}>
             <Route index element={<List />} />
             <Route
-              path="/dashboard/movie-list/movie/:test"
+              path="/dashboard/movie-list/movie/:movie"
               element={<MovieDescription />}
+            />
+            <Route
+              path="/dashboard/movie-list/quote/:quote"
+              element={<ViewQuote />}
+            />
+            <Route
+              path="/dashboard/movie-list/quote/:quote/edit-quote"
+              element={<EditQuote />}
             />
           </Route>
         </Route>

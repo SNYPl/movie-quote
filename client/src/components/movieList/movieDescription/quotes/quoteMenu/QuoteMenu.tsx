@@ -1,16 +1,47 @@
 import React from "react";
 import style from "./style.module.css";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "react-query";
+import { useNavigate } from "react-router";
+import { Oval } from "react-loader-spinner";
 
 interface quoteMode {
-  setQuoteMode: React.Dispatch<React.SetStateAction<string>>;
+  id: string;
 }
-const Menu: React.FC<quoteMode> = ({ setQuoteMode }) => {
+
+const Menu: React.FC<quoteMode> = ({ id }) => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const { mutate, isLoading } = useMutation(
+    (movie: any) => {
+      return axios.delete(
+        "http://localhost:3001/movie-list/movie/delete-quote",
+        {
+          data: { id: id },
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("getMovieQuotes");
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          // setErr(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
+  const deleteQuoteHandler = () => {
+    mutate({ id: id });
+  };
+
   return (
     <section className={style.menu}>
-      <div
-        className={`${style.menuItem} ${style.view}`}
-        onClick={() => setQuoteMode("viewQuote")}
-      >
+      <div className={`${style.menuItem} ${style.view}`}>
         <svg
           width="20"
           height="20"
@@ -28,11 +59,13 @@ const Menu: React.FC<quoteMode> = ({ setQuoteMode }) => {
           />
         </svg>
 
-        <h4>View Quote</h4>
+        <a href={`/dashboard/movie-list/quote/quote=${id}`}>
+          <h4>View Quote</h4>
+        </a>
       </div>
       <div
         className={`${style.menuItem} ${style.edit}`}
-        onClick={() => setQuoteMode("editQUote")}
+        // onClick={() => setQuoteMode("editQUote")}
       >
         <svg
           width="20"
@@ -54,9 +87,15 @@ const Menu: React.FC<quoteMode> = ({ setQuoteMode }) => {
           </defs>
         </svg>
 
-        <h4>Edit</h4>
+        <a href={`/dashboard/movie-list/quote/quote=${id}/edit-quote`}>
+          <h4>Edit</h4>
+        </a>
       </div>
-      <div className={`${style.menuItem} ${style.delete}`}>
+
+      <div
+        className={`${style.menuItem} ${style.delete}`}
+        onClick={deleteQuoteHandler}
+      >
         <svg
           width="20"
           height="20"
@@ -70,7 +109,24 @@ const Menu: React.FC<quoteMode> = ({ setQuoteMode }) => {
           />
         </svg>
 
-        <h4>Delete</h4>
+        <h4>
+          {isLoading ? (
+            <Oval
+              height={20}
+              width={20}
+              color="#4fa94d"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#4fa94d"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          ) : (
+            "Delete"
+          )}
+        </h4>
       </div>
     </section>
   );

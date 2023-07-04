@@ -26,6 +26,6 @@ router.delete(
 
 router.get("/movie-list", isAuth, movieListControllers.getAllMovie);
 
-// router.get("/movie-list/movie/:movie", isAuth, movieListControllers.getMovie);
+router.get("/movie-list/movie/:movie", isAuth, movieListControllers.getMovie);
 
 module.exports = router;

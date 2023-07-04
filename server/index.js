@@ -15,6 +15,7 @@ const forgotPassword = require("./routes/forgotPasswordRoutes");
 const newsFeedRoutes = require("./routes/newsFeed");
 const profileRoutes = require("./routes/profile");
 const movieListRoutes = require("./routes/movieList");
+const quotesRoutes = require("./routes/quotes");
 
 const corsOptions = {
   origin: "*",
@@ -34,6 +35,7 @@ app.use(forgotPassword);
 app.use(newsFeedRoutes);
 app.use(profileRoutes);
 app.use(movieListRoutes);
+app.use(quotesRoutes);
 
 app.use((err, req, res, next) => {
   res.status(500).render("500", {});

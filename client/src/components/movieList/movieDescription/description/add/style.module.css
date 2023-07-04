@@ -76,12 +76,6 @@
   padding: 0 17px;
   color: #fff;
 }
-.uploadPhoto input {
-  border: none !important;
-}
-
-.uploadInput {
-}
 
 .forms {
   padding: 0 32px;
@@ -223,4 +217,39 @@
   font-weight: 500;
   font-size: 18px;
   color: #ffffff;
+}
+
+.dargNdrop {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  max-width: none !important;
+}
+
+.dargNdrop span {
+  font-size: 18px !important;
+}
+
+.dargNdrop svg {
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.scrMsg {
+  font-size: 18px;
+  color: green;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}
+.errMsg {
+  font-size: 18px;
+  color: red;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}
+
+.inpErr {
+  color: red;
+  font-size: 16px;
+  margin: 0;
 }

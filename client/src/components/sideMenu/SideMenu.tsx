@@ -6,16 +6,19 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 const SideMenu: React.FC = () => {
-  const { isLoading, error, data } = useQuery("userInfo", () =>
-    axios.get("http://localhost:3001/dashboard", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
-        " Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-    })
+  const { isLoading, error, data } = useQuery(
+    "userInfo",
+    () =>
+      axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
   );
 
   let location = useLocation();

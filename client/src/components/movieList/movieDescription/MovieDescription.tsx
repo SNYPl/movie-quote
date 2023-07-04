@@ -14,22 +14,47 @@ const Description: React.FC = () => {
   let location = useLocation();
   const movieId = location.pathname.split("=")[1];
 
-  const { isLoading, error, data } = useQuery("moviesList", () =>
-    axios.get("http://localhost:3001/movie-list", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
-        " Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-    })
+  const { isLoading, error, data } = useQuery(
+    "getMovie",
+    () =>
+      axios.get(`http://localhost:3001/movie-list/movie/movie=${movieId}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
   );
 
-  const movie = data?.data.movies.filter((el: any) => el._id === movieId);
+  const movie = data?.data.movie;
+
+  const quotes = useQuery(
+    "getMovieQuotes",
+    () =>
+      axios.get(
+        `http://localhost:3001/movie-list/movie/movie=${movieId}/get-quotes`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
+    {
+      refetchOnWindowFocus: false,
+      retry: 0,
+    }
+  );
+
   return (
     <>
-      {addQuote && <AddQuote add={setAddQuote} />}
+      {addQuote && <AddQuote add={setAddQuote} movie={movie} />}
 
       <section className={style.descriptionContainer}>
         <h4>Movie description</h4>
@@ -48,23 +73,46 @@ const Description: React.FC = () => {
         {!isLoading && (
           <DescriptionMovie
             add={setAddQuote}
-            name={movie[0]?.name}
-            nameGeo={movie[0]?.nameGeo}
-            description={movie[0]?.description}
-            directorGeo={movie[0]?.directorGeo}
-            director={movie[0]?.director}
-            descriptionGeo={movie[0]?.descriptionGeo}
-            genre={movie[0]?.genre}
-            year={movie[0]?.year}
-            image={movie[0]?.image}
-            budget={movie[0]?.budget}
-            quotesLength={movie[0]?.quotes.length}
-            id={movie[0]._id}
+            name={movie?.name}
+            nameGeo={movie?.nameGeo}
+            description={movie?.description}
+            directorGeo={movie?.directorGeo}
+            director={movie?.director}
+            descriptionGeo={movie?.descriptionGeo}
+            genre={movie?.genre}
+            year={movie?.year}
+            image={movie?.image}
+            budget={movie?.budget}
+            quotesLength={quotes?.data?.data.quotes.length}
+            id={movie._id}
+            key={movie._id}
           />
         )}
-        {/* {!isLoading && movie[0].quotes.map((el: any) => <Quote />)} */}
-        <Quote />
-        <Quote />
+        {!isLoading &&
+          quotes.data?.data.quotes.map((el: any) => (
+            <Quote
+              text={el.text}
+              textGeo={el.textGeo}
+              image={el.image}
+              likes={el.likes}
+              comments={el.comments.length}
+              id={el._id}
+              key={el._id}
+            />
+          ))}
+
+        {quotes.isLoading && !isLoading && (
+          <MagnifyingGlass
+            visible={true}
+            height="250"
+            width="250"
+            ariaLabel="MagnifyingGlass-loading"
+            wrapperStyle={{}}
+            wrapperClass="MagnifyingGlass-wrapper"
+            glassColor="#c0efff"
+            color="#e15b64"
+          />
+        )}
       </section>
     </>
   );

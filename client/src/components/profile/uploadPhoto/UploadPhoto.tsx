@@ -8,16 +8,19 @@ import axios from "axios";
 const UploadPhoto: React.FC = () => {
   const { setProfileImage, profileImage } = useContext(DashbCtrx);
 
-  const { isLoading, error, data } = useQuery("userInfo", () =>
-    axios.get("http://localhost:3001/dashboard", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
-        " Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-    })
+  const { isLoading, error, data } = useQuery(
+    "userInfo",
+    () =>
+      axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
   );
 
   const onChangeInput = (e: any) => {

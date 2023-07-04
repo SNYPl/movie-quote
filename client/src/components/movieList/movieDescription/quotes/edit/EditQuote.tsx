@@ -1,26 +1,123 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import quoteImg from "../../../../../assets/img/desc1.png";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import axios, { AxiosError } from "axios";
+import { useLocation } from "react-router";
+import { FileUploader } from "react-drag-drop-files";
+import { useNavigate } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
 
-type movie = {
-  quotes: string;
-  quotesGeo: string;
+type quote = {
+  editQuoteText: string;
+  editQuoteTextGeo: string;
 };
 
-interface quoteMode {
-  setQuoteMode: React.Dispatch<React.SetStateAction<string>>;
-}
+const EditQuote: React.FC = () => {
+  const queryClient = useQueryClient();
+  const [errorUser, setErrorUser] = useState("");
+  const [succ, setSucc] = useState("");
+  const navigate = useNavigate();
 
-const EditQuote: React.FC<quoteMode> = ({ setQuoteMode }) => {
+  let location = useLocation();
+  const quoteId = location.pathname.split("=")[1].split("/")[0];
+
+  const { error, isLoading, data } = useQuery(
+    "getQuote",
+    () =>
+      axios.get(
+        `http://localhost:3001/movie-list/quote/quote=${quoteId}/get-quote`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
+    { refetchOnWindowFocus: false }
+  );
+
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
-  } = useForm<movie>();
+  } = useForm<quote>({
+    defaultValues: {
+      editQuoteText: data?.data.quote.text,
+      editQuoteTextGeo: data?.data.quote.textGeo,
+    },
+  });
 
-  const onSubmit = () => {};
+  const [editedImage, setEditedImage] = useState<any>(data?.data.quote.image);
+
+  useEffect(() => {
+    if (data) {
+      reset();
+    }
+  }, [data]);
+  if (data) {
+  }
+
+  const fileTypes = ["JPG", "PNG", "JPEG"];
+
+  const updatedText = watch("editQuoteText", data?.data.quote.text);
+  const updatedTextGeo = watch("editQuoteTextGeo", data?.data.quote.textGeo);
+
+  const handleChange = (file: any) => {
+    let reader = new FileReader();
+    reader?.readAsDataURL(file);
+    reader.onload = () => {
+      setEditedImage(reader?.result);
+    };
+  };
+
+  const { mutate } = useMutation(
+    (quoteEdit: typeof formData) => {
+      return axios.patch(
+        `http://localhost:3001/movie-list/quote/quote=${quoteId}/edit-quote`,
+        quoteEdit,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Origin": "*",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("getQuote");
+        queryClient.invalidateQueries("getMovieQuotes");
+        queryClient.refetchQueries("getMovieQuotes");
+        if (res.status === 200) {
+          setSucc("Quote successfully edited");
+          // navigate(-1);
+        }
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          setErrorUser(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
+  const formData = new FormData();
+  const onSubmit = (data: any) => {
+    setSucc("");
+    formData.append("text", data.editQuoteText);
+    formData.append("textGeo", data.editQuoteTextGeo);
+    formData.append("image", editedImage);
+
+    mutate(formData);
+  };
   return (
     <section className={style.overlay}>
       <article className={style.popUp}>
@@ -48,7 +145,7 @@ const EditQuote: React.FC<quoteMode> = ({ setQuoteMode }) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={style.closeIcon}
-            onClick={() => setQuoteMode("")}
+            onClick={() => navigate(-1)}
           >
             <path
               d="M1.29196 1.29183C1.38485 1.19871 1.4952 1.12482 1.61669 1.07441C1.73818 1.024 1.86842 0.998047 1.99996 0.998047C2.13149 0.998047 2.26173 1.024 2.38322 1.07441C2.50471 1.12482 2.61506 1.19871 2.70796 1.29183L7.99996 6.58583L13.292 1.29183C13.3849 1.19886 13.4953 1.12511 13.6168 1.07479C13.7383 1.02447 13.8685 0.99857 14 0.99857C14.1314 0.99857 14.2616 1.02447 14.3831 1.07479C14.5046 1.12511 14.615 1.19886 14.708 1.29183C14.8009 1.38481 14.8747 1.49519 14.925 1.61667C14.9753 1.73815 15.0012 1.86835 15.0012 1.99983C15.0012 2.13132 14.9753 2.26152 14.925 2.383C14.8747 2.50448 14.8009 2.61486 14.708 2.70783L9.41396 7.99983L14.708 13.2918C14.8009 13.3848 14.8747 13.4952 14.925 13.6167C14.9753 13.7381 15.0012 13.8683 15.0012 13.9998C15.0012 14.1313 14.9753 14.2615 14.925 14.383C14.8747 14.5045 14.8009 14.6149 14.708 14.7078C14.615 14.8008 14.5046 14.8746 14.3831 14.9249C14.2616 14.9752 14.1314 15.0011 14 15.0011C13.8685 15.0011 13.7383 14.9752 13.6168 14.9249C13.4953 14.8746 13.3849 14.8008 13.292 14.7078L7.99996 9.41383L2.70796 14.7078C2.61498 14.8008 2.5046 14.8746 2.38312 14.9249C2.26164 14.9752 2.13144 15.0011 1.99996 15.0011C1.86847 15.0011 1.73827 14.9752 1.61679 14.9249C1.49531 14.8746 1.38493 14.8008 1.29196 14.7078C1.19898 14.6149 1.12523 14.5045 1.07491 14.383C1.02459 14.2615 0.998693 14.1313 0.998693 13.9998C0.998693 13.8683 1.02459 13.7381 1.07491 13.6167C1.12523 13.4952 1.19898 13.3848 1.29196 13.2918L6.58596 7.99983L1.29196 2.70783C1.19883 2.61494 1.12494 2.50459 1.07453 2.3831C1.02412 2.26161 0.998169 2.13137 0.998169 1.99983C0.998169 1.8683 1.02412 1.73806 1.07453 1.61657C1.12494 1.49508 1.19883 1.38473 1.29196 1.29183Z"
@@ -60,9 +157,22 @@ const EditQuote: React.FC<quoteMode> = ({ setQuoteMode }) => {
           <article className={style.author}>
             <div
               className={style.photo}
-              style={{ backgroundImage: `url(${quoteImg})` }}
-            ></div>
-            <h4>Maia Nakashidze</h4>
+              style={{
+                backgroundImage: `url(${data?.data.quoteAuthorData?.image})`,
+              }}
+            >
+              {" "}
+              {isLoading && (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="30"
+                  visible={true}
+                />
+              )}
+            </div>
+            <h4>{data?.data.quoteAuthorData.name}</h4>
           </article>
         </section>
 
@@ -72,41 +182,91 @@ const EditQuote: React.FC<quoteMode> = ({ setQuoteMode }) => {
               <span>Eng</span>
               <input
                 type="textarea"
-                placeholder="Quote in English."
-                id="description"
-                {...register("quotes", {
+                placeholder={`Enter quote`}
+                id="quoteTextsss"
+                value={updatedText}
+                {...register("editQuoteText", {
                   required: {
                     value: true,
                     message: "Fill field",
                   },
+                  minLength: {
+                    value: 3,
+                    message: "minimum length 3",
+                  },
+
+                  pattern: {
+                    value: /^[a-zA-Z0-9_ ]*$/,
+                    message: "only english words !",
+                  },
                 })}
               />
-              {errors.quotes && <p>{errors.quotes.message}</p>}
             </div>
+            {errors.editQuoteText && (
+              <p className={`${style.inpErr}`}>
+                {errors.editQuoteText.message}
+              </p>
+            )}
 
             <div className={`${style.input}  ${style.desc}`}>
               <span>ქარ</span>
               <input
                 type="textarea"
-                placeholder="ციტატა ქართულ ენაზე"
-                id="descriptionGeo"
-                {...register("quotesGeo", {
+                placeholder={`დაწერეთ ციტატა`}
+                id="textGeoInp"
+                value={updatedTextGeo}
+                {...register("editQuoteTextGeo", {
                   required: {
                     value: true,
                     message: "Fill field",
                   },
+                  minLength: {
+                    value: 3,
+                    message: "minimum length 3",
+                  },
+                  pattern: {
+                    value: /^[\u10A0-\u10FF]*$/,
+                    message: "მხოლოდ ქართული ასოები !",
+                  },
                 })}
               />
-              {errors.quotesGeo && <p>{errors.quotesGeo.message}</p>}
             </div>
+            {errors.editQuoteTextGeo && (
+              <p className={`${style.inpErr}`}>
+                {errors.editQuoteTextGeo.message}
+              </p>
+            )}
+
             <div className={style.photoQuot}>
-              <img src={quoteImg} alt="img" />
-              <div className={style.changePhoto}></div>
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="80"
+                  visible={true}
+                />
+              ) : (
+                <img
+                  src={!editedImage ? data?.data.quote.image : editedImage}
+                  alt="img"
+                />
+              )}
+              <FileUploader
+                handleChange={handleChange}
+                name="image"
+                maxSize="1"
+                fileTypes={fileTypes}
+                classes={style.dargNdrop}
+                label="UPLOAD or drag Photo"
+              />
             </div>
             <button type="submit" className={style.addBtn}>
               Save Changes
             </button>
           </form>
+          {errorUser && <p className={style.errMsg}>{errorUser}</p>}
+          {succ && <p className={style.scrMsg}>{succ}</p>}
         </section>
       </article>
     </section>

@@ -5,6 +5,10 @@
   width: 57%;
   margin-bottom: 40px;
 }
+
+.quote a {
+  text-decoration: none;
+}
 .quoteTitle {
   border-bottom: 1px solid rgba(239, 239, 239, 0.3);
   display: flex;
@@ -19,6 +23,7 @@
 }
 .quotePhoto img {
   width: 100%;
+  height: 100%;
 }
 .quoteTitle h4 {
   margin: 0;
@@ -65,4 +70,10 @@
 
 .comments {
   margin-bottom: 24px;
+}
+
+.imgTextInfo {
+  align-items: center;
+  display: flex;
+  column-gap: 34px;
 }

@@ -11,16 +11,19 @@ import { MagnifyingGlass } from "react-loader-spinner";
 const List: React.FC = () => {
   const [addMovie, setAddMovie] = useState(false);
 
-  const { isLoading, error, data } = useQuery("moviesList", () =>
-    axios.get("http://localhost:3001/movie-list", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
-        " Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-    })
+  const { isLoading, error, data } = useQuery(
+    "moviesList",
+    () =>
+      axios.get("http://localhost:3001/movie-list", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
   );
 
   return (

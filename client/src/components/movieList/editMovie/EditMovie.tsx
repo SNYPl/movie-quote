@@ -44,9 +44,9 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const movieId = location.pathname.split("=")[1];
 
   const { isLoading, error, data } = useQuery(
-    "moviesList",
+    "getMovie",
     () =>
-      axios.get("http://localhost:3001/movie-list", {
+      axios.get(`http://localhost:3001/movie-list/movie/movie=${movieId}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -55,24 +55,25 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
         },
         withCredentials: true,
       }),
-    {
-      staleTime: 2000,
-    }
+    { refetchOnWindowFocus: false }
   );
 
-  const movie = data?.data.movies.filter((el: any) => el._id === movieId);
+  const movie = data?.data.movie;
 
   //cache
-  const username = useQuery("userInfo", () =>
-    axios.get("http://localhost:3001/dashboard", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
-        " Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-    })
+  const username = useQuery(
+    "userInfo",
+    () =>
+      axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
   );
 
   const fileTypes = ["JPG", "PNG", "JPEG"];
@@ -85,18 +86,15 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
     };
   };
 
-  const updatedName = watch("updatedName", movie[0].name);
-  const updatedNameGeo = watch("nameGeo", movie[0].nameGeo);
-  const updatedGenre = watch("genre", movie[0].genre);
-  const updatedYear = watch("year", movie[0].year);
-  const updatedDirector = watch("director", movie[0].director);
-  const updatedDirectorGeo = watch("directorGeo", movie[0].directorGeo);
-  const updatedDescription = watch("description", movie[0].description);
-  const updatedDescriptionGeo = watch(
-    "descriptionGeo",
-    movie[0].descriptionGeo
-  );
-  const updatedBudget = watch("budget", movie[0].budget);
+  const updatedName = watch("updatedName", movie.name);
+  const updatedNameGeo = watch("nameGeo", movie.nameGeo);
+  const updatedGenre = watch("genre", movie.genre);
+  const updatedYear = watch("year", movie.year);
+  const updatedDirector = watch("director", movie.director);
+  const updatedDirectorGeo = watch("directorGeo", movie.directorGeo);
+  const updatedDescription = watch("description", movie.description);
+  const updatedDescriptionGeo = watch("descriptionGeo", movie.descriptionGeo);
+  const updatedBudget = watch("budget", movie.budget);
 
   const { mutate } = useMutation(
     (userInfo: typeof formData) => {
@@ -216,7 +214,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /[\u10A0-\u10FF]/,
+                    value: /^[\u10A0-\u10FF]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
@@ -309,7 +307,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /[\u10A0-\u10FF]/,
+                    value: /^[\u10A0-\u10FF]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
@@ -380,7 +378,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /[\u10A0-\u10FF]/,
+                    value: /^[\u10A0-\u10FF]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}

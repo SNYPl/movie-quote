@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import quoteImg from "../../../../../assets/img/desc1.png";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import axios, { AxiosError } from "axios";
+import { FileUploader } from "react-drag-drop-files";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
+  movie: any;
 }
 
 type movie = {
@@ -12,15 +16,87 @@ type movie = {
   quotesGeo: string;
 };
 
-const AddQuote: React.FC<addBtn> = ({ add }) => {
+const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<movie>();
+  const [quoteImg, setQuoteImg] = useState<any>("");
+  const queryClient = useQueryClient();
+  const [errorUser, setErrorUser] = useState("");
 
-  const onSubmit = () => {};
+  const handleChange = (file: any) => {
+    let reader = new FileReader();
+    reader?.readAsDataURL(file);
+    reader.onload = () => {
+      setQuoteImg(reader?.result);
+    };
+  };
+
+  const fileTypes = ["JPG", "PNG", "JPEG"];
+
+  const username = useQuery(
+    "userInfo",
+    () =>
+      axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
+  );
+
+  const movieImg = movie.image;
+  const movieName = movie.name;
+  const genres = movie.genre;
+  const movieYear = movie.year;
+  const movieDirector = movie.director;
+  const id = movie._id;
+
+  const { mutate } = useMutation(
+    (movieInfo: typeof formData) => {
+      return axios.patch(
+        `http://localhost:3001/movie-list/movie/movie=${id}/add-quote`,
+        movieInfo,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Origin": "*",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("getMovieQuotes");
+        queryClient.refetchQueries("getMovieQuotes");
+        if (res.status === 200) add(false);
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          setErrorUser(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
+  const formData = new FormData();
+
+  const onSubmit = (data: any) => {
+    formData.append("text", data.quotes);
+    formData.append("textGeo", data.quotesGeo);
+    formData.append("quoteImage", quoteImg);
+
+    mutate(formData);
+  };
   return (
     <section className={style.overlay}>
       <article className={style.popUp}>
@@ -44,27 +120,30 @@ const AddQuote: React.FC<addBtn> = ({ add }) => {
           <article className={style.author}>
             <div
               className={style.photo}
-              style={{ backgroundImage: `url(${quoteImg})` }}
+              style={{ backgroundImage: `url(${username.data?.data.image})` }}
             ></div>
-            <h4>Maia Nakashidze</h4>
+            <h4>{username.data?.data.username}</h4>
           </article>
 
           <article className={style.movie}>
             <div className={style.moviePhoto}>
-              <img src={quoteImg} alt="movie" />
+              <img src={movieImg} alt="movie" />
             </div>
             <article className={style.movieDesc}>
               <div className={style.descTitle}>
-                <h3>Commitment Hasan (1999)</h3>
+                <h3>
+                  {movieName} ({movieYear})
+                </h3>
               </div>
 
               <div className={style.genres}>
-                <p>Drama</p>
-                <p>Romance</p>
+                {genres.map((el: string) => (
+                  <p>{el}</p>
+                ))}
               </div>
 
               <p className={style.director}>
-                Director: <span>Nick cassavates</span>
+                Director: <span>{movieDirector}</span>
               </p>
             </article>
           </article>
@@ -77,42 +156,72 @@ const AddQuote: React.FC<addBtn> = ({ add }) => {
               <input
                 type="textarea"
                 placeholder="Quote in English."
-                id="description"
+                id="quotes"
                 {...register("quotes", {
                   required: {
                     value: true,
                     message: "Fill field",
                   },
+                  minLength: {
+                    value: 3,
+                    message: "minimum length 3",
+                  },
+
+                  pattern: {
+                    value: /^[a-zA-Z0-9_ ]*$/,
+                    message: "only english words !",
+                  },
                 })}
               />
-              {errors.quotes && <p>{errors.quotes.message}</p>}
             </div>
+            {errors.quotes && (
+              <p className={`${style.inpErr}`}>{errors.quotes.message}</p>
+            )}
 
             <div className={`${style.input}  ${style.desc}`}>
               <span>ქარ</span>
               <input
                 type="textarea"
                 placeholder="ციტატა ქართულ ენაზე"
-                id="descriptionGeo"
+                id="quotesGeo"
                 {...register("quotesGeo", {
                   required: {
                     value: true,
                     message: "Fill field",
                   },
+                  minLength: {
+                    value: 3,
+                    message: "minimum length 3",
+                  },
+                  pattern: {
+                    value: /^[\u10A0-\u10FF]*$/,
+                    message: "მხოლოდ ქართული ასოები !",
+                  },
                 })}
               />
-              {errors.quotesGeo && <p>{errors.quotesGeo.message}</p>}
             </div>
 
+            {errors.quotesGeo && (
+              <p className={`${style.inpErr}`}>{errors.quotesGeo.message}</p>
+            )}
+
             <div className={style.uploadPhoto}>
-              <input type="file" />
-              <input type="file" className={style.uploadInput} />
+              <FileUploader
+                handleChange={handleChange}
+                name="file"
+                types={fileTypes}
+                maxSize="1"
+                required
+                classes={style.dargNdrop}
+                label="UPLOAD or drop image here"
+              />
             </div>
 
             <button type="submit" className={style.addBtn}>
               Add Quote
             </button>
           </form>
+          {errorUser && <p className={style.errMsg}>{errorUser}</p>}
         </section>
       </article>
     </section>

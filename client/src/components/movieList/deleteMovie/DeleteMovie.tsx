@@ -45,7 +45,7 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <h4>Edit Movie</h4>
+          <h4>Delete Movie</h4>
           <svg
             width="16"
             height="16"

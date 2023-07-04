@@ -1,6 +1,6 @@
 .overlay {
   height: 100%;
-  background: rgba(0, 0, 0, 0.54);
+  /* background: rgba(0, 0, 0, 0.54); */
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -9,6 +9,7 @@
   left: 0;
   z-index: 5;
   width: 100%;
+  padding-bottom: 35px;
 }
 
 .popUp {
@@ -17,6 +18,8 @@
   padding: 40px 0;
   width: 50%;
   margin-top: 25px;
+  border: 1px solid #2f2d3f;
+  margin-bottom: 20px;
 }
 
 .title {

@@ -8,10 +8,10 @@ exports.addMovie = async (req, res, next) => {
   const genres = req.body.genre.split(",");
 
   try {
-    const userExist = await Movie.find({
+    const movieExist = await Movie.find({
       $or: [{ name: req.body.name }, { nameGeo: req.body.nameGeo }],
     });
-    if (userExist.length > 0)
+    if (movieExist.length > 0)
       return res
         .status(400)
         .send({ message: "movie on that name, already added" });
@@ -56,17 +56,6 @@ exports.getAllMovie = async (req, res, next) => {
   return res.status(200).send({ movies: records });
 };
 
-// exports.getMovie = async (req, res, next) => {
-//   const username = req.user.username;
-//   console.log(req);
-//   console.log("aqaa");
-
-// const user = await User.findOne({ username: username }, "movies _id");
-// const records = await Movie.find().where("_id").in(user.movies).exec();
-
-// return res.status(200).send({ movies: records });
-// };
-
 exports.editMovie = async (req, res, next) => {
   const username = req.user.username;
   const movieId = req.body.id;
@@ -87,7 +76,7 @@ exports.editMovie = async (req, res, next) => {
       descriptionGeo: req.body.descriptionGeo,
       budget: req.body.budget,
       image: req.body.image,
-    }).then((res) => console.log("edited"));
+    });
 
     res.status(200).send({ message: "movie edited" });
   } catch (err) {
@@ -102,12 +91,29 @@ exports.deleteMovie = async (req, res, next) => {
   if (!username) return res.status(401).send("invalid username or token");
 
   try {
-    Movie.findByIdAndDelete(movieId).then((res) =>
-      res.status(200).send({ message: "movie deleted" })
-    );
+    // Movie.findByIdAndDelete(movieId).then((res) =>
+    //   res.status(200).send({ message: "movie deleted" })
+    // );
+
+    const deleteMovie = await Movie.deleteOne({ _id: movieId });
 
     res.status(200).send({ message: "movie deleted" });
   } catch (err) {
     res.status(403).send(err.message);
+  }
+};
+
+exports.getMovie = async (req, res, next) => {
+  const username = req.user.username;
+  if (!username) return res.status(401).send("invalid username or token");
+
+  const movieId = req.url.split("=");
+  const id = movieId[1];
+  try {
+    const records = await Movie.findById(id);
+
+    return res.status(200).send({ movie: records });
+  } catch (err) {
+    return res.status(403).send({ message: err.message });
   }
 };

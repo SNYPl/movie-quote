@@ -24,16 +24,19 @@ interface addMovie {
 const fileTypes = ["JPG", "PNG", "JPEG"];
 
 const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
-  const { isLoading, error, data } = useQuery("userInfo", () =>
-    axios.get("http://localhost:3001/dashboard", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
-        " Access-Control-Allow-Credentials": true,
-      },
-      withCredentials: true,
-    })
+  const { isLoading, error, data } = useQuery(
+    "userInfo",
+    () =>
+      axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
   );
 
   const queryClient = useQueryClient();
@@ -168,7 +171,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /[\u10A0-\u10FF]/,
+                    value: /^[\u10A0-\u10FF]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
@@ -242,7 +245,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /[\u10A0-\u10FF]/,
+                    value: /^[\u10A0-\u10FF]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
@@ -301,7 +304,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /[\u10A0-\u10FF]/,
+                    value: /^[\u10A0-\u10FF]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
