@@ -88,17 +88,16 @@ const SignIn: React.FC = () => {
             path: "/",
             expires: expiration,
           });
+          cookies.set("isLoggedIn", true, {
+            path: "/",
+            expires: expiration,
+          });
 
           if (remember) {
-            cookies.set("login", true, {
+            cookies.set("remember", true, {
               path: "/",
               expires: expiration,
             });
-            // cookies.set("user", res.data.username, {
-            //   path: "/",
-            //   expires: expiration,
-            //   secure: false,
-            // });
           }
 
           navigate("/dashboard");

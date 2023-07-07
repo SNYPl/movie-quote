@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./style.module.css";
 import QuoteMenu from "./quoteMenu/QuoteMenu";
 import EditQuote from "./edit/EditQuote";
+import { Link } from "react-router-dom";
 
 interface quoteInfo {
   text: string;
@@ -21,18 +22,18 @@ const Quote: React.FC<quoteInfo> = ({
   id,
 }) => {
   const [quoteMenu, setQuoteMenu] = useState(false);
-  // const [quoteMode, setQuoteMode] = useState<string>("");
+
   return (
     <section className={style.quote}>
       <article className={style.quoteTitle}>
-        <a href={`/dashboard/movie-list/quote/quote=${id}`}>
+        <Link to={`/dashboard/movie-list/quote/quote=${id}`}>
           <div className={style.imgTextInfo}>
             <div className={style.quotePhoto}>
               <img src={image} alt="img" />
             </div>
             <h4>" {text} "</h4>
           </div>
-        </a>
+        </Link>
         <div className={style.menuDot}>
           {quoteMenu && <QuoteMenu id={id} />}
           <svg

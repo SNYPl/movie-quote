@@ -8,8 +8,9 @@ const DashboardNavigation: React.FC = () => {
   const cookies = new Cookies();
 
   const logout = () => {
-    cookies.remove("login", { path: "/" });
+    cookies.remove("remember", { path: "/" });
     cookies.remove("token", { path: "/" });
+    cookies.remove("isLoggedIn", { path: "/" });
 
     setLogin(false);
   };

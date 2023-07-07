@@ -131,9 +131,13 @@ exports.deleteMovieQuote = async (req, res, next) => {
   if (!username) return res.status(401).send("invalid username or token");
   const id = req.body.id;
   try {
+    const movies = await Movie.find({ quotes: id });
+
     const deleted = await Quote.deleteOne({ _id: id });
 
-    return res.status(200).send("quote deleted");
+    return res
+      .status(200)
+      .send({ message: "quote deleted", movie: movies[0]._id });
   } catch (err) {
     return res.status(403).send(err.message);
   }

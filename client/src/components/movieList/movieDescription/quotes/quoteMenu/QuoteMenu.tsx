@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { Oval } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 interface quoteMode {
   id: string;
@@ -57,9 +58,9 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
           />
         </svg>
 
-        <a href={`/dashboard/movie-list/quote/quote=${id}`}>
+        <Link to={`/dashboard/movie-list/quote/quote=${id}`}>
           <h4>View Quote</h4>
-        </a>
+        </Link>
       </div>
       <div
         className={`${style.menuItem} ${style.edit}`}
@@ -85,9 +86,9 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
           </defs>
         </svg>
 
-        <a href={`/dashboard/movie-list/quote/quote=${id}/edit-quote`}>
+        <Link to={`/dashboard/movie-list/quote/quote=${id}/edit-quote`}>
           <h4>Edit</h4>
-        </a>
+        </Link>
       </div>
 
       <div

@@ -19,23 +19,30 @@ function App() {
   const { setLogin, login } = useContext(loginContx);
   const navigate = useNavigate();
   let location = useLocation();
-
   const cookies = new Cookies();
+
   useEffect(() => {
-    if (cookies.get("login") === "true" && cookies.get("token")) {
+    if (!cookies.get("remember")) {
+      cookies.remove("token", { path: "/" });
+      cookies.remove("isLoggedIn", { path: "/" });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cookies.get("isLoggedIn") && cookies.get("token")) {
       setLogin(true);
-    } else if (cookies.get("login") === "unVerified") {
-      setLogin("unVerified");
+    } else if (cookies.get("remember") && cookies.get("token")) {
+      setLogin(true);
     } else {
       setLogin(false);
     }
-  }, [cookies.get("login")]);
+  }, [cookies.get("isLoggedIn")]);
 
   useEffect(() => {
     if (login && location.pathname === "/") {
       navigate("/dashboard");
     }
-  }, [login]);
+  }, [cookies.get("isLoggedIn")]);
 
   return (
     <div className="App">
@@ -50,9 +57,7 @@ function App() {
           path="/dashboard"
           element={
             login === true ? (
-              <DashboardProvider>
-                <Dashboard />
-              </DashboardProvider>
+              <DashboardProvider>{<Dashboard />}</DashboardProvider>
             ) : login === "unVerified" ? (
               <SendVerifyMail />
             ) : (

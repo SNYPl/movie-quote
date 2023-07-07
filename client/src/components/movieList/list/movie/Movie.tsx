@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
+import { Link } from "react-router-dom";
 
 interface movie {
   name: string;
@@ -16,12 +17,12 @@ const Movie: React.FC<movie> = ({ name, year, quotesLength, image, id }) => {
         <img src={image} alt="movie" />
       </div>
       <h5 className={style.movieTitle}>
-        <a
+        <Link
           className={style.title}
-          href={`/dashboard/movie-list/movie/movie=${id}`}
+          to={`/dashboard/movie-list/movie/movie=${id}`}
         >
           {name} ({year}){" "}
-        </a>
+        </Link>
       </h5>
       <div className={style.commentInfo}>
         <span>{quotesLength}</span>

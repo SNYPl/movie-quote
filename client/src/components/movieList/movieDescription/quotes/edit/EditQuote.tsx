@@ -6,7 +6,8 @@ import axios, { AxiosError } from "axios";
 import { To, useLocation } from "react-router";
 import { FileUploader } from "react-drag-drop-files";
 import { useNavigate } from "react-router-dom";
-import { RotatingLines } from "react-loader-spinner";
+import { Oval, RotatingLines } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 type quote = {
   editQuoteText: string;
@@ -118,11 +119,42 @@ const EditQuote: React.FC = () => {
 
     mutate(formData);
   };
+
+  //delete quote
+
+  const deleteQuote = useMutation(
+    (movie: any) => {
+      return axios.delete(
+        "http://localhost:3001/movie-list/movie/delete-quote",
+        {
+          data: { id: quoteId },
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("getMovieQuotes");
+        // queryClient.invalidateQueries("moviesList");
+        navigate(`/dashboard/movie-list/movie/movie=${res.data.movie}`);
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          // setErr(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
+  const deleteQuoteHandler = () => {
+    deleteQuote.mutate({ id: quoteId });
+  };
+
   return (
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <div className={style.titleIcon}>
+          <div className={style.titleIcon} onClick={deleteQuoteHandler}>
             <svg
               width="20"
               height="20"
@@ -135,7 +167,24 @@ const EditQuote: React.FC = () => {
                 fill="white"
               />
             </svg>
-            <p>Delete</p>
+            <p>
+              {deleteQuote.isLoading ? (
+                <Oval
+                  height={20}
+                  width={20}
+                  color="#4fa94d"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#4fa94d"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+              ) : (
+                "Delete"
+              )}
+            </p>
           </div>
           <h4>Edit Quote</h4>
           <svg
