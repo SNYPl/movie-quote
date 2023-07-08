@@ -137,8 +137,8 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
               </div>
 
               <div className={style.genres}>
-                {genres.map((el: string) => (
-                  <p>{el}</p>
+                {genres.map((el: string, id: any) => (
+                  <p key={id}>{el}</p>
                 ))}
               </div>
 
@@ -200,6 +200,9 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
                 })}
               />
             </div>
+            <select disabled className={`${style.selector}`}>
+              <option value={movieName}>{movieName}</option>
+            </select>
 
             {errors.quotesGeo && (
               <p className={`${style.inpErr}`}>{errors.quotesGeo.message}</p>

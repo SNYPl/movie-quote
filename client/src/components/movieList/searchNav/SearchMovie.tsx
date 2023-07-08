@@ -5,9 +5,10 @@ import axios from "axios";
 
 interface addMovie {
   setAddMovie: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchMovie: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchMovie: React.FC<addMovie> = ({ setAddMovie }) => {
+const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
   const { isLoading, error, data } = useQuery(
     "moviesList",
     () =>
@@ -45,7 +46,11 @@ const SearchMovie: React.FC<addMovie> = ({ setAddMovie }) => {
             />
           </svg>
 
-          <input type="search" placeholder="Search" />
+          <input
+            type="search"
+            placeholder="Search"
+            onChange={(e: any) => setSearchMovie(e.target.value)}
+          />
         </div>
         <button onClick={() => setAddMovie(true)}>
           <span>

@@ -65,7 +65,7 @@ exports.editMovie = async (req, res, next) => {
   const genres = req.body.genre.split(",");
 
   try {
-    Movie.findByIdAndUpdate(movieId, {
+    await Movie.findByIdAndUpdate(movieId, {
       name: req.body.updatedName,
       nameGeo: req.body.nameGeo,
       genre: genres,
@@ -76,7 +76,7 @@ exports.editMovie = async (req, res, next) => {
       descriptionGeo: req.body.descriptionGeo,
       budget: req.body.budget,
       image: req.body.image,
-    });
+    }).then();
 
     res.status(200).send({ message: "movie edited" });
   } catch (err) {

@@ -2,53 +2,53 @@ import React, { useState } from "react";
 import style from "./style.module.css";
 import EditMovie from "../../editMovie/EditMovie";
 import DeleteMovie from "../../deleteMovie/DeleteMovie";
+import { useLocation } from "react-router";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
-  name: string;
-  nameGeo: string;
-  description: string;
-  descriptionGeo: string;
-  budget: string;
-  director: string;
-  directorGeo: string;
-  year: string;
-  image: string;
   quotesLength: number;
-  genre: [];
-  id: string;
 }
 
-const Description: React.FC<addBtn> = ({
-  add,
-  name,
-  nameGeo,
-  director,
-  directorGeo,
-  description,
-  descriptionGeo,
-  year,
-  budget,
-  image,
-  genre,
-  quotesLength,
-  id,
-}) => {
+const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
   const [editMovie, setEditMovie] = useState(false);
   const [deleteMovie, setDeleteMovie] = useState(false);
 
+  let location = useLocation();
+  const movieId = location.pathname.split("=")[1];
+
+  const { isLoading, error, data } = useQuery(
+    "getMovie",
+    () =>
+      axios.get(`http://localhost:3001/movie-list/movie/movie=${movieId}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
+  );
+
   return (
     <section className={style.description}>
-      {editMovie && <EditMovie setEditMovie={setEditMovie} image={image} />}
-      {deleteMovie && <DeleteMovie setDeleteMovie={setDeleteMovie} id={id} />}
+      {editMovie && (
+        <EditMovie setEditMovie={setEditMovie} image={data?.data.movie.image} />
+      )}
+      {deleteMovie && (
+        <DeleteMovie setDeleteMovie={setDeleteMovie} id={data?.data.movie.id} />
+      )}
       <article className={style.movie}>
         <div className={style.moviePhoto}>
-          <img src={image} alt="movieImg" />
+          <img src={data?.data.movie.image} alt="movieImg" />
         </div>
         <article className={style.movieDesc}>
           <div className={style.title}>
             <h3>
-              {name} ({year})
+              {data?.data.movie.name} ({data?.data.movie.year})
             </h3>
             <div className={style.titleIcon}>
               <svg
@@ -91,20 +91,22 @@ const Description: React.FC<addBtn> = ({
           </div>
 
           <div className={style.genres}>
-            {genre.map((el: string) => (
-              <p>{el}</p>
+            {data?.data.movie.genre.map((el: string, id: string) => (
+              <p key={id}>{el}</p>
             ))}
           </div>
 
           <p className={style.director}>
-            Director: <span>{director}</span>
+            Director: <span>{data?.data.movie.director}</span>
           </p>
 
           <p className={style.director}>
-            Budget: <span>{budget}</span>
+            Budget: <span>{data?.data.movie.budget}</span>
           </p>
 
-          <pre className={style.descriptionText}>{description}</pre>
+          <pre className={style.descriptionText}>
+            {data?.data.movie.description}
+          </pre>
         </article>
       </article>
 

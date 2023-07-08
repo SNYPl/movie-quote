@@ -75,6 +75,8 @@ exports.getQuoteById = async (req, res, next) => {
   const id = quoteId[1];
 
   try {
+    const movies = await Movie.findOne({ quotes: id });
+
     const quote = await Quote.findOne({ _id: id });
 
     const quoteAuthor = await User.findOne({ _id: quote.quoteAuthor });
@@ -85,6 +87,7 @@ exports.getQuoteById = async (req, res, next) => {
         name: quoteAuthor.username,
         image: quoteAuthor.image,
       },
+      movie: movies._id,
     });
   } catch (err) {
     return res.status(403).send(err.message);

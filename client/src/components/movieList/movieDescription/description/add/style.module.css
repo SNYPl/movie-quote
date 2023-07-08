@@ -253,3 +253,16 @@
   font-size: 16px;
   margin: 0;
 }
+
+.selector {
+  height: 86px;
+  border-radius: 4px;
+  background: #000;
+  width: 100%;
+  padding: 0 16px;
+  color: #fff;
+  font-family: helveticaGeoLight;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+}

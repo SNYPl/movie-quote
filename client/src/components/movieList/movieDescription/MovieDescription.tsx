@@ -73,19 +73,7 @@ const Description: React.FC = () => {
         {!isLoading && (
           <DescriptionMovie
             add={setAddQuote}
-            name={movie?.name}
-            nameGeo={movie?.nameGeo}
-            description={movie?.description}
-            directorGeo={movie?.directorGeo}
-            director={movie?.director}
-            descriptionGeo={movie?.descriptionGeo}
-            genre={movie?.genre}
-            year={movie?.year}
-            image={movie?.image}
-            budget={movie?.budget}
             quotesLength={quotes?.data?.data.quotes.length}
-            id={movie._id}
-            key={movie._id}
           />
         )}
         {!isLoading &&

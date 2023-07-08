@@ -5,6 +5,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { useLocation } from "react-router";
+import { RotatingLines } from "react-loader-spinner";
 
 type movie = {
   updatedName: string;
@@ -96,7 +97,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const updatedDescriptionGeo = watch("descriptionGeo", movie.descriptionGeo);
   const updatedBudget = watch("budget", movie.budget);
 
-  const { mutate } = useMutation(
+  const editmovie = useMutation(
     (userInfo: typeof formData) => {
       return axios.patch(
         "http://localhost:3001/movie-list/edit-movie",
@@ -113,8 +114,11 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
     },
     {
       onSuccess: (res) => {
-        queryClient.invalidateQueries("moviesList");
-        queryClient.refetchQueries("moviesList");
+        queryClient.invalidateQueries("getMovie");
+        queryClient.refetchQueries("getMovie");
+        // queryClient.invalidateQueries("moviesList");
+        // queryClient.refetchQueries("moviesList");
+
         if (res.status === 200) setSucc(res.data.message);
         setEditMovie(false);
       },
@@ -141,7 +145,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
     formData.append("image", editedImage);
     formData.append("id", movieId);
 
-    mutate(formData);
+    editmovie.mutate(formData);
   };
 
   return (
@@ -404,7 +408,17 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
             {succ && <p className={style.scrMsg}>{succ}</p>}
             {errorUser && <p className={style.errMsg}>{errorUser}</p>}
             <button type="submit" className={style.addBtn}>
-              Edit Movie
+              {editmovie.isLoading ? (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="40"
+                  visible={true}
+                />
+              ) : (
+                "Edit Movie"
+              )}
             </button>
           </form>
         </section>

@@ -9,9 +9,9 @@ import { useQuery } from "react-query";
 
 const Dashboard: React.FC = () => {
   const { isLoading, error, data } = useQuery(
-    "userInfo",
+    "quotesInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get("http://localhost:3001/newsFeed", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

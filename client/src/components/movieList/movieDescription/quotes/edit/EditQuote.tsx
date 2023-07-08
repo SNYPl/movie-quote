@@ -135,7 +135,6 @@ const EditQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getMovieQuotes");
-        // queryClient.invalidateQueries("moviesList");
         navigate(`/dashboard/movie-list/movie/movie=${res.data.movie}`);
       },
       onError: (err) => {
@@ -195,7 +194,7 @@ const EditQuote: React.FC = () => {
             xmlns="http://www.w3.org/2000/svg"
             className={style.closeIcon}
             onClick={() => {
-              navigate(`../quote/quote=${quoteId}`, { replace: true });
+              navigate(`/dashboard/movie-list/movie/movie=${data?.data.movie}`);
             }}
           >
             <path
