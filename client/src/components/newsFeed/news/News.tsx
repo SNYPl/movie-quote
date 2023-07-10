@@ -2,25 +2,32 @@ import React from "react";
 import style from "./style.module.css";
 import quoteImg from "../../../assets/img/imgNews.png";
 
-const News: React.FC = () => {
+interface quote {
+  quote: any;
+}
+
+const News: React.FC<quote> = ({ quote }) => {
+  console.log(quote);
   return (
     <section className={style.news}>
       <article className={style.author}>
         <div
           className={style.photo}
-          style={{ backgroundImage: `url(${quoteImg})` }}
+          style={{ backgroundImage: `url(${quote.quoteAuthor.image})` }}
         ></div>
-        <h4>Maia Nakashidze</h4>
+        <h4>{quote.quoteAuthor.authorName}</h4>
       </article>
       <p className={style.quote}>
-        Follow your dream.”movie- Billy Elliot. (2000)
+        {quote.quote.text}. "movie -{" "}
+        <span className={style.quoteMovieName}>{quote.movie.name}</span>." (
+        {quote.movie.year})
       </p>
       <div className={style.newsImg}>
-        <img src={quoteImg} alt="movie" />
+        <img src={quote.quote.image} alt="quoteImg" />
       </div>
       <article className={style.reactions}>
         <div className={style.commentsCount}>
-          <p>3</p>
+          <p>{quote.quote.comments.length}</p>
           <svg
             width="32"
             height="31"
@@ -35,7 +42,7 @@ const News: React.FC = () => {
           </svg>
         </div>
         <div className={style.likes}>
-          <p>10</p>
+          <p>{quote.quote.likes}</p>
           <svg
             width="32"
             height="30"
@@ -52,41 +59,30 @@ const News: React.FC = () => {
       </article>
 
       <section className={style.comments}>
-        <article className={style.comment}>
-          <div
-            className={style.commentPhoto}
-            style={{ backgroundImage: `url(${quoteImg})` }}
-          ></div>
-          <div className={style.commentInfo}>
-            <h4>Nina Baladze</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque nunc vel massa facilisis consequat elit morbi
-              convallis convallis. Volutpat vitae et nisl et. Adipiscing enim
-              integer mi leo nisl. Arcu vitae mauris odio eget.
-            </p>
-          </div>
-        </article>
-        <article className={style.comment}>
-          <div
-            className={style.commentPhoto}
-            style={{ backgroundImage: `url(${quoteImg})` }}
-          ></div>
-          <div className={style.commentInfo}>
-            <h4>Nika Cecxladze</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque nunc vel massa facilisis consequat elit morbi
-              convallis convallis.
-            </p>
-          </div>
-        </article>
+        {quote.quote.comments.map((el: any) => (
+          <article className={style.comment}>
+            <div
+              className={style.commentPhoto}
+              style={{ backgroundImage: `url(${quoteImg})` }}
+            ></div>
+            <div className={style.commentInfo}>
+              <h4>Nina Baladze</h4>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Pellentesque nunc vel massa facilisis consequat elit morbi
+                convallis convallis. Volutpat vitae et nisl et. Adipiscing enim
+                integer mi leo nisl. Arcu vitae mauris odio eget.
+              </p>
+            </div>
+          </article>
+        ))}
+        ;
       </section>
 
       <section className={style.commentWrite}>
         <div
           className={style.writeAuthorPhoto}
-          style={{ backgroundImage: `url(${quoteImg})` }}
+          style={{ backgroundImage: `url(${quote.user.image})` }}
         ></div>
         <input type="text" placeholder="Write a comment" />
       </section>

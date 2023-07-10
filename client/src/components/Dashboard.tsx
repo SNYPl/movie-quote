@@ -8,21 +8,6 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const Dashboard: React.FC = () => {
-  const { isLoading, error, data } = useQuery(
-    "quotesInfo",
-    () =>
-      axios.get("http://localhost:3001/newsFeed", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
-    { refetchOnWindowFocus: false }
-  );
-
   return (
     <div className={style.dashboard}>
       <header className={style.nav}>

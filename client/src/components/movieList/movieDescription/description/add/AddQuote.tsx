@@ -94,6 +94,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
     formData.append("text", data.quotes);
     formData.append("textGeo", data.quotesGeo);
     formData.append("quoteImage", quoteImg);
+    formData.append("movie", movieName);
 
     mutate(formData);
   };

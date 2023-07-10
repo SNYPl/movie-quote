@@ -24,6 +24,11 @@ const quoteSchema = new Schema(
     likes: {
       type: Number,
     },
+    movie: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "movie",
+      required: true,
+    },
     comments: [
       {
         commentAuthor: {

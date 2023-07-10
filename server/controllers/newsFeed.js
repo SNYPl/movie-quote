@@ -6,21 +6,39 @@ exports.newsFeedQuotes = async (req, res, next) => {
   const username = req.user.username;
 
   const user = await User.findOne({ $or: [{ username }, { email: username }] });
-  // const quotes = await Quote.find();
 
   if (!user) return res.status(401).send("something problem");
-  const movies = await Movie.find().populate("quotes");
 
-  const quotes = await Movie.find().populate({
-    path: "quotes",
-    select: "quotes", // Select only the 'name' field from the populated movie
-  });
+  try {
+    const quotes = await Quote.find();
 
-  console.log(quotes);
+    const quotesWithMovie = await Promise.all(
+      quotes.map(async (el) => {
+        const movie = await Movie.findById(el.movie);
+        const quoteAuthor = await User.findById(el.quoteAuthor);
 
-  return res.status(200).send({
-    user,
-  });
+        return {
+          quote: el,
+          quoteAuthor: {
+            authorName: quoteAuthor.username,
+            image: quoteAuthor.image,
+          },
+          movie: {
+            name: movie.name,
+            year: movie.year,
+          },
+          user: {
+            name: user.username,
+            image: user.image,
+          },
+        };
+      })
+    );
+
+    return res.status(200).send(quotesWithMovie);
+  } catch (err) {
+    return res.status(403).send(err.message);
+  }
 };
 
 exports.dashboardGetStats = async (req, res, next) => {

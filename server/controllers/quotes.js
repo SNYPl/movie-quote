@@ -9,10 +9,14 @@ exports.addMovieQuote = async (req, res, next) => {
   const quoteText = req.body.text;
   const quoteTextGeo = req.body.textGeo;
   const image = req.body.quoteImage;
+  const movieName = req.body.movie;
 
   const movieId = req.url.split("=");
   const idSplit = movieId[1].split("/");
   const id = idSplit[0];
+  const addedMovie = await Movie.findOne({
+    $or: [{ _id: id }, { name: movieName }],
+  });
   const user = await User.findOne({ username: username });
   try {
     const quote = new Quote({
@@ -21,6 +25,7 @@ exports.addMovieQuote = async (req, res, next) => {
       textGeo: quoteTextGeo,
       image: image,
       likes: 0,
+      movie: addedMovie,
       comments: [],
     });
 
@@ -34,7 +39,7 @@ exports.addMovieQuote = async (req, res, next) => {
       {
         new: true,
       }
-    );
+    ).then();
 
     return res.status(200).send("quote added");
   } catch (err) {
