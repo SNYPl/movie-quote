@@ -82,7 +82,7 @@ const Description: React.FC = () => {
               text={el.text}
               textGeo={el.textGeo}
               image={el.image}
-              likes={el.likes}
+              likes={el.likes.length}
               comments={el.comments.length}
               id={el._id}
               key={el._id}

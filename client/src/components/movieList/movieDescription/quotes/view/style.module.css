@@ -270,3 +270,12 @@
   border: none;
   outline: none;
 }
+
+.likes svg {
+  cursor: pointer;
+}
+
+.wrapperLoader {
+  align-items: center;
+  justify-content: center;
+}

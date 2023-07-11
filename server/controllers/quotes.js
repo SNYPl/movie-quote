@@ -24,7 +24,7 @@ exports.addMovieQuote = async (req, res, next) => {
       text: quoteText,
       textGeo: quoteTextGeo,
       image: image,
-      likes: 0,
+      likes: [],
       movie: addedMovie,
       comments: [],
     });
@@ -80,14 +80,23 @@ exports.getQuoteById = async (req, res, next) => {
   const id = quoteId[1];
 
   try {
+    const userId = await User.findOne(
+      {
+        $or: [{ username }, { email: username }],
+      },
+      "_id"
+    ).exec();
+
     const movies = await Movie.findOne({ quotes: id });
 
     const quote = await Quote.findOne({ _id: id });
 
     const quoteAuthor = await User.findOne({ _id: quote.quoteAuthor });
+    const likedByUser = quote.likes.includes(userId._id);
 
     return res.status(200).send({
       quote,
+      likedQuote: likedByUser,
       quoteAuthorData: {
         name: quoteAuthor.username,
         image: quoteAuthor.image,
@@ -146,6 +155,52 @@ exports.deleteMovieQuote = async (req, res, next) => {
     return res
       .status(200)
       .send({ message: "quote deleted", movie: movies[0]._id });
+  } catch (err) {
+    return res.status(403).send(err.message);
+  }
+};
+
+exports.quoteLike = async (req, res, next) => {
+  const username = req.user.username;
+  const quoteId = req.params.quoteId.split("=");
+  const id = quoteId[1];
+  if (!username) return res.status(401).send("invalid token");
+
+  try {
+    const userId = await User.findOne(
+      {
+        $or: [{ username }, { email: username }],
+      },
+      "_id"
+    ).exec();
+
+    const quote = await Quote.findById(id);
+    const likedByUser = quote.likes.includes(userId._id);
+
+    if (likedByUser) {
+      quote.likes = quote.likes.filter(
+        (like) => like.toString() !== userId._id.toString()
+      );
+    } else {
+      quote.likes.push(userId._id);
+    }
+
+    await quote.save();
+
+    return res.status(200).send("Action success");
+  } catch (err) {
+    return res.status(403).send(err.message);
+  }
+};
+
+exports.addComment = async (req, res, next) => {
+  const username = req.user.username;
+  const quoteId = req.params.quoteId.split("=");
+  const id = quoteId[1];
+  if (!username) return res.status(401).send("invalid token");
+
+  try {
+    return res.status(200).send("comment added");
   } catch (err) {
     return res.status(403).send(err.message);
   }

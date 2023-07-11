@@ -21,9 +21,12 @@ const quoteSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: {
-      type: Number,
-    },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+      },
+    ],
     movie: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "movie",

@@ -37,4 +37,16 @@ router.delete(
   quotesControllers.deleteMovieQuote
 );
 
+router.post(
+  "/movie-list/quote/:quoteId/like",
+  isAuth,
+  quotesControllers.quoteLike
+);
+
+router.post(
+  "/movie-list/quote/:quoteId/add-comment",
+  isAuth,
+  quotesControllers.addComment
+);
+
 module.exports = router;

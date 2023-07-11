@@ -5,6 +5,7 @@ import News from "./news/News";
 import QuoteForm from "./quoteForm/QuoteForm";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { TailSpin } from "react-loader-spinner";
 
 const NewsFeed: React.FC = () => {
   const { isLoading, error, data } = useQuery(
@@ -27,6 +28,18 @@ const NewsFeed: React.FC = () => {
       {data?.data.map((el: any) => (
         <News quote={el} />
       ))}
+      {isLoading && (
+        <TailSpin
+          height="400"
+          width="200"
+          color="#4fa94d"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass={style.wrapper}
+          visible={true}
+        />
+      )}
 
       {/* <QuoteForm /> */}
     </section>
