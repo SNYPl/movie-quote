@@ -23,10 +23,10 @@ const ViewQuote: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<movie>();
-  const [liked, setLiked] = useState(false);
-
+  const [comment, setComment] = useState("");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [commentErr, setCommentErr] = useState("");
 
   const user = useQuery(
     "userInfo",
@@ -83,7 +83,7 @@ const ViewQuote: React.FC = () => {
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          // setErr(err?.response?.data.message);
+          setCommentErr(err?.response?.data.message);
         }
       },
     }
@@ -116,7 +116,7 @@ const ViewQuote: React.FC = () => {
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          // setErr(err?.response?.data.message);
+          setCommentErr(err?.response?.data.message);
         }
       },
     }
@@ -129,13 +129,13 @@ const ViewQuote: React.FC = () => {
   // comment add
 
   const commentAdd = useMutation(
-    (quoteLike: any) => {
+    (quoteComment: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteId}/like`,
-        quoteLike,
+        `http://localhost:3001/movie-list/quote/quote=${quoteId}/add-comment`,
+        quoteComment,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json; charset=UTF-9",
             "Access-Control-Allow-Origin": "*",
             Accept: "application/json",
           },
@@ -146,20 +146,24 @@ const ViewQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getQuote");
+        setComment("");
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          // setErr(err?.response?.data.message);
+          setCommentErr(err?.response?.data.message);
         }
       },
     }
   );
 
-  const commentAddHandler = () => {
-    commentAdd.mutate({ id: quoteId });
+  const commentAddHandler = (e: any) => {
+    if (e.keyCode === 13 && comment) {
+      commentAdd.mutate({ id: quoteId, comment: comment });
+    } else if (e.keyCode === 13 && !comment) {
+      setCommentErr("input is empty");
+    }
   };
 
-  const onSubmit = () => {};
   return (
     <section className={style.overlay}>
       <article
@@ -255,7 +259,7 @@ const ViewQuote: React.FC = () => {
               </article>
             </section>
             <section className={style.forms}>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form>
                 <div className={`${style.input} ${style.desc} `}>
                   <span>Eng</span>
                   <input
@@ -324,30 +328,39 @@ const ViewQuote: React.FC = () => {
                     <article className={style.comment}>
                       <div
                         className={style.commentPhoto}
-                        style={{ backgroundImage: `url(${quoteImg})` }}
+                        style={{
+                          backgroundImage: `url(${el.commentAuthor.image})`,
+                        }}
                       ></div>
                       <div className={style.commentInfo}>
-                        <h4>Nina Baladze</h4>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Pellentesque nunc vel massa facilisis consequat
-                          elit morbi convallis convallis. Volutpat vitae et nisl
-                          et. Adipiscing enim integer mi leo nisl. Arcu vitae
-                          mauris odio eget.
-                        </p>
+                        <h4>{el.commentAuthor.username}</h4>
+                        <p>{el.comment}</p>
                       </div>
                     </article>
                   ))}
                 </section>
-
                 <section className={style.commentWrite}>
                   <div
                     className={style.writeAuthorPhoto}
-                    style={{ backgroundImage: `url(${user.data?.data.image})` }}
+                    style={{
+                      backgroundImage: `url(${user.data?.data.image})`,
+                    }}
                   ></div>
-                  <input type="text" placeholder="Write a comment" />
+                  <input
+                    type="text"
+                    placeholder="Write a comment"
+                    value={comment}
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                      if (!comment) {
+                        setCommentErr("");
+                      }
+                    }}
+                    onKeyUp={commentAddHandler}
+                  />
                 </section>
               </form>
+              {commentErr && <p className={style.commentError}>{commentErr}</p>}
             </section>
           </>
         )}

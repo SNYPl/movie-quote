@@ -195,11 +195,29 @@ exports.quoteLike = async (req, res, next) => {
 
 exports.addComment = async (req, res, next) => {
   const username = req.user.username;
-  const quoteId = req.params.quoteId.split("=");
-  const id = quoteId[1];
+
+  const id = req.body.id;
+  const comment = req.body.comment;
+
   if (!username) return res.status(401).send("invalid token");
 
   try {
+    const user = await User.findOne(
+      {
+        $or: [{ username }, { email: username }],
+      },
+      "username image"
+    ).exec();
+
+    const quote = await Quote.findById(id);
+
+    quote.comments.push({
+      commentAuthor: { username: user.username, image: user.image },
+      comment: comment,
+    });
+
+    quote.save();
+
     return res.status(200).send("comment added");
   } catch (err) {
     return res.status(403).send(err.message);

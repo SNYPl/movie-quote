@@ -34,14 +34,9 @@ const quoteSchema = new Schema(
     },
     comments: [
       {
-        commentAuthor: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "users",
-          // required: true,
-        },
+        commentAuthor: {},
         comment: {
           type: String,
-          // required: true,
         },
       },
     ],

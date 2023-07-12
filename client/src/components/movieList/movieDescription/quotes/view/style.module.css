@@ -279,3 +279,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.commentError {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  font-family: helveticaGeoLight;
+}
