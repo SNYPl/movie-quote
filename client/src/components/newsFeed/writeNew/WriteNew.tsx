@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 
-const WriteNew: React.FC = () => {
+interface newQuote {
+  setNewQuote: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const WriteNew: React.FC<newQuote> = ({ setNewQuote, setSearch }) => {
   const [focused, setFocused] = useState("button");
 
   return (
     <div className={style.writeNew}>
       <button
         className={`${focused === "button" ? style.writeBtn : style.smWidth}`}
+        onClick={() => setNewQuote(true)}
       >
         <svg
           width="24"
@@ -53,6 +59,7 @@ const WriteNew: React.FC = () => {
           onFocus={() => setFocused("search")}
           onBlur={() => setFocused("button")}
           className={`${focused === "search" ? style.writeBtn : ""}`}
+          onChange={(e: any) => setSearch(e.target.value)}
         />
       </div>
     </div>

@@ -14,7 +14,6 @@ const SendMail: React.FC = () => {
   const [success, setSuccess] = useState<boolean>(false);
 
   const token = cookies.get("token");
-  console.log(username);
 
   let headers = {
     "Content-Type": "application/json; charset=UTF-9",

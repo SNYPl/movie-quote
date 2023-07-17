@@ -177,15 +177,25 @@ exports.quoteLike = async (req, res, next) => {
     const quote = await Quote.findById(id);
     const likedByUser = quote.likes.includes(userId._id);
 
-    if (likedByUser) {
-      quote.likes = quote.likes.filter(
-        (like) => like.toString() !== userId._id.toString()
-      );
-    } else {
-      quote.likes.push(userId._id);
-    }
+    let update = {};
 
-    await quote.save();
+    if (likedByUser) {
+      // quote.likes = quote.likes.filter(
+      //   (like) => like.toString() !== userId._id.toString()
+      // );
+
+      update = {
+        $pullAll: { likes: [userId._id] },
+      };
+    } else {
+      // quote.likes.push(userId._id);
+      update = {
+        $addToSet: { likes: userId._id },
+      };
+    }
+    await Quote.updateOne({ _id: id }, update).then();
+
+    // await quote.save();
 
     return res.status(200).send("Action success");
   } catch (err) {

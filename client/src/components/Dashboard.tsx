@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import style from "./style.module.css";
 import SideMenu from "./sideMenu/SideMenu";
 import Navigation from "./navigation/Navigation";
 import DashboardNavigation from "./navigation/dashboardNavigation/DashboardNav";
 import { Outlet } from "react-router-dom";
-import axios from "axios";
-import { useQuery } from "react-query";
 
 const Dashboard: React.FC = () => {
   return (

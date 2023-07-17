@@ -1,13 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
-import quoteImg from "../../../assets/img/imgNews.png";
+import { useMutation, useQueryClient } from "react-query";
+import axios, { AxiosError } from "axios";
 
 interface quote {
   quote: any;
 }
 
 const News: React.FC<quote> = ({ quote }) => {
-  console.log(quote);
+  const [comment, setComment] = useState("");
+  const queryClient = useQueryClient();
+  const [commentErr, setCommentErr] = useState("");
+
+  //like quote
+
+  const likeQuote = useMutation(
+    (quoteLike: any) => {
+      return axios.post(
+        `http://localhost:3001/movie-list/quote/quote=${quoteLike.id}/like`,
+        quoteLike,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Origin": "*",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: async (res) => {
+        await queryClient.invalidateQueries("quotesInfo");
+        await queryClient.refetchQueries("quotesInfo");
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          setCommentErr(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
+  const likeQuoteHandler = () => {
+    if (likeQuote.isLoading) {
+      return;
+    }
+    likeQuote.mutate({ id: quote.quote._id });
+  };
+
+  // comment add
+
+  const commentAdd = useMutation(
+    (quoteComment: any) => {
+      return axios.post(
+        `http://localhost:3001/movie-list/quote/quote=${quoteComment.id}/add-comment`,
+        quoteComment,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-9",
+            "Access-Control-Allow-Origin": "*",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries("quotesInfo");
+        setComment("");
+      },
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          setCommentErr(err?.response?.data.message);
+        }
+      },
+    }
+  );
+
+  const commentAddHandler = (e: any) => {
+    if (e.keyCode === 13 && comment) {
+      commentAdd.mutate({ id: quote.quote._id, comment: comment });
+    } else if (e.keyCode === 13 && !comment) {
+      setCommentErr("input is empty");
+    }
+  };
+
   return (
     <section className={style.news}>
       <article className={style.author}>
@@ -42,37 +121,33 @@ const News: React.FC<quote> = ({ quote }) => {
           </svg>
         </div>
         <div className={style.likes}>
-          <p>{quote.quote.likes}</p>
+          <p>{quote?.quote?.likes.length}</p>
           <svg
             width="32"
             height="30"
             viewBox="0 0 32 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={likeQuoteHandler}
           >
             <path
               d="M15.9998 5.4961L14.5658 4.0221C11.1998 0.562097 5.02779 1.7561 2.79979 6.1061C1.75379 8.1521 1.51779 11.1061 3.42779 14.8761C5.26779 18.5061 9.09579 22.8541 15.9998 27.5901C22.9038 22.8541 26.7298 18.5061 28.5718 14.8761C30.4818 11.1041 30.2478 8.1521 29.1998 6.1061C26.9718 1.7561 20.7998 0.560097 17.4338 4.0201L15.9998 5.4961ZM15.9998 30.0001C-14.6662 9.7361 6.55779 -6.0799 15.6478 2.2861C15.7678 2.3961 15.8858 2.5101 15.9998 2.6281C16.1126 2.5102 16.2301 2.39678 16.3518 2.2881C25.4398 -6.0839 46.6658 9.7341 15.9998 30.0001Z"
-              fill="white"
+              fill={quote?.liked ? "green" : "white"}
             />
           </svg>
         </div>
       </article>
 
       <section className={style.comments}>
-        {quote.quote.comments.map((el: any) => (
-          <article className={style.comment}>
+        {quote.quote.comments.map((el: any, id: any) => (
+          <article className={style.comment} key={id}>
             <div
               className={style.commentPhoto}
-              style={{ backgroundImage: `url(${quoteImg})` }}
+              style={{ backgroundImage: `url(${el.commentAuthor.image})` }}
             ></div>
             <div className={style.commentInfo}>
-              <h4>Nina Baladze</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque nunc vel massa facilisis consequat elit morbi
-                convallis convallis. Volutpat vitae et nisl et. Adipiscing enim
-                integer mi leo nisl. Arcu vitae mauris odio eget.
-              </p>
+              <h4>{el.commentAuthor.username}</h4>
+              <p>{el.comment}</p>
             </div>
           </article>
         ))}
@@ -84,8 +159,20 @@ const News: React.FC<quote> = ({ quote }) => {
           className={style.writeAuthorPhoto}
           style={{ backgroundImage: `url(${quote.user.image})` }}
         ></div>
-        <input type="text" placeholder="Write a comment" />
+        <input
+          type="text"
+          placeholder="Write a comment"
+          value={comment}
+          onChange={(e) => {
+            setComment(e.target.value);
+            if (!comment) {
+              setCommentErr("");
+            }
+          }}
+          onKeyUp={commentAddHandler}
+        />
       </section>
+      {commentErr && <p className={style.commentError}>{commentErr}</p>}
     </section>
   );
 };

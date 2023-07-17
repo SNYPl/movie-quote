@@ -77,18 +77,52 @@
   row-gap: 24px;
 }
 
-.forms textarea {
+.forms input {
+  height: 48px;
   background: #11101a;
   border: 1px solid #6c757d;
-  border-radius: 4px;
+  border-radius: 4.8px;
   font-family: helveticaGeoLight;
-  font-style: italic;
   font-weight: 400;
-  font-size: 24px;
-  color: #6c757d;
+  font-size: 20px;
+  color: #ffffff;
   outline: none;
   padding: 14px;
-  resize: none;
+  width: 100%;
+  padding-right: 75px;
+  padding-left: 10px;
+}
+.input span {
+  position: absolute;
+  font-family: helveticaGeoMed;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #6c757d;
+  right: 14px;
+  top: 12px;
+}
+.forms input::placeholder {
+  font-family: helveticaGeoLight;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  font-style: italic;
+}
+.input {
+  width: 100%;
+  position: relative;
+}
+
+.desc {
+  height: 86px;
+}
+.desc input {
+  height: 100%;
+  padding-left: 16px;
+  padding-top: 0;
+  padding-bottom: 0.4em;
+  padding-right: 0.4em;
 }
 
 .uploadPhoto {
@@ -96,14 +130,9 @@
   height: 84px;
   display: flex;
   align-items: center;
-  padding: 0 17px;
+  /* padding: 0 17px; */
   color: #fff;
-}
-.uploadPhoto input {
-  border: none;
-}
-
-.uploadInput {
+  border-radius: 5px;
 }
 
 .optionsContainer {
@@ -147,4 +176,33 @@
   font-weight: 400;
   font-size: 20px;
   color: #ffffff;
+}
+
+.dargNdrop {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  max-width: none !important;
+}
+
+.dargNdrop span {
+  font-size: 18px !important;
+}
+
+.dargNdrop svg {
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.scrMsg {
+  font-size: 18px;
+  color: green;
+  font-family: helveticaGeoLight;
+  text-align: center;
+}
+.errMsg {
+  font-size: 18px;
+  color: red;
+  font-family: helveticaGeoLight;
+  text-align: center;
 }

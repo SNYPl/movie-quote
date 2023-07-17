@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import { loginContx } from "../../../store/LoginContext";
 import Cookies from "universal-cookie";
+import Notifications from "../notifications/Notifications";
 
 const DashboardNavigation: React.FC = () => {
   const { setLogin } = useContext(loginContx);
   const cookies = new Cookies();
+  const [not, setNot] = useState(false);
 
   const logout = () => {
     cookies.remove("remember", { path: "/" });
@@ -18,12 +20,14 @@ const DashboardNavigation: React.FC = () => {
   return (
     <div className={style.navigation}>
       <section className={style.notf}>
+        {not && <Notifications />}
         <svg
           width="32"
           height="32"
           viewBox="0 0 32 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={() => setNot(!not)}
         >
           <g clipPath="url(#clip0_20502_8049)">
             <path

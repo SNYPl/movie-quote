@@ -78,6 +78,9 @@
   align-items: center;
 }
 
+.likes svg {
+  cursor: pointer;
+}
 .comments {
   margin-bottom: 24px;
 }
@@ -145,4 +148,11 @@
   width: 100%;
   border: none;
   outline: none;
+}
+
+.commentError {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  font-family: helveticaGeoLight;
 }

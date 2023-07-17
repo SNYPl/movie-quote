@@ -5,6 +5,7 @@ import quoteImg from "../../../../../assets/img/desc1.png";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
+import { Oval } from "react-loader-spinner";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,7 +60,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const movieDirector = movie.director;
   const id = movie._id;
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (movieInfo: typeof formData) => {
       return axios.patch(
         `http://localhost:3001/movie-list/movie/movie=${id}/add-quote`,
@@ -222,7 +223,22 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
             </div>
 
             <button type="submit" className={style.addBtn}>
-              Add Quote
+              {isLoading ? (
+                <Oval
+                  height={30}
+                  width={30}
+                  color="#4fa94d"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#4fa94d"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+              ) : (
+                "Add Quote"
+              )}
             </button>
           </form>
           {errorUser && <p className={style.errMsg}>{errorUser}</p>}

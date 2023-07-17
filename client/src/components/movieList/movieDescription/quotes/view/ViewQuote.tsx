@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import quoteImg from "../../../../../assets/img/desc1.png";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router";
 import axios, { AxiosError } from "axios";
@@ -12,10 +11,6 @@ type movie = {
   quotes: string;
   quotesGeo: string;
 };
-
-interface quoteMode {
-  setQuoteMode: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const ViewQuote: React.FC = () => {
   const {
@@ -98,7 +93,7 @@ const ViewQuote: React.FC = () => {
   const likeQuote = useMutation(
     (quoteLike: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteId}/like`,
+        `http://localhost:3001/movie-list/quote/quote=${quoteLike.id}/like`,
         quoteLike,
         {
           headers: {
@@ -113,6 +108,7 @@ const ViewQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getQuote");
+        queryClient.refetchQueries("getQuote");
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
@@ -123,6 +119,9 @@ const ViewQuote: React.FC = () => {
   );
 
   const likeQuoteHandler = () => {
+    if (likeQuote.isLoading) {
+      return;
+    }
     likeQuote.mutate({ id: quoteId });
   };
 
@@ -131,7 +130,7 @@ const ViewQuote: React.FC = () => {
   const commentAdd = useMutation(
     (quoteComment: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteId}/add-comment`,
+        `http://localhost:3001/movie-list/quote/quote=${quoteComment.id}/add-comment`,
         quoteComment,
         {
           headers: {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
 import WriteNew from "./writeNew/WriteNew";
 import News from "./news/News";
@@ -8,6 +8,9 @@ import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 
 const NewsFeed: React.FC = () => {
+  const [newQuote, setNewQuote] = useState<boolean>(false);
+  const [search, setSearch] = useState("");
+
   const { isLoading, error, data } = useQuery(
     "quotesInfo",
     () =>
@@ -20,13 +23,36 @@ const NewsFeed: React.FC = () => {
         },
         withCredentials: true,
       }),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false, staleTime: 0, enabled: true }
   );
+
+  let reversedData = [];
+
+  if (data && data.data) {
+    reversedData = [...data.data].reverse();
+  }
+
+  const searchMovie =
+    reversedData.filter((el: any) => {
+      if (search.toLowerCase().includes("@")) {
+        return el.movie.name
+          .toLowerCase()
+          .includes(search.toLowerCase().slice(1));
+      } else if (search.toLowerCase().includes("#")) {
+        return el.quote.text
+          .toLowerCase()
+          .includes(search.toLowerCase().slice(1));
+      }
+      return el.quote.text.toLowerCase().includes(search.toLowerCase());
+    }) || [];
+
   return (
     <section className={style.newsFeed}>
-      <WriteNew />
-      {data?.data.map((el: any) => (
-        <News quote={el} />
+      <WriteNew setNewQuote={setNewQuote} setSearch={setSearch} />
+      {newQuote && <QuoteForm setNewQuote={setNewQuote} />}
+
+      {searchMovie.map((el: any) => (
+        <News quote={el} key={el.quote._id} />
       ))}
       {isLoading && (
         <TailSpin
@@ -40,8 +66,6 @@ const NewsFeed: React.FC = () => {
           visible={true}
         />
       )}
-
-      {/* <QuoteForm /> */}
     </section>
   );
 };
