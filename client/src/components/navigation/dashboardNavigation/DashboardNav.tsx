@@ -3,6 +3,8 @@ import style from "./style.module.css";
 import { loginContx } from "../../../store/LoginContext";
 import Cookies from "universal-cookie";
 import Notifications from "../notifications/Notifications";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const DashboardNavigation: React.FC = () => {
   const { setLogin } = useContext(loginContx);
@@ -17,10 +19,25 @@ const DashboardNavigation: React.FC = () => {
     setLogin(false);
   };
 
+  const { isLoading, error, data } = useQuery(
+    "notifications",
+    () =>
+      axios.get("http://localhost:3001/dashboard/notifications/quotes", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          " Access-Control-Allow-Credentials": true,
+        },
+        withCredentials: true,
+      }),
+    { refetchOnWindowFocus: false }
+  );
+
   return (
     <div className={style.navigation}>
       <section className={style.notf}>
-        {not && <Notifications />}
+        {not && <Notifications data={data?.data.notifications || []} />}
         <svg
           width="32"
           height="32"

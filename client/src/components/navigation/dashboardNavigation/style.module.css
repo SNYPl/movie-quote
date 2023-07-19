@@ -6,6 +6,9 @@
 
 .notf {
   position: relative;
+}
+
+.notf svg {
   cursor: pointer;
 }
 

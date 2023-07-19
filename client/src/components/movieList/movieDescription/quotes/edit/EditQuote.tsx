@@ -275,7 +275,7 @@ const EditQuote: React.FC = () => {
                     message: "minimum length 3",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF]*$/,
+                    value: /^[\u10A0-\u10FF_ ]*$/,
                     message: "მხოლოდ ქართული ასოები !",
                   },
                 })}

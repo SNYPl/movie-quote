@@ -27,6 +27,7 @@ exports.addMovieQuote = async (req, res, next) => {
       likes: [],
       movie: addedMovie,
       comments: [],
+      notifications: [],
     });
 
     quote.save();
@@ -171,7 +172,7 @@ exports.quoteLike = async (req, res, next) => {
       {
         $or: [{ username }, { email: username }],
       },
-      "_id"
+      "_id username image"
     ).exec();
 
     const quote = await Quote.findById(id);
@@ -186,11 +187,26 @@ exports.quoteLike = async (req, res, next) => {
 
       update = {
         $pullAll: { likes: [userId._id] },
+        $pull: { notifications: { authorId: userId.id } },
       };
     } else {
       // quote.likes.push(userId._id);
       update = {
-        $addToSet: { likes: userId._id },
+        $addToSet: {
+          likes: userId._id,
+          notifications: [
+            {
+              authorId: userId.id,
+              author: {
+                name: userId.username,
+                image: userId.image,
+              },
+              action: "like",
+              read: false,
+              time: new Date(),
+            },
+          ],
+        },
       };
     }
     await Quote.updateOne({ _id: id }, update).then();
@@ -224,6 +240,16 @@ exports.addComment = async (req, res, next) => {
     quote.comments.push({
       commentAuthor: { username: user.username, image: user.image },
       comment: comment,
+    });
+
+    quote.notifications.push({
+      author: {
+        name: user.username,
+        image: user.image,
+      },
+      action: "comment",
+      read: false,
+      time: new Date(),
     });
 
     quote.save();

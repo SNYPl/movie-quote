@@ -40,6 +40,17 @@ const quoteSchema = new Schema(
         },
       },
     ],
+    notifications: [
+      {
+        authorId: String,
+        author: {},
+        action: {
+          type: String,
+        },
+        read: Boolean,
+        time: String,
+      },
+    ],
   },
   {
     collection: "quotes",

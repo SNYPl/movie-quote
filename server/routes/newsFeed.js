@@ -21,4 +21,16 @@ router.patch(
   newsFeedControllers.dashboardAddQuote
 );
 
+router.get(
+  "/dashboard/notifications/quotes",
+  isAuth,
+  newsFeedControllers.getNotifications
+);
+
+router.post(
+  "/dashboard/notifications/quotes",
+  isAuth,
+  newsFeedControllers.readAllNotifications
+);
+
 module.exports = router;

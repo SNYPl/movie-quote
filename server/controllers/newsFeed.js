@@ -115,3 +115,41 @@ exports.dashboardAddQuote = async (req, res, next) => {
     return res.status(403).send(err.message);
   }
 };
+
+exports.getNotifications = async (req, res, next) => {
+  const username = req.user.username;
+
+  const user = await User.findOne({ $or: [{ username }, { email: username }] });
+
+  if (!user) return res.status(401).send("something problem");
+
+  try {
+    const userQuotes = await Quote.find(
+      { quoteAuthor: user._id },
+      "notifications"
+    ).exec();
+
+    return res.status(200).send(...userQuotes);
+  } catch (err) {
+    return res.status(403).send(err.message);
+  }
+};
+
+exports.readAllNotifications = async (req, res, next) => {
+  const username = req.user.username;
+
+  const user = await User.findOne({ $or: [{ username }, { email: username }] });
+
+  if (!user) return res.status(401).send("something problem");
+
+  try {
+    // const userQuotes = await Quote.find(
+    //   { quoteAuthor: user._id },
+    //   "notifications"
+    // ).exec();
+
+    return res.status(200).send("readed");
+  } catch (err) {
+    return res.status(403).send(err.message);
+  }
+};

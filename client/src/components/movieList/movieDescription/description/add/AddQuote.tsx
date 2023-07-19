@@ -196,7 +196,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
                     message: "minimum length 3",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF]*$/,
+                    value: /^[\u10A0-\u10FF_ ]*$/,
                     message: "მხოლოდ ქართული ასოები !",
                   },
                 })}

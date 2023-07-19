@@ -1,31 +1,91 @@
 .notifications {
+  position: absolute;
+  border-radius: 12px;
+  background: #000;
+  padding: 40px 32px 52px 32px;
+  z-index: 20;
+  color: #fff;
+  width: 40vw;
+  top: 65px;
+  right: -150px;
+  max-height: 812px;
+  overflow-y: auto;
 }
 
 .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 23px;
 }
 .title h4 {
+  font-family: helveticaMed;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0;
 }
 .title a {
+  font-family: helveticaMed;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: underline;
 }
 
 .notfList {
+  font-family: helveticaGeo55;
+  row-gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 .notfUser {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid rgba(108, 117, 125, 0.5);
+  background: #000;
+  padding: 18px 20px;
 }
 .user {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
 }
 .notUserImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  border: 2px solid #198754;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 .userTitle {
 }
 .userTitle h4 {
+  font-weight: normal;
+  font-family: helveticaGeoLight;
+  margin: 0;
+  margin-bottom: 7px;
 }
 .userTitle p {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+  margin: 0;
 }
 
 .userTime {
 }
 .userTime h5 {
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 7px;
 }
 .userTime p {
+  margin: 0;
+  font-family: helveticaGeo55;
+  color: green;
 }
