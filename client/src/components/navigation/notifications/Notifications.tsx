@@ -28,8 +28,7 @@ const Notifications: React.FC<notifications> = ({ data }) => {
     },
     {
       onSuccess: (res) => {
-        // queryClient.invalidateQueries("getQuote");
-        // queryClient.refetchQueries("getQuote");
+        queryClient.invalidateQueries("notifications");
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
@@ -42,6 +41,31 @@ const Notifications: React.FC<notifications> = ({ data }) => {
   const readAllNotifications = () => {
     mutate("");
   };
+
+  function getTimeDifference(elTime: any) {
+    const createdDate = new Date(elTime);
+    const currentTime = new Date();
+    const timeDifference = Math.floor(
+      (currentTime.getTime() - createdDate.getTime()) / (1000 * 60)
+    );
+
+    const days = Math.floor(timeDifference / (60 * 24));
+    const hours = Math.floor((timeDifference % (60 * 24)) / 60);
+    const minutes = timeDifference % 60;
+
+    let time;
+
+    if (days) {
+      time = `${days} days ago`;
+    } else if (hours) {
+      time = `${hours} hour ago`;
+    } else {
+      time = `${minutes} min ago`;
+    }
+
+    return `${time}`;
+  }
+
   return (
     <section className={style.notifications}>
       <div className={style.title}>
@@ -58,22 +82,20 @@ const Notifications: React.FC<notifications> = ({ data }) => {
       </div>
 
       <article className={style.notfList}>
-        {data.map((el: any) => {
-          const createdDate = new Date(el.time);
-          const currentTime = new Date();
-          const timeDifference: number = Math.floor(
-            (currentTime.getTime() - createdDate.getTime()) / (1000 * 60)
-          );
-
+        {data.map((el: any, id: any) => {
           return (
-            <div className={style.notfUser}>
+            <div className={style.notfUser} key={id}>
               <section className={style.user}>
                 <div
                   className={style.notUserImg}
-                  style={{ backgroundImage: `url(${el.author.image})` }}
+                  style={{
+                    backgroundImage: `url(${
+                      el?.author?.image ? el?.author?.image : ""
+                    })`,
+                  }}
                 ></div>
                 <div className={style.userTitle}>
-                  <h4>{el.author.name}</h4>
+                  <h4>{el?.author?.name}</h4>
                   {el.action === "comment" ? (
                     <p>
                       <svg
@@ -123,7 +145,7 @@ const Notifications: React.FC<notifications> = ({ data }) => {
                 </div>
               </section>
               <section className={style.userTime}>
-                <h5>{timeDifference} min ago</h5>
+                <h5>{getTimeDifference(el.time)}</h5>
                 {!el.read && <p>New</p>}
               </section>
             </div>

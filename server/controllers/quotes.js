@@ -28,6 +28,7 @@ exports.addMovieQuote = async (req, res, next) => {
       movie: addedMovie,
       comments: [],
       notifications: [],
+      date: Date.now(),
     });
 
     quote.save();

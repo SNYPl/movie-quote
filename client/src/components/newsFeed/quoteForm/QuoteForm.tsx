@@ -91,7 +91,9 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
       onSuccess: (res) => {
         queryClient.invalidateQueries("quotesInfo");
         // queryClient.refetchQueries("quotesInfo");
-        if (res.status === 200) setNewQuote(false);
+        if (res.status === 200) {
+          setNewQuote(false);
+        }
       },
       onError: (err) => {
         if (err instanceof AxiosError) {

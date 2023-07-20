@@ -10,11 +10,11 @@ exports.newsFeedQuotes = async (req, res, next) => {
   if (!user) return res.status(401).send("something problem");
 
   try {
-    const quotes = await Quote.find();
+    const limit = req.query.limit;
 
-    // const likedByUser = quotes.likes.includes(user._id);
+    const totalQuotes = await Quote.countDocuments();
 
-    // console.log(likedByUser);
+    const quotes = await Quote.find().sort({ date: -1 }).limit(limit);
 
     const quotesWithMovie = await Promise.all(
       quotes.map(async (el) => {
@@ -41,7 +41,10 @@ exports.newsFeedQuotes = async (req, res, next) => {
       })
     );
 
-    return res.status(200).send(quotesWithMovie);
+    return res.status(200).send({
+      totalQuotes: totalQuotes,
+      quotes: quotesWithMovie,
+    });
   } catch (err) {
     return res.status(403).send(err.message);
   }
@@ -96,6 +99,7 @@ exports.dashboardAddQuote = async (req, res, next) => {
       likes: [],
       movie: quoteMovie,
       comments: [],
+      date: Date.now(),
     });
 
     quote.save();
@@ -129,7 +133,7 @@ exports.getNotifications = async (req, res, next) => {
       "notifications"
     ).exec();
 
-    return res.status(200).send(...userQuotes);
+    return res.status(200).send(userQuotes);
   } catch (err) {
     return res.status(403).send(err.message);
   }
@@ -143,12 +147,28 @@ exports.readAllNotifications = async (req, res, next) => {
   if (!user) return res.status(401).send("something problem");
 
   try {
-    // const userQuotes = await Quote.find(
-    //   { quoteAuthor: user._id },
-    //   "notifications"
-    // ).exec();
+    const notificationsFilter = { "notifications.read": false }; // Filter to update only unread notifications
 
-    return res.status(200).send("readed");
+    // Mark all notifications as read
+    const updateQuery = {
+      $set: { "notifications.$[elem].read": true },
+    };
+
+    const updateOptions = {
+      arrayFilters: [{ "elem.read": false }],
+    };
+
+    const updateResult = await Quote.updateMany(
+      notificationsFilter,
+      updateQuery,
+      updateOptions
+    );
+
+    if (updateResult.nModified === 0) {
+      return res.status(200).send("No unread notifications found.");
+    }
+
+    return res.status(200).send("All notifications marked as read.");
   } catch (err) {
     return res.status(403).send(err.message);
   }

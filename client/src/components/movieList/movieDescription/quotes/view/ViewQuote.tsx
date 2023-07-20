@@ -74,6 +74,7 @@ const ViewQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getMovieQuotes");
+        queryClient.invalidateQueries("notifications");
         navigate(`/dashboard/movie-list/movie/movie=${res.data.movie}`);
       },
       onError: (err) => {
@@ -108,6 +109,7 @@ const ViewQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getQuote");
+        queryClient.invalidateQueries("notifications");
         queryClient.refetchQueries("getQuote");
       },
       onError: (err) => {
@@ -145,6 +147,7 @@ const ViewQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getQuote");
+        queryClient.invalidateQueries("notifications");
         setComment("");
       },
       onError: (err) => {

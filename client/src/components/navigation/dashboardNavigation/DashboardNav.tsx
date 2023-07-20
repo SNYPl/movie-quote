@@ -33,11 +33,24 @@ const DashboardNavigation: React.FC = () => {
       }),
     { refetchOnWindowFocus: false }
   );
+  // console.log(data?.data);
+  const concatenatedNotifications = data?.data.reduce(
+    (accumulator: any, currentObject: any) => {
+      return accumulator.concat(currentObject.notifications);
+    },
+    []
+  );
+
+  let newNotification = [];
+  if (concatenatedNotifications) {
+    newNotification =
+      concatenatedNotifications.filter((el: any) => el.read === false) || [];
+  }
 
   return (
     <div className={style.navigation}>
       <section className={style.notf}>
-        {not && <Notifications data={data?.data.notifications || []} />}
+        {not && <Notifications data={concatenatedNotifications || []} />}
         <svg
           width="32"
           height="32"
@@ -58,7 +71,12 @@ const DashboardNavigation: React.FC = () => {
             </clipPath>
           </defs>
         </svg>
-        <div className={style.circle}>3</div>
+        <div
+          className={style.circle}
+          style={{ display: newNotification.length ? "flex" : "none" }}
+        >
+          {newNotification.length ? newNotification.length : ""}
+        </div>
       </section>
       <button className={style.lgtBtn} onClick={logout}>
         Log out

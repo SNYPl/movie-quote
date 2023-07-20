@@ -51,6 +51,7 @@ const quoteSchema = new Schema(
         time: String,
       },
     ],
+    date: { type: String },
   },
   {
     collection: "quotes",

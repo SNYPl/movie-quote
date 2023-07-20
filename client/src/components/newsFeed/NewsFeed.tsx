@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import WriteNew from "./writeNew/WriteNew";
 import News from "./news/News";
@@ -10,11 +10,13 @@ import { TailSpin } from "react-loader-spinner";
 const NewsFeed: React.FC = () => {
   const [newQuote, setNewQuote] = useState<boolean>(false);
   const [search, setSearch] = useState("");
+  const [queryLimit, setQueryLimit] = useState(2);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const { isLoading, error, data } = useQuery(
-    "quotesInfo",
+  const { isLoading, error, data, isFetching } = useQuery(
+    ["quotesInfo", queryLimit],
     () =>
-      axios.get("http://localhost:3001/newsFeed", {
+      axios.get(`http://localhost:3001/newsFeed?limit=${queryLimit}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -23,17 +25,49 @@ const NewsFeed: React.FC = () => {
         },
         withCredentials: true,
       }),
-    { refetchOnWindowFocus: false, staleTime: 0, enabled: true }
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 0,
+      enabled: true,
+      keepPreviousData: true,
+    }
   );
 
-  let reversedData = [];
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const bodyHeight = document.body.scrollHeight;
+      const scrollY = window.scrollY;
 
-  if (data && data.data) {
-    reversedData = [...data.data].reverse();
-  }
+      if (
+        scrollY + windowHeight >= bodyHeight &&
+        !isLoadingMore &&
+        !isFetching
+      ) {
+        if (data?.data.totalQuotes < queryLimit) {
+          setIsLoadingMore(false);
+          return;
+        }
+        setIsLoadingMore(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      setIsLoadingMore(false);
+    };
+  }, [isLoadingMore, isFetching]);
+
+  useEffect(() => {
+    if (isLoadingMore) {
+      setQueryLimit((prev) => prev + 2);
+    }
+  }, [isLoadingMore]);
 
   const searchMovie =
-    reversedData.filter((el: any) => {
+    data?.data.quotes?.filter((el: any) => {
       if (search.toLowerCase().includes("@")) {
         return el.movie.name
           .toLowerCase()
@@ -51,10 +85,11 @@ const NewsFeed: React.FC = () => {
       <WriteNew setNewQuote={setNewQuote} setSearch={setSearch} />
       {newQuote && <QuoteForm setNewQuote={setNewQuote} />}
 
-      {searchMovie.map((el: any) => (
+      {searchMovie.map((el: any, id: any) => (
         <News quote={el} key={el.quote._id} />
       ))}
-      {isLoading && (
+
+      {isFetching && (
         <TailSpin
           height="400"
           width="200"

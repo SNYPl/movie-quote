@@ -28,7 +28,7 @@ router.get(
 );
 
 router.post(
-  "/dashboard/notifications/quotes",
+  "/dashboard/notifications/quotes/read-all",
   isAuth,
   newsFeedControllers.readAllNotifications
 );

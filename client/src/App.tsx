@@ -39,7 +39,7 @@ function App() {
   }, [cookies.get("isLoggedIn")]);
 
   useEffect(() => {
-    if (login && location.pathname === "/") {
+    if (cookies.get("isLoggedIn") && location.pathname === "/") {
       navigate("/dashboard");
     }
   }, [cookies.get("isLoggedIn")]);

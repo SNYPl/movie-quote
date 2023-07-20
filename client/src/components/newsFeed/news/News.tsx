@@ -33,6 +33,7 @@ const News: React.FC<quote> = ({ quote }) => {
       onSuccess: async (res) => {
         await queryClient.invalidateQueries("quotesInfo");
         await queryClient.refetchQueries("quotesInfo");
+        await queryClient.invalidateQueries("notifications");
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
@@ -69,6 +70,7 @@ const News: React.FC<quote> = ({ quote }) => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("quotesInfo");
+        queryClient.invalidateQueries("notifications");
         setComment("");
       },
       onError: (err) => {
