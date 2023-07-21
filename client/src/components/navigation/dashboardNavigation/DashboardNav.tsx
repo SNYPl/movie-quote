@@ -33,7 +33,6 @@ const DashboardNavigation: React.FC = () => {
       }),
     { refetchOnWindowFocus: false }
   );
-  // console.log(data?.data);
   const concatenatedNotifications = data?.data.reduce(
     (accumulator: any, currentObject: any) => {
       return accumulator.concat(currentObject.notifications);
@@ -44,7 +43,9 @@ const DashboardNavigation: React.FC = () => {
   let newNotification = [];
   if (concatenatedNotifications) {
     newNotification =
-      concatenatedNotifications.filter((el: any) => el.read === false) || [];
+      concatenatedNotifications
+        .reverse()
+        .filter((el: any) => el.read === false) || [];
   }
 
   return (

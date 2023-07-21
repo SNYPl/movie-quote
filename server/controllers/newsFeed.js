@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Quote = require("../models/quotes");
 const Movie = require("../models/movie");
+const io = require("../socket");
 
 exports.newsFeedQuotes = async (req, res, next) => {
   const username = req.user.username;
@@ -113,7 +114,7 @@ exports.dashboardAddQuote = async (req, res, next) => {
         new: true,
       }
     ).then();
-
+    io.getIo().emit("quote", { action: "createQuote" });
     return res.status(200).send("quote added");
   } catch (err) {
     return res.status(403).send(err.message);
@@ -147,7 +148,7 @@ exports.readAllNotifications = async (req, res, next) => {
   if (!user) return res.status(401).send("something problem");
 
   try {
-    const notificationsFilter = { "notifications.read": false }; // Filter to update only unread notifications
+    const notificationsFilter = { "notifications.read": false };
 
     // Mark all notifications as read
     const updateQuery = {

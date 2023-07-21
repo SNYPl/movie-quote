@@ -47,7 +47,11 @@ mongoose
     "mongodb+srv://snypisia:NvImgwQIMEo16cnw@moviequote.xfabptr.mongodb.net/?retryWrites=true&w=majority"
   )
   .then((result) => {
-    app.listen(port);
+    const server = app.listen(port);
+    const io = require("./socket").init(server);
+    io.on("connection", (socket) => {
+      // console.log("client connected");
+    });
   })
   .catch((error) => {
     console.log(error);

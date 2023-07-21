@@ -6,6 +6,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { Oval } from "react-loader-spinner";
+import openSocket from "socket.io-client";
 
 interface newQuote {
   setNewQuote: React.Dispatch<React.SetStateAction<boolean>>;
@@ -90,7 +91,6 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("quotesInfo");
-        // queryClient.refetchQueries("quotesInfo");
         if (res.status === 200) {
           setNewQuote(false);
         }

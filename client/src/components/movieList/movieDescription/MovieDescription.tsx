@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import DescriptionMovie from "./description/Description";
 import AddQuote from "./description/add/AddQuote";
 import Quote from "./quotes/Quotes";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { MagnifyingGlass } from "react-loader-spinner";
+import openSocket from "socket.io-client";
 
 const Description: React.FC = () => {
   const [addQuote, setAddQuote] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
   let location = useLocation();
   const movieId = location.pathname.split("=")[1];
@@ -51,6 +53,24 @@ const Description: React.FC = () => {
       retry: 0,
     }
   );
+
+  useEffect(() => {
+    const socket = openSocket(`http://localhost:3001`, {
+      transports: ["websocket"],
+    });
+
+    socket.on("quote", (data) => {
+      if (data.action === "createQuote") {
+        queryClient.invalidateQueries("quotesInfo");
+      } else if (data.action === "likeQuote") {
+        queryClient.invalidateQueries("getQuote");
+        queryClient.invalidateQueries("notifications");
+      } else if (data.action === "commentQuote") {
+        queryClient.invalidateQueries("getQuote");
+        queryClient.invalidateQueries("notifications");
+      }
+    });
+  }, [quotes.data?.data.quotes]);
 
   return (
     <>

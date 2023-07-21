@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Movie = require("../models/movie");
 const Quote = require("../models/quotes");
+const io = require("../socket");
 
 exports.addMovieQuote = async (req, res, next) => {
   const username = req.user.username;
@@ -42,6 +43,8 @@ exports.addMovieQuote = async (req, res, next) => {
         new: true,
       }
     ).then();
+
+    io.getIo().emit("quote", { action: "createQuote" });
 
     return res.status(200).send("quote added");
   } catch (err) {
@@ -139,6 +142,7 @@ exports.editMovieQuote = async (req, res, next) => {
       ignoreUndefined: true,
     }).then();
 
+    io.getIo().emit("quote", { action: "editQuote" });
     return res.status(200).send("quote edited");
   } catch (err) {
     return res.status(403).send(err.message);
@@ -153,6 +157,8 @@ exports.deleteMovieQuote = async (req, res, next) => {
     const movies = await Movie.find({ quotes: id });
 
     const deleted = await Quote.deleteOne({ _id: id });
+
+    io.getIo().emit("quote", { action: "deleteQuote" });
 
     return res
       .status(200)
@@ -182,16 +188,11 @@ exports.quoteLike = async (req, res, next) => {
     let update = {};
 
     if (likedByUser) {
-      // quote.likes = quote.likes.filter(
-      //   (like) => like.toString() !== userId._id.toString()
-      // );
-
       update = {
         $pullAll: { likes: [userId._id] },
         $pull: { notifications: { authorId: userId.id } },
       };
     } else {
-      // quote.likes.push(userId._id);
       update = {
         $addToSet: {
           likes: userId._id,
@@ -212,7 +213,7 @@ exports.quoteLike = async (req, res, next) => {
     }
     await Quote.updateOne({ _id: id }, update).then();
 
-    // await quote.save();
+    io.getIo().emit("quote", { action: "likeQuote" });
 
     return res.status(200).send("Action success");
   } catch (err) {
@@ -254,6 +255,8 @@ exports.addComment = async (req, res, next) => {
     });
 
     quote.save();
+
+    io.getIo().emit("quote", { action: "commentQuote" });
 
     return res.status(200).send("comment added");
   } catch (err) {

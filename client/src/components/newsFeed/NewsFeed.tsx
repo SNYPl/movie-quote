@@ -3,15 +3,17 @@ import style from "./style.module.css";
 import WriteNew from "./writeNew/WriteNew";
 import News from "./news/News";
 import QuoteForm from "./quoteForm/QuoteForm";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
+import openSocket from "socket.io-client";
 
 const NewsFeed: React.FC = () => {
   const [newQuote, setNewQuote] = useState<boolean>(false);
   const [search, setSearch] = useState("");
   const [queryLimit, setQueryLimit] = useState(2);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const queryClient = useQueryClient();
 
   const { isLoading, error, data, isFetching } = useQuery(
     ["quotesInfo", queryLimit],
@@ -30,8 +32,31 @@ const NewsFeed: React.FC = () => {
       staleTime: 0,
       enabled: true,
       keepPreviousData: true,
+      // refetchOnMount: true,
     }
   );
+
+  useEffect(() => {
+    const socket = openSocket(`http://localhost:3001`, {
+      transports: ["websocket"],
+    });
+
+    socket.on("quote", (data) => {
+      if (data.action === "createQuote") {
+        queryClient.invalidateQueries("quotesInfo");
+      } else if (data.action === "deleteQuote") {
+        queryClient.invalidateQueries("quotesInfo");
+      } else if (data.action === "likeQuote") {
+        queryClient.invalidateQueries("quotesInfo");
+        queryClient.invalidateQueries("notifications");
+      } else if (data.action === "commentQuote") {
+        queryClient.invalidateQueries("quotesInfo");
+        queryClient.invalidateQueries("notifications");
+      } else if (data.action === "editQuote") {
+        queryClient.invalidateQueries("quotesInfo");
+      }
+    });
+  }, [data, data?.data.quotes]);
 
   useEffect(() => {
     const handleScroll = () => {
