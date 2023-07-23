@@ -6,6 +6,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const port = 3001;
 const cors = require("cors");
+const { Strategy } = require("passport-google-oauth20");
+const passport = require("passport");
+const User = require("./models/user");
 
 app.use(cookieParser());
 
@@ -24,10 +27,29 @@ const corsOptions = {
   // optionSuccessStatus: 200,
   // exposedHeaders: ["set-cookie"],
 };
+
 app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+
+passport.use(
+  new Strategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/secrets",
+      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      console.log(profile);
+      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  )
+);
 
 app.use(signInRoutes);
 app.use(signUpRoutes);

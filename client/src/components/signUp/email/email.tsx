@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
+import { useTranslation } from "react-i18next";
 
 interface signUpMode {
   userEmail: string;
@@ -7,6 +8,8 @@ interface signUpMode {
 
 const RegEmailSent: React.FC<signUpMode> = ({ userEmail }) => {
   const email = userEmail.split("@")[1];
+  const { t, i18n } = useTranslation();
+
   return (
     <div className={style.emailSent}>
       <svg
@@ -31,11 +34,8 @@ const RegEmailSent: React.FC<signUpMode> = ({ userEmail }) => {
       </svg>
 
       <article className={style.title}>
-        <h3>Thank You!</h3>
-        <p>
-          Please check your email and follow the instructions to activate your
-          account.
-        </p>
+        <h3>{t("signUp.send.send")}</h3>
+        <p>{t("signUp.send.check")}</p>
       </article>
 
       <div className={`${style.emailBtnCont}`}>
@@ -44,7 +44,7 @@ const RegEmailSent: React.FC<signUpMode> = ({ userEmail }) => {
           className={`${style.emailBtn} `}
           target="_blank"
         >
-          Go to my email
+          {t("signUp.send.go")}
         </a>
       </div>
     </div>

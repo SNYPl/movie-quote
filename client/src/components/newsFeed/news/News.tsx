@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./style.module.css";
 import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
+import { Link } from "react-router-dom";
 
 interface quote {
   quote: any;
@@ -98,14 +99,16 @@ const News: React.FC<quote> = ({ quote }) => {
         ></div>
         <h4>{quote.quoteAuthor.authorName}</h4>
       </article>
-      <p className={style.quote}>
-        {quote.quote.text}. "movie -{" "}
-        <span className={style.quoteMovieName}>{quote.movie.name}</span>." (
-        {quote.movie.year})
-      </p>
-      <div className={style.newsImg}>
-        <img src={quote.quote.image} alt="quoteImg" />
-      </div>
+      <Link to={`/dashboard/movie-list/quote/quote=${quote.quote._id}`}>
+        <p className={style.quote}>
+          {quote.quote.text}. "movie -{" "}
+          <span className={style.quoteMovieName}>{quote.movie.name}</span>." (
+          {quote.movie.year})
+        </p>
+        <div className={style.newsImg}>
+          <img src={quote.quote.image} alt="quoteImg" />
+        </div>
+      </Link>
       <article className={style.reactions}>
         <div className={style.commentsCount}>
           <p>{quote.quote.comments.length}</p>

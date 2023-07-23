@@ -6,6 +6,7 @@
 .signBtn {
   background: #e31221;
   border: 1px solid #e31221;
+  width: 125px;
 }
 
 .logBtn {

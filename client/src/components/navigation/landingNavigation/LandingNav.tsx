@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import style from "./style.module.css";
 import { signUpCtrx } from "../../../store/signUpContx";
+import { useTranslation } from "react-i18next";
 
 interface userMode {
   setUserMode: React.Dispatch<React.SetStateAction<string>>;
@@ -8,6 +9,7 @@ interface userMode {
 
 const LandNavigation: React.FC = () => {
   const { setUserMode } = useContext(signUpCtrx);
+  const { t, i18n } = useTranslation();
 
   return (
     <div className={style.navBtn}>
@@ -15,13 +17,13 @@ const LandNavigation: React.FC = () => {
         className={style.signBtn}
         onClick={() => setUserMode("signUpModal")}
       >
-        Sign Up
+        {t("landing.signUp")}
       </button>
       <button
         className={style.logBtn}
         onClick={() => setUserMode("loginModal")}
       >
-        Log in
+        {t("landing.login")}
       </button>
     </div>
   );

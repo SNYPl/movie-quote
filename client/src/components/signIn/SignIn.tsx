@@ -6,6 +6,7 @@ import { loginContx } from "../../store/LoginContext";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../store/signUpContx";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   username: string;
@@ -23,6 +24,7 @@ const SignIn: React.FC = () => {
   const { setLogin, login, setEmail, setUsername } = useContext(loginContx);
   const [remember, setRemember] = useState(false);
   const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
+  const { t, i18n } = useTranslation();
 
   const cookies = new Cookies();
 
@@ -109,15 +111,15 @@ const SignIn: React.FC = () => {
   return (
     <div className={style.signIn}>
       <article className={style.title}>
-        <h3>Log in to your account</h3>
-        <p>Welcome back! Please enter your details.</p>
+        <h3>{t("login.welcome")}</h3>
+        <p>{t("login.details")}</p>
       </article>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={`${style.input} ${style.username}`}>
-          <label htmlFor="username">Email</label>
+          <label htmlFor="username">{t("login.email")}</label>
           <input
             type="text"
-            placeholder="Enter your email"
+            placeholder={t("login.emailPlh")}
             id="username"
             {...register("username", {
               onChange: () => setError(""),
@@ -135,10 +137,10 @@ const SignIn: React.FC = () => {
         </div>
 
         <div className={`${style.input} ${style.password}`}>
-          <label htmlFor="">Password</label>
+          <label htmlFor="">{t("login.password")}</label>
           <input
             type="password"
-            placeholder="Password"
+            placeholder={t("login.password")}
             {...register("password", {
               onChange: () => setError(""),
               required: {
@@ -160,7 +162,7 @@ const SignIn: React.FC = () => {
               value="rememberLogin"
               onChange={checkboxHandler}
             />
-            <label htmlFor="rememberLogin">Remember Me</label>
+            <label htmlFor="rememberLogin">{t("login.remember")}</label>
           </div>
           <a
             href="/"
@@ -170,16 +172,18 @@ const SignIn: React.FC = () => {
               setForgotPasswordMode("step1");
             }}
           >
-            Forgot Password?
+            {t("login.forgot")}
           </a>
         </section>
         <button className={`${style.signBtn}`} type="submit">
-          Sign in
+          {t("login.enter")}
         </button>
-        <button className={`${style.signBtn} `}>Sign Chrome</button>
+        <button className={`${style.signBtn} `}>
+          {t("login.enterChrome")}
+        </button>
       </form>
       <p className={`${style.account}`}>
-        Don't have an account?{" "}
+        {t("login.account")}
         <a
           href="/"
           onClick={(e) => {
@@ -187,7 +191,7 @@ const SignIn: React.FC = () => {
             setUserMode("signUpModal");
           }}
         >
-          Sign up
+          {t("login.signUP")}
         </a>
       </p>
     </div>

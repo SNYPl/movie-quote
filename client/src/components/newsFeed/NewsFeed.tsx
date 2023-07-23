@@ -11,7 +11,7 @@ import openSocket from "socket.io-client";
 const NewsFeed: React.FC = () => {
   const [newQuote, setNewQuote] = useState<boolean>(false);
   const [search, setSearch] = useState("");
-  const [queryLimit, setQueryLimit] = useState(2);
+  const [queryLimit, setQueryLimit] = useState(5);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const queryClient = useQueryClient();
 
@@ -87,7 +87,7 @@ const NewsFeed: React.FC = () => {
 
   useEffect(() => {
     if (isLoadingMore) {
-      setQueryLimit((prev) => prev + 2);
+      setQueryLimit((prev) => prev + 5);
     }
   }, [isLoadingMore]);
 

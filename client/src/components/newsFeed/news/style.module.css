@@ -1,8 +1,12 @@
 .news {
-  background: #11101a;
+  background: #171525;
   padding: 24px 24px 41px 24px;
   border-radius: 12px;
   margin-bottom: 45px;
+}
+
+.news a {
+  text-decoration: none;
 }
 .author {
   margin-bottom: 16px;

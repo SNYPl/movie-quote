@@ -14,8 +14,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../store/signUpContx";
 
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const Landing: React.FC = () => {
+  const { t, i18n } = useTranslation();
   let location = useLocation();
   const path: string = location.pathname;
   const includePath: boolean = path.includes("verify");
@@ -61,20 +63,18 @@ const Landing: React.FC = () => {
 
   const landingInfo = [
     {
-      mainTitle: "You have to leave somethig behind to go forward",
-      title: "Interstellar, 2014",
+      mainTitle: t("landing.movie1.mainTitle"),
+      title: t("landing.movie1.title"),
       img: img1,
     },
     {
-      mainTitle:
-        "I think we're just gonna have to be secretly in love with earch other and leave it that",
-      title: "The Royal Tenenbaums,2001 ",
+      mainTitle: t("landing.movie2.mainTitle"),
+      title: t("landing.movie2.title"),
       img: img2,
     },
     {
-      mainTitle:
-        "I think we're just gonna have to be secretly in love with earch other and leave it that",
-      title: "The Royal Tenenbaums,2001 ",
+      mainTitle: t("landing.movie3.mainTitle"),
+      title: t("landing.movie3.title"),
       img: img3,
     },
   ];
@@ -101,9 +101,9 @@ const Landing: React.FC = () => {
         </Navigation>
         <section className={style.info}>
           <h2>
-            Find any quote in <br /> millions of movie lines
+            {t("landing.title")} <br /> {t("landing.title1")}
           </h2>
-          <button className={style.startBtn}>GET STARTED</button>
+          <button className={style.startBtn}> {t("landing.start")}</button>
         </section>
         <div
           className={style.bgrPhoto}

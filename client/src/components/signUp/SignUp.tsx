@@ -13,7 +13,6 @@ interface userMode {
 const SignUp: React.FC<userMode> = ({ pathName }) => {
   const [signUpMode, setSignUpMode] = useState<string>("form");
   const [userEmail, setUserEmail] = useState<string>("");
-  const { userMode, setUserMode } = useContext(signUpCtrx);
 
   useEffect(() => {
     if (pathName) {
@@ -27,7 +26,7 @@ const SignUp: React.FC<userMode> = ({ pathName }) => {
         <SignUpForm setSignUpMode={setSignUpMode} setUserEmail={setUserEmail} />
       )}
       {signUpMode === "emailSender" && <EmailSent userEmail={userEmail} />}
-      {signUpMode === "finished" && <Finish  />}
+      {signUpMode === "finished" && <Finish />}
     </PopUpWrapper>
   );
 };

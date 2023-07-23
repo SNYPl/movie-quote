@@ -1,0 +1,79 @@
+{
+  "landing": {
+    "title": "Find any quote in ",
+    "title1": "millions of movie lines ",
+    "start": "GET STARTED",
+    "movieQuotes": "MOVIE QUOTES",
+    "signUp": "Sign Up",
+    "login": "Log in",
+    "en": "EN",
+    "ge": "GE",
+    "movie1": {
+      "mainTitle": "You have to leave somethig behind to go forward",
+      "title": "Interstellar, 2014"
+    },
+    "movie2": {
+      "mainTitle": "I think we're just gonna have to be secretly in love with earch other and leave it that",
+      "title": "The Royal Tenenbaums,2001 "
+    },
+    "movie3": {
+      "mainTitle": "I see in your eyes the same fear that would take the heart of me....",
+      "title": "The Lord of the Rings, 2003 "
+    }
+  },
+  "login": {
+    "enter": "Sign In",
+    "enterChrome": "Sign Chrome",
+    "welcome": "Log in to your account",
+    "details": "Welcome back! Please enter your details.",
+    "email": "Email",
+    "emailPlh": "Enter your email",
+    "password": "Password",
+    "remember": "Remember Me",
+    "forgot": "Forgot Password?",
+    "account": "Don't have an Account?",
+    "signUP": "Sign up"
+  },
+
+  "signUp": {
+    "enter": "Get Started",
+    "enterChrome": "Sign Up Chrome",
+    "welcome": "Create an account",
+    "details": "Start your journey!",
+    "name": "Name",
+    "namePhl": "At least 3 & max.15 lower case characters",
+    "email": "Email",
+    "emailPlh": "Enter your email",
+    "password": "Password",
+    "passwordPhl": "At least 8 & max.15 lower case characters",
+    "repeatPass": "Repeat Password",
+    "repeatPassPhl": "Confirm Password",
+    "account": "Already have an Account?",
+    "login": "Log In",
+    "send": {
+      "send": "Thank You!",
+      "check": " Please check your email and follow the instructions to activate your account.",
+      "go": "Go to my email"
+    },
+    "finish": {
+      "thank": "Thank You!",
+      "active": "Your account has been activated.",
+      "error": "Error"
+    }
+  },
+  "sideNav": {
+    "logout": "Log out",
+    "profile": "Edit your profile",
+    "feed": "News feed",
+    "list": "List of movies"
+  },
+  "newsFeed": {
+    "new": "Write new quote",
+    "search": "Enter @ to search movies, Enter # to search quotes "
+  },
+  "quote": {
+    "movie": "movie",
+    "commentPlh": "Write a comment",
+    "view": "View Quote"
+  }
+}

@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { LoginProvider } from "./store/LoginContext";
 import { SignUpProvider } from "./store/signUpContx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import "./utils/i18n";
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(

@@ -4,14 +4,15 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { signUpCtrx } from "../../../store/signUpContx";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 
 const Finish: React.FC = () => {
   let location = useLocation();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const { setUserMode,setVerifyThanksPage} = useContext(signUpCtrx);
+  const { setUserMode, setVerifyThanksPage } = useContext(signUpCtrx);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const tokenUrl = location.pathname.split("=")[1];
 
@@ -47,27 +48,26 @@ const Finish: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        {success && <h3>Thank You!</h3>}
-        {error && <h3>Error</h3>}
-        {success && <p>Your account has been activated.</p>}
+        {success && <h3>{t("signUp.finish.thank")}</h3>}
+        {error && <h3>{t("signUp.finish.error")}</h3>}
+        {success && <p>{t("signUp.finish.active")}</p>}
         {error && <p>{error}</p>}
       </article>
 
       <button
         className={`${style.newsFd} `}
-        onClick={(e:any) => {
+        onClick={(e: any) => {
           setVerifyThanksPage(false);
           setUserMode("loginModal");
-          
-  try {
-    navigate("/"); // Omit optional second argument
-  } catch (error) {
-   console.log('error')
-  }
-         
+
+          try {
+            navigate("/"); // Omit optional second argument
+          } catch (error) {
+            console.log("error");
+          }
         }}
       >
-        Log In
+        {t("signUp.login")}
       </button>
     </div>
   );

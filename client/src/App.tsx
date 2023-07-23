@@ -14,6 +14,7 @@ import List from "./components/movieList/list/List";
 import MovieDescription from "./components/movieList/movieDescription/MovieDescription";
 import ViewQuote from "./components/movieList/movieDescription/quotes/view/ViewQuote";
 import EditQuote from "./components/movieList/movieDescription/quotes/edit/EditQuote";
+import NotFound from "./components/error/404";
 
 function App() {
   const { setLogin, login } = useContext(loginContx);
@@ -83,6 +84,8 @@ function App() {
             />
           </Route>
         </Route>
+        <Route path="/auth/google/secrets" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

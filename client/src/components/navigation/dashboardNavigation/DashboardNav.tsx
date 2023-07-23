@@ -5,11 +5,15 @@ import Cookies from "universal-cookie";
 import Notifications from "../notifications/Notifications";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const DashboardNavigation: React.FC = () => {
   const { setLogin } = useContext(loginContx);
   const cookies = new Cookies();
   const [not, setNot] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  console.log(i18n.language);
 
   const logout = () => {
     cookies.remove("remember", { path: "/" });

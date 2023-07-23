@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
 
 exports.postSignUp = async (req, res, next) => {
   const username = req.body.username;
@@ -9,10 +10,6 @@ exports.postSignUp = async (req, res, next) => {
   const password = req.body.password;
 
   const hashedPassword = await bcrypt.hash(password, 10);
-
-  const SENDER_EMAIL = "snypisia@gmail.com";
-  const api_name = "stats";
-  const sender = { name: api_name, email: SENDER_EMAIL };
 
   try {
     User.findOne({ $or: [{ username: username }, { email: email }] }).then(
@@ -31,11 +28,14 @@ exports.postSignUp = async (req, res, next) => {
           }
         );
 
+        sgMail.setApiKey(process.env.SENDGRID_PASSWORD);
+        // console.log(email);
+
         const mailOptions = {
-          from: sender,
-          to: email,
+          to: "snypi.snype@gmail.com",
+          from: `snypisia@gmail.com`,
           subject: "Verification",
-          text: "Welcome to Mailtrap Sending!",
+          text: "Welcome to moviequote!",
           html: `<!doctype html>
             <html>
               <head>
@@ -54,16 +54,40 @@ exports.postSignUp = async (req, res, next) => {
             </html>`,
         };
 
-        const transport = nodemailer.createTransport({
-          host: "smtp.mailtrap.io",
-          port: 2525,
-          auth: {
-            user: "9110c24e7dcdf0",
-            pass: "e993ad3e7a237b",
+        sgMail.send(mailOptions).then(
+          (res) => {
+            console.log(res);
           },
-        });
+          (error) => {
+            console.error(error);
 
-        transport.sendMail(mailOptions).catch((err) => console.log(err));
+            if (error.response) {
+              console.error(error.response.body);
+            }
+          }
+        );
+
+        // const transport = nodemailer.createTransport({
+        //   service: "SendGrid",
+        //   auth: {
+        //     user: process.env.SENDGRID_USER,
+        //     pass: process.env.SENDGRID_PASSWORD,
+        //   },
+        // });
+
+        // const transport = nodemailer.createTransport({
+        //   host: "smtp.mailtrap.io",
+        //   port: 2525,
+        //   auth: {
+        //     user: "9110c24e7dcdf0",
+        //     pass: "e993ad3e7a237b",
+        //   },
+        // });
+
+        // transport
+        //   .sendMail(mailOptions)
+        //   .then((res) => console.log(res))
+        //   .catch((err) => console.log(err));
 
         const user = new User({
           username: username,

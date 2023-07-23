@@ -1,0 +1,41 @@
+.notFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.notFound h3 {
+  color: #fff;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-family: helveticaGeo75Bold;
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 700;
+  margin: 28px 0 8px 0;
+}
+
+.notFound p {
+  color: #fff;
+  font-family: helveticaGeoLight;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
+
+.notFound a {
+  border-radius: 4.8px;
+  background: #e31221;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: helveticaGeo55;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  color: #fff;
+  padding: 9px 17px;
+  text-decoration: none;
+}

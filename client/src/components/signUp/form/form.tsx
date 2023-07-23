@@ -3,6 +3,8 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { signUpCtrx } from "../../../store/signUpContx";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 type FormValues = {
   username: string;
@@ -28,6 +30,7 @@ const Registration: React.FC<signUpMode> = ({
 }) => {
   const [error, setError] = useState<string>("");
   const { setUserMode } = useContext(signUpCtrx);
+  const { t, i18n } = useTranslation();
 
   const {
     register,
@@ -64,16 +67,40 @@ const Registration: React.FC<signUpMode> = ({
       .catch((err) => setError(err.response.data));
   };
 
+  function onSignUp(googleUser: any) {
+    var id_token = googleUser.getAuthResponse().id_token;
+
+    console.log("click");
+
+    // Send the id_token to your backend server for verification and user registration.
+    // Your server should verify the token's authenticity and extract user information.
+
+    // For example, you can use fetch API to send the id_token to your server:
+    // fetch('/signup', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ id_token: id_token })
+    // })
+    // .then(response => {
+    //   // Handle the response from your server
+    // })
+    // .catch(error => {
+    //   // Handle any errors that occur during the fetch
+    // });
+  }
+
   return (
     <div className={style.SignUp}>
       <article className={style.title}>
-        <h3>Create an account</h3>
-        <p>Start your journey!</p>
+        <h3>{t("signUp.welcome")}</h3>
+        <p>{t("signUp.details")}</p>
       </article>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={`${style.input} ${style.username}`}>
           <label htmlFor="username">
-            Name{" "}
+            {t("signUp.name")}
             <svg
               width="6"
               height="6"
@@ -89,7 +116,7 @@ const Registration: React.FC<signUpMode> = ({
           </label>
           <input
             type="text"
-            placeholder="At least 3 & max.15 lower case characters"
+            placeholder={t("signUp.namePhl")}
             id="username"
             {...register("username", {
               onChange: () => setError(""),
@@ -116,7 +143,7 @@ const Registration: React.FC<signUpMode> = ({
 
         <div className={`${style.input} ${style.username}`}>
           <label htmlFor="email">
-            Email{" "}
+            {t("signUp.email")}
             <svg
               width="6"
               height="6"
@@ -133,7 +160,7 @@ const Registration: React.FC<signUpMode> = ({
           <input
             type="text"
             id="email"
-            placeholder="Enter your email"
+            placeholder={t("signUp.emailPlh")}
             {...register("email", {
               onChange: () => setError(""),
               required: {
@@ -151,7 +178,7 @@ const Registration: React.FC<signUpMode> = ({
 
         <div className={`${style.input} ${style.password}`}>
           <label htmlFor="">
-            Password{" "}
+            {t("signUp.password")}
             <svg
               width="6"
               height="6"
@@ -167,7 +194,7 @@ const Registration: React.FC<signUpMode> = ({
           </label>
           <input
             type="password"
-            placeholder="At least 8 & max.15 lower case characters"
+            placeholder={t("signUp.passwordPhl")}
             {...register("password", {
               required: {
                 value: true,
@@ -192,7 +219,7 @@ const Registration: React.FC<signUpMode> = ({
 
         <div className={`${style.input} ${style.password}`}>
           <label htmlFor="repeatPassword">
-            Repeat Password{" "}
+            {t("signUp.repeatPass")}
             <svg
               width="6"
               height="6"
@@ -209,7 +236,7 @@ const Registration: React.FC<signUpMode> = ({
           <input
             type="password"
             id="repeatPassword"
-            placeholder="Confirm password"
+            placeholder={t("signUp.repeatPassPhl")}
             {...register("repeatPassword", {
               required: {
                 value: true,
@@ -227,12 +254,21 @@ const Registration: React.FC<signUpMode> = ({
         </div>
         {error && <p className={`${style.mainError}`}>{error}</p>}
         <button type="submit" className={`${style.signUpBtn}`}>
-          Get Started
+          {t("signUp.enter")}
         </button>
-        <button className={`${style.signUpBtn} `}>Sign Up Chrome</button>
+        <Link
+          className={`${style.signUpBtn}`}
+          to="http://localhost:3001/auth/google"
+        >
+          {t("signUp.enterChrome")}
+        </Link>
+        <div className="g-signin2" data-onsuccess="onSignUp">
+          {" "}
+          {t("signUp.enterChrome")}
+        </div>
       </form>
       <p className={`${style.account}`}>
-        Already have an account?{" "}
+        {t("signUp.account")}
         <a
           href="/"
           onClick={(e: any) => {
@@ -240,7 +276,7 @@ const Registration: React.FC<signUpMode> = ({
             setUserMode("loginModal");
           }}
         >
-          Log in
+          {t("signUp.login")}
         </a>
       </p>
     </div>
