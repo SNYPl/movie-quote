@@ -13,8 +13,6 @@ const DashboardNavigation: React.FC = () => {
   const [not, setNot] = useState(false);
   const { t, i18n } = useTranslation();
 
-  console.log(i18n.language);
-
   const logout = () => {
     cookies.remove("remember", { path: "/" });
     cookies.remove("token", { path: "/" });

@@ -30,10 +30,25 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (cookies.get("isLoggedIn") && cookies.get("token")) {
+    if (cookies.get("isLoggedIn") === true && cookies.get("token")) {
       setLogin(true);
-    } else if (cookies.get("remember") && cookies.get("token")) {
+    } else if (
+      cookies.get("isLoggedIn") === "unVerified" &&
+      cookies.get("token")
+    ) {
+      setLogin("unVerified");
+    } else if (
+      cookies.get("remember") &&
+      cookies.get("token") &&
+      cookies.get("isLoggedIn") === true
+    ) {
       setLogin(true);
+    } else if (
+      cookies.get("remember") &&
+      cookies.get("token") &&
+      cookies.get("isLoggedIn") === "unVerified"
+    ) {
+      setLogin("unVerified");
     } else {
       setLogin(false);
     }
@@ -52,7 +67,6 @@ function App() {
           <Route path="/verify/:token" element={<Landing />} />
           <Route path="/forgot/password/:token" element={<Landing />} />
         </Route>
-        <Route path="/noPass" element={<p>No Pass</p>} />
 
         <Route
           path="/dashboard"
@@ -86,6 +100,7 @@ function App() {
         </Route>
         <Route path="/auth/google/secrets" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/noPass" element={<p>No Pass</p>} />
       </Routes>
     </div>
   );

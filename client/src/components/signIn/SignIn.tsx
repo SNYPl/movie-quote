@@ -21,7 +21,7 @@ type axiosReq = {
 
 const SignIn: React.FC = () => {
   const [error, setError] = useState<string>("");
-  const { setLogin, login, setEmail, setUsername } = useContext(loginContx);
+  const { setLogin } = useContext(loginContx);
   const [remember, setRemember] = useState(false);
   const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
   const { t, i18n } = useTranslation();
@@ -90,10 +90,17 @@ const SignIn: React.FC = () => {
             path: "/",
             expires: expiration,
           });
-          cookies.set("isLoggedIn", true, {
-            path: "/",
-            expires: expiration,
-          });
+          if (!res.data.verified) {
+            cookies.set("isLoggedIn", "unVerified", {
+              path: "/",
+              expires: expiration,
+            });
+          } else {
+            cookies.set("isLoggedIn", true, {
+              path: "/",
+              expires: expiration,
+            });
+          }
 
           if (remember) {
             cookies.set("remember", true, {

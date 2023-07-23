@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import style from "./style.module.css";
 import LandingMovie from "./landingMovie/LandingMovie";
 import Navigation from "../navigation/Navigation";

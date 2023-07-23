@@ -24,7 +24,11 @@ const SendMail: React.FC = () => {
 
   const sendMail = () => {
     axios
-      .post("http://localhost:3001/sendmail", { user: username }, { headers })
+      .post(
+        "http://localhost:3001/sendmail",
+        { user: username },
+        { headers, withCredentials: true }
+      )
       .then((res) => {
         if (res.status === 200) {
           setSuccess(true);
@@ -57,7 +61,7 @@ const SendMail: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        <h3>Send Email</h3>
+        <h3>Check you mail or send email again</h3>
         <p>For verify account</p>
       </article>
       {success && (

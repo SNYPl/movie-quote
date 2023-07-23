@@ -29,10 +29,9 @@ exports.postSignUp = async (req, res, next) => {
         );
 
         sgMail.setApiKey(process.env.SENDGRID_PASSWORD);
-        // console.log(email);
 
         const mailOptions = {
-          to: "snypi.snype@gmail.com",
+          to: email,
           from: `snypisia@gmail.com`,
           subject: "Verification",
           text: "Welcome to moviequote!",
@@ -55,9 +54,7 @@ exports.postSignUp = async (req, res, next) => {
         };
 
         sgMail.send(mailOptions).then(
-          (res) => {
-            console.log(res);
-          },
+          (res) => {},
           (error) => {
             console.error(error);
 
@@ -134,20 +131,23 @@ exports.verifyAccount = async (req, res, next) => {
 };
 
 exports.sendVerifyMail = async (req, res, next) => {
-  const username = req.body.user;
+  const username = req.user.username;
 
   const SENDER_EMAIL = "snypisia@gmail.com";
-  const api_name = "stats";
+  const api_name = "Verification";
   const sender = { name: api_name, email: SENDER_EMAIL };
 
   try {
-    User.findOne({ username: username }).then((user) => {
-      const mailOptions = {
-        from: sender,
-        to: user.email,
-        subject: "Verification",
-        text: "Welcome to Mailtrap Sending!",
-        html: `<!doctype html>
+    sgMail.setApiKey(process.env.SENDGRID_PASSWORD);
+
+    User.findOne({ $or: [{ username: username }, { email: username }] }).then(
+      (user) => {
+        const mailOptions = {
+          from: sender,
+          to: user.email,
+          subject: "Verification",
+          text: "Welcome to Mailtrap Sending!",
+          html: `<!doctype html>
     <html>
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -163,21 +163,22 @@ exports.sendVerifyMail = async (req, res, next) => {
         </style>
       </body>
     </html>`,
-      };
+        };
 
-      const transport = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-          user: "9110c24e7dcdf0",
-          pass: "e993ad3e7a237b",
-        },
-      });
+        sgMail.send(mailOptions).then(
+          (res) => {},
+          (error) => {
+            console.error(error);
 
-      transport.sendMail(mailOptions).catch((err) => console.log(err));
+            if (error.response) {
+              console.error(error.response.body);
+            }
+          }
+        );
 
-      res.status(200).send({ message: "mail sent" });
-    });
+        res.status(200).send({ message: "mail sent" });
+      }
+    );
   } catch (err) {
     res.status(401).send(err.message);
   }
