@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { RotatingLines } from "react-loader-spinner";
 
 type movie = {
   name: string;
@@ -79,6 +80,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("moviesList");
+        queryClient.refetchQueries("moviesList");
         if (res.status === 200) setSucc(res.data.message);
         setAddMovie(false);
       },
@@ -328,7 +330,17 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
             {errorUser && <p className={style.errMsg}>{errorUser}</p>}
 
             <button type="submit" className={style.addBtn}>
-              Add Movie
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="40"
+                  visible={true}
+                />
+              ) : (
+                "Add Movie"
+              )}
             </button>
           </form>
         </section>

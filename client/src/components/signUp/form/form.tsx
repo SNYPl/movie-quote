@@ -256,12 +256,12 @@ const Registration: React.FC<signUpMode> = ({
         <button type="submit" className={`${style.signUpBtn}`}>
           {t("signUp.enter")}
         </button>
-        <Link
+        <a
           className={`${style.signUpBtn}`}
-          to="http://localhost:3001/auth/google"
+          href="http://localhost:3001/auth/google"
         >
           {t("signUp.enterChrome")}
-        </Link>
+        </a>
         <div className="g-signin2" data-onsuccess="onSignUp">
           {" "}
           {t("signUp.enterChrome")}

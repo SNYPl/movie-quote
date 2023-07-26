@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
 const sgMail = require("@sendgrid/mail");
 
 exports.postSignUp = async (req, res, next) => {
@@ -63,28 +62,6 @@ exports.postSignUp = async (req, res, next) => {
             }
           }
         );
-
-        // const transport = nodemailer.createTransport({
-        //   service: "SendGrid",
-        //   auth: {
-        //     user: process.env.SENDGRID_USER,
-        //     pass: process.env.SENDGRID_PASSWORD,
-        //   },
-        // });
-
-        // const transport = nodemailer.createTransport({
-        //   host: "smtp.mailtrap.io",
-        //   port: 2525,
-        //   auth: {
-        //     user: "9110c24e7dcdf0",
-        //     pass: "e993ad3e7a237b",
-        //   },
-        // });
-
-        // transport
-        //   .sendMail(mailOptions)
-        //   .then((res) => console.log(res))
-        //   .catch((err) => console.log(err));
 
         const user = new User({
           username: username,

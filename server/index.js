@@ -6,11 +6,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const port = 3001;
 const cors = require("cors");
-const { Strategy } = require("passport-google-oauth20");
 const passport = require("passport");
-const User = require("./models/user");
+const session = require("express-session");
+const googleSetup = require("./googlePassport");
 
 app.use(cookieParser());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
@@ -19,38 +22,29 @@ const newsFeedRoutes = require("./routes/newsFeed");
 const profileRoutes = require("./routes/profile");
 const movieListRoutes = require("./routes/movieList");
 const quotesRoutes = require("./routes/quotes");
+const googleAuths = require("./routes/googleAuthRoutes");
 
 const corsOptions = {
-  origin: "*",
+  // origin: "*",
   credentials: true,
   origin: "http://localhost:3000",
   // optionSuccessStatus: 200,
   // exposedHeaders: ["set-cookie"],
 };
 
+app.use(
+  session({
+    secret: "testingChrome", // Replace with a strong, random secret key
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(cors(corsOptions));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(passport.initialize());
+app.use(passport.session());
 
-passport.use(
-  new Strategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/secrets",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-    },
-    function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
-    }
-  )
-);
-
+app.use("/auth", googleAuths);
 app.use(signInRoutes);
 app.use(signUpRoutes);
 app.use(forgotPassword);
@@ -60,6 +54,7 @@ app.use(movieListRoutes);
 app.use(quotesRoutes);
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(500).render("500", {});
 });
 

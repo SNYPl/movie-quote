@@ -96,7 +96,7 @@ const SignIn: React.FC = () => {
               expires: expiration,
             });
           } else {
-            cookies.set("isLoggedIn", true, {
+            cookies.set("isLoggedIn", "true", {
               path: "/",
               expires: expiration,
             });
@@ -185,9 +185,12 @@ const SignIn: React.FC = () => {
         <button className={`${style.signBtn}`} type="submit">
           {t("login.enter")}
         </button>
-        <button className={`${style.signBtn} `}>
+        <a
+          className={`${style.signBtn} `}
+          href="http://localhost:3001/auth/google"
+        >
           {t("login.enterChrome")}
-        </button>
+        </a>
       </form>
       <p className={`${style.account}`}>
         {t("login.account")}

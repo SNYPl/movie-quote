@@ -15,6 +15,7 @@ import MovieDescription from "./components/movieList/movieDescription/MovieDescr
 import ViewQuote from "./components/movieList/movieDescription/quotes/view/ViewQuote";
 import EditQuote from "./components/movieList/movieDescription/quotes/edit/EditQuote";
 import NotFound from "./components/error/404";
+import GoogleSuccess from "./components/signIn/SignGoogle";
 
 function App() {
   const { setLogin, login } = useContext(loginContx);
@@ -24,19 +25,29 @@ function App() {
 
   useEffect(() => {
     if (!cookies.get("remember")) {
-      cookies.remove("token", { path: "/" });
-      cookies.remove("isLoggedIn", { path: "/" });
+      const handleBeforeUnload = (event: any) => {
+        cookies.remove("token", { path: "/" });
+        cookies.remove("isLoggedIn", { path: "/" });
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
     }
   }, []);
 
   useEffect(() => {
-    if (cookies.get("isLoggedIn") === true && cookies.get("token")) {
+    if (cookies.get("isLoggedIn") === "true" && cookies.get("token")) {
       setLogin(true);
     } else if (
       cookies.get("isLoggedIn") === "unVerified" &&
       cookies.get("token")
     ) {
       setLogin("unVerified");
+    } else if (cookies.get("googleSigned")) {
+      setLogin(true);
     } else if (
       cookies.get("remember") &&
       cookies.get("token") &&
@@ -58,7 +69,7 @@ function App() {
     if (cookies.get("isLoggedIn") && location.pathname === "/") {
       navigate("/dashboard");
     }
-  }, [cookies.get("isLoggedIn")]);
+  }, [cookies.get("isLoggedIn"), cookies.get("token")]);
 
   return (
     <div className="App">
@@ -98,8 +109,9 @@ function App() {
             />
           </Route>
         </Route>
-        <Route path="/auth/google/secrets" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/auth/google/success" element={<GoogleSuccess />} />
+
         <Route path="/noPass" element={<p>No Pass</p>} />
       </Routes>
     </div>

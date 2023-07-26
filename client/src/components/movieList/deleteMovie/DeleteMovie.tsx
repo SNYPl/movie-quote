@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router";
+import { RotatingLines } from "react-loader-spinner";
 
 interface deleteMovie {
   setDeleteMovie: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +15,7 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (movie: any) => {
       return axios.delete("http://localhost:3001/movie-list/delete-movie", {
         data: { id: id },
@@ -63,7 +64,17 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
         <p>are you sure?</p>
         <div className={style.btns}>
           <button className={style.addBtn} onClick={deleteHandler}>
-            yes
+            {isLoading ? (
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="40"
+                visible={true}
+              />
+            ) : (
+              "Yes"
+            )}
           </button>
         </div>
 

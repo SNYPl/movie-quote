@@ -180,6 +180,7 @@
   font-size: 24px;
   color: #ddccaa;
   margin-top: 15px;
+  word-wrap: break-word;
 }
 
 .genres {
@@ -218,6 +219,7 @@
   font-weight: 500;
   font-size: 18px;
   color: #ffffff;
+  word-wrap: break-word;
 }
 
 .dargNdrop {

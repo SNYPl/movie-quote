@@ -95,7 +95,7 @@ exports.deleteMovie = async (req, res, next) => {
     //   res.status(200).send({ message: "movie deleted" })
     // );
 
-    const deleteMovie = await Movie.deleteOne({ _id: movieId });
+    const deleteMovie = await Movie.deleteOne({ _id: movieId }).then();
 
     res.status(200).send({ message: "movie deleted" });
   } catch (err) {

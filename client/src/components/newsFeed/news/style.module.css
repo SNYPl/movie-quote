@@ -39,6 +39,7 @@
   margin: 0;
   margin-bottom: 28px;
   color: #ffffff;
+  word-wrap: break-word;
 }
 .newsImg {
   height: 450px;
@@ -86,7 +87,7 @@
   cursor: pointer;
 }
 .comments {
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 .comment {
   display: flex;
@@ -123,6 +124,7 @@
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
+  word-wrap: break-word;
   color: #ffffff;
   margin: 0;
 }

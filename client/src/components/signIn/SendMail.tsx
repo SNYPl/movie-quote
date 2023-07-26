@@ -4,10 +4,6 @@ import axios from "axios";
 import { loginContx } from "../../store/LoginContext";
 import Cookies from "universal-cookie";
 
-type axiosReq = {
-  username: string;
-};
-
 const SendMail: React.FC = () => {
   const cookies = new Cookies();
   const { username } = useContext(loginContx);

@@ -24,8 +24,9 @@
   text-transform: uppercase;
   font-weight: 500;
   font-style: normal;
-  font-size: 24px;
+  font-size: 18px;
   font-family: helveticaGeo75Bold;
+  word-wrap: break-word;
 }
 .commentInfo {
   display: flex;

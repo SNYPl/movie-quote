@@ -18,7 +18,7 @@
   justify-content: space-between;
 }
 .quotePhoto {
-  width: 240px;
+  width: 100%;
   height: 140px;
 }
 .quotePhoto img {
@@ -31,7 +31,7 @@
   font-family: helveticaGeo55;
   font-style: italic;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   color: #ced4da;
 }
 .menuDot {
@@ -75,6 +75,8 @@
 
 .imgTextInfo {
   align-items: center;
-  display: flex;
+  /* display: flex; */
   column-gap: 34px;
+  display: grid;
+  grid-template-columns: 1.9fr 1.4fr;
 }

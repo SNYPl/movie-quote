@@ -30,7 +30,8 @@
   font-family: helveticaGeoMed;
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
+  word-wrap: break-word;
   color: #ddccaa;
 }
 
@@ -89,6 +90,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
+  word-wrap: break-word;
   color: #ffffff;
 }
 .descriptionText {
@@ -99,6 +101,7 @@
   font-weight: 400;
   font-size: 18px;
   color: #ced4da;
+  word-wrap: break-word;
 }
 .addBtns {
   display: flex;

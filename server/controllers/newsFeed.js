@@ -6,7 +6,9 @@ const io = require("../socket");
 exports.newsFeedQuotes = async (req, res, next) => {
   const username = req.user.username;
 
-  const user = await User.findOne({ $or: [{ username }, { email: username }] });
+  const user = await User.findOne({
+    $or: [{ username: username }, { email: username }],
+  });
 
   if (!user) return res.status(401).send("something problem");
 
@@ -27,16 +29,16 @@ exports.newsFeedQuotes = async (req, res, next) => {
           quote: el,
           liked: likedByUser,
           quoteAuthor: {
-            authorName: quoteAuthor.username,
-            image: quoteAuthor.image,
+            authorName: quoteAuthor?.username,
+            image: quoteAuthor?.image,
           },
           movie: {
-            name: movie.name,
-            year: movie.year,
+            name: movie?.name,
+            year: movie?.year,
           },
           user: {
-            name: user.username,
-            image: user.image,
+            name: user?.username,
+            image: user?.image,
           },
         };
       })

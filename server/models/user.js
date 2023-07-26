@@ -9,6 +9,9 @@ const userSchema = new Schema(
       unique: true,
       minLength: 3,
     },
+    googleId: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,
@@ -16,7 +19,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
       minLength: 3,
     },
     verified: {

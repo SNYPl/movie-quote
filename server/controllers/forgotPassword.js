@@ -2,6 +2,7 @@ const User = require("../models/user");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const sgMail = require("@sendgrid/mail");
 
 exports.sendForgotMail = async (req, res, next) => {
   const email = req.body.email;
@@ -16,8 +17,10 @@ exports.sendForgotMail = async (req, res, next) => {
       expiresIn: 60 * 60,
     });
 
+    sgMail.setApiKey(process.env.SENDGRID_PASSWORD);
+
     const SENDER_EMAIL = "snypisia@gmail.com";
-    const api_name = "stats";
+    const api_name = "Forgot Password";
     const sender = { name: api_name, email: SENDER_EMAIL };
 
     const mailOptions = {
@@ -43,20 +46,16 @@ exports.sendForgotMail = async (req, res, next) => {
           </html>`,
     };
 
-    const transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "9110c24e7dcdf0",
-        pass: "e993ad3e7a237b",
-      },
-    });
+    sgMail.send(mailOptions).then(
+      (res) => {},
+      (error) => {
+        console.error(error);
 
-    transport.sendMail(mailOptions).catch((err) => {
-      if (err) {
-        throw new Error(err);
+        if (error.response) {
+          console.error(error.response.body);
+        }
       }
-    });
+    );
 
     res.status(200).send({ message: "email sent", email: user.email });
   } catch (err) {
@@ -68,13 +67,12 @@ exports.forgotVerifyEmail = (req, res, next) => {
   const token = req.body.token;
 
   try {
-    jwt.verify(
-      token,
-      process.env.SECRET_FORGOT_PASSWORD,
-      function (err, decoded) {
-        if (err) throw new Error("Invalid token");
-      }
-    );
+    jwt.verify(token, process.env.SECRET_FORGOT_PASSWORD, function (
+      err,
+      decoded
+    ) {
+      if (err) throw new Error("Invalid token");
+    });
 
     res.status(200).send({ message: "account verified" });
   } catch (err) {
@@ -91,13 +89,12 @@ exports.changePassword = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(password, 12);
 
   try {
-    jwt.verify(
-      token,
-      process.env.SECRET_FORGOT_PASSWORD,
-      function (err, decoded) {
-        if (err) throw new Error("Invalid token , try again");
-      }
-    );
+    jwt.verify(token, process.env.SECRET_FORGOT_PASSWORD, function (
+      err,
+      decoded
+    ) {
+      if (err) throw new Error("Invalid token , try again");
+    });
     User.findOneAndUpdate(
       { email: email },
       { $set: { password: hashedPassword } }
@@ -128,8 +125,10 @@ exports.sendVerifyRepeat = async (req, res, next) => {
       expiresIn: 60 * 60,
     });
 
+    sgMail.setApiKey(process.env.SENDGRID_PASSWORD);
+
     const SENDER_EMAIL = "snypisia@gmail.com";
-    const api_name = "stats";
+    const api_name = "Forgot Password";
     const sender = { name: api_name, email: SENDER_EMAIL };
 
     const mailOptions = {
@@ -155,20 +154,16 @@ exports.sendVerifyRepeat = async (req, res, next) => {
             </html>`,
     };
 
-    const transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "9110c24e7dcdf0",
-        pass: "e993ad3e7a237b",
-      },
-    });
+    sgMail.send(mailOptions).then(
+      (res) => {},
+      (error) => {
+        console.error(error);
 
-    transport.sendMail(mailOptions).catch((err) => {
-      if (err) {
-        throw new Error(err);
+        if (error.response) {
+          console.error(error.response.body);
+        }
       }
-    });
+    );
     res.status(200).send({ message: "email sent", email: user.email });
   } catch (err) {
     res.status(401).send(err.message);

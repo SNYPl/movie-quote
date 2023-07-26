@@ -39,7 +39,10 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
         <EditMovie setEditMovie={setEditMovie} image={data?.data.movie.image} />
       )}
       {deleteMovie && (
-        <DeleteMovie setDeleteMovie={setDeleteMovie} id={data?.data.movie.id} />
+        <DeleteMovie
+          setDeleteMovie={setDeleteMovie}
+          id={data?.data.movie._id}
+        />
       )}
       <article className={style.movie}>
         <div className={style.moviePhoto}>

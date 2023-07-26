@@ -34,6 +34,14 @@ const SideMenu: React.FC = () => {
 
   const [dashBoardNav, setDashboardNav] = useState(defaultNav);
 
+  function ellipsify(str: string) {
+    if (str.length > 15) {
+      return str.substring(0, 15) + "...";
+    } else {
+      return str;
+    }
+  }
+
   return (
     <section className={style.menu}>
       <section className={style.profile}>
@@ -54,7 +62,7 @@ const SideMenu: React.FC = () => {
           )}
         </div>
         <article className={`${style.profileInfo} `}>
-          <h3>{data?.data.username}</h3>
+          <h3>{ellipsify(data?.data.username)}</h3>
           <NavLink
             to="/dashboard/profile"
             onClick={(e: any) => {
