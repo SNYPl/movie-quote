@@ -34,6 +34,7 @@ exports.newsFeedQuotes = async (req, res, next) => {
           },
           movie: {
             name: movie?.name,
+            nameGeo: movie?.nameGeo,
             year: movie?.year,
           },
           user: {
@@ -56,7 +57,9 @@ exports.newsFeedQuotes = async (req, res, next) => {
 exports.dashboardGetStats = async (req, res, next) => {
   const username = req.user.username;
 
-  const user = await User.findOne({ $or: [{ username }, { email: username }] });
+  const user = await User.findOne({
+    $or: [{ username: username }, { email: username }],
+  });
 
   if (!user) return res.status(401).send("something problem");
 
@@ -71,7 +74,9 @@ exports.dashboardGetStats = async (req, res, next) => {
 exports.dashboardMovieListNames = async (req, res, next) => {
   const username = req.user.username;
 
-  const user = await User.findOne({ $or: [{ username }, { email: username }] });
+  const user = await User.findOne({
+    $or: [{ username: username }, { email: username }],
+  });
 
   if (!user) return res.status(401).send("something problem");
 
@@ -83,7 +88,9 @@ exports.dashboardMovieListNames = async (req, res, next) => {
 exports.dashboardAddQuote = async (req, res, next) => {
   const username = req.user.username;
 
-  const user = await User.findOne({ $or: [{ username }, { email: username }] });
+  const user = await User.findOne({
+    $or: [{ username: username }, { email: username }],
+  });
 
   if (!user) return res.status(401).send("something problem");
 

@@ -4,9 +4,11 @@ import { DashbCtrx } from "../../../store/dashboardContext";
 import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const UploadPhoto: React.FC = () => {
   const { setProfileImage, profileImage } = useContext(DashbCtrx);
+  const { t, i18n } = useTranslation();
 
   const { isLoading, error, data } = useQuery(
     "userInfo",
@@ -67,7 +69,7 @@ const UploadPhoto: React.FC = () => {
           onChange={onChangeInput}
         />
       </article>
-      <p>Upload new photo</p>
+      <p>{t("myProfile.upload")}</p>
     </div>
   );
 };

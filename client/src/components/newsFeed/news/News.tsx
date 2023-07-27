@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface quote {
   quote: any;
@@ -12,6 +13,7 @@ const News: React.FC<quote> = ({ quote }) => {
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
   const [commentErr, setCommentErr] = useState("");
+  const { t, i18n } = useTranslation();
 
   //like quote
 
@@ -101,9 +103,13 @@ const News: React.FC<quote> = ({ quote }) => {
       </article>
       <Link to={`/dashboard/movie-list/quote/quote=${quote.quote._id}`}>
         <p className={style.quote}>
-          {quote.quote.text}. "movie -{" "}
-          <span className={style.quoteMovieName}>{quote.movie.name}</span>." (
-          {quote.movie.year})
+          {i18n.language === "en" ? quote.quote.text : quote.quote.textGeo}. "
+          {t("quote.movie")} -{" "}
+          <span className={style.quoteMovieName}>
+            {" "}
+            {i18n.language === "en" ? quote.movie.name : quote.movie.nameGeo}
+          </span>
+          ." ({quote.movie.year})
         </p>
         <div className={style.newsImg}>
           <img src={quote.quote.image} alt="quoteImg" />
@@ -166,7 +172,7 @@ const News: React.FC<quote> = ({ quote }) => {
         ></div>
         <input
           type="text"
-          placeholder="Write a comment"
+          placeholder={t("quote.commentPlh")}
           value={comment}
           onChange={(e) => {
             setComment(e.target.value);

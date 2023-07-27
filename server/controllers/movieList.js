@@ -29,10 +29,12 @@ exports.addMovie = async (req, res, next) => {
       image: req.body.image,
     });
 
-    movie.save();
+    await movie.save();
 
     const user = await User.findOneAndUpdate(
-      { username: username },
+      {
+        $or: [{ username: username }, { email: username }],
+      },
       { $push: { movies: [movie] } },
       {
         new: true,
@@ -50,8 +52,16 @@ exports.addMovie = async (req, res, next) => {
 exports.getAllMovie = async (req, res, next) => {
   const username = req.user.username;
 
-  const user = await User.findOne({ username: username }, "movies _id");
-  const records = await Movie.find().where("_id").in(user.movies).exec();
+  const user = await User.findOne(
+    {
+      $or: [{ username: username }, { email: username }],
+    },
+    "movies _id"
+  );
+  let records = [];
+  if (user) {
+    records = await Movie.find().where("_id").in(user?.movies).exec();
+  }
 
   return res.status(200).send({ movies: records });
 };
@@ -91,10 +101,6 @@ exports.deleteMovie = async (req, res, next) => {
   if (!username) return res.status(401).send("invalid username or token");
 
   try {
-    // Movie.findByIdAndDelete(movieId).then((res) =>
-    //   res.status(200).send({ message: "movie deleted" })
-    // );
-
     const deleteMovie = await Movie.deleteOne({ _id: movieId }).then();
 
     res.status(200).send({ message: "movie deleted" });

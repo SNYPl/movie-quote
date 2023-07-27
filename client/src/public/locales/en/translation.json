@@ -32,7 +32,13 @@
     "remember": "Remember Me",
     "forgot": "Forgot Password?",
     "account": "Don't have an Account?",
-    "signUP": "Sign up"
+    "signUP": "Sign up",
+    "check": {
+      "check": "Check you mail or send email again",
+      "verify": "For verify account",
+      "sent": "Email Sent, check your mail",
+      "send": "Send"
+    }
   },
 
   "signUp": {
@@ -55,10 +61,46 @@
       "check": " Please check your email and follow the instructions to activate your account.",
       "go": "Go to my email"
     },
+
     "finish": {
       "thank": "Thank You!",
       "active": "Your account has been activated.",
       "error": "Error"
+    }
+  },
+  "forgotPass": {
+    "form": {
+      "title": "Forgot password?",
+      "enter": "Enter the email and we'll send an email with instructions to reset your password",
+      "email": "Email",
+      "emailPlh": "Enter your email",
+      "send": "Send Instructions",
+      "back": "Back to login"
+    },
+    "check": {
+      "title": "Check your email",
+      "enter": "We have sent a password recover instructions to your email",
+      "go": "Go to my email",
+      "skip": " Skip, I'll confirm later"
+    },
+    "change": {
+      "title": "Create new password",
+      "enter": "Your new password must be different from previous used passwords",
+      "password": "Password",
+      "passwordPlh": "At least 8 & max.15 lower case characters",
+      "confPassword": "Confirm Password",
+      "reset": " Reset Password",
+      "back": " Back to login"
+    },
+    "success": {
+      "title": "Thank You!",
+      "enter": "Your password changed successfully.",
+      "login": " Log in"
+    },
+    "expired": {
+      "title": "Link expired!",
+      "enter": "password change link has expired, because you haven't used it",
+      "req": "Request another link"
     }
   },
   "sideNav": {
@@ -69,11 +111,72 @@
   },
   "newsFeed": {
     "new": "Write new quote",
-    "search": "Enter @ to search movies, Enter # to search quotes "
+    "search": "Enter @ to search movies, Enter # to search quotes",
+    "quoteForm": {
+      "choose": "Choose Movie",
+      "imgLabel": "UPLOAD or drop image here",
+      "post": "Post"
+    }
+  },
+
+  "myProfile": {
+    "title": "My Profile",
+    "upload": "Upload new photo",
+    "edit": "Edit",
+    "username": "Username",
+    "newUsername": "New Username",
+    "email": "Email",
+    "newEmail": "New Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "ConfNewPassword": "Confirm New Password",
+    "cancel": "Cancel",
+    "save": "Save changes"
   },
   "quote": {
     "movie": "movie",
     "commentPlh": "Write a comment",
-    "view": "View Quote"
+    "view": "View Quote",
+    "addQuote": {
+      "title": "Add Quote",
+      "director": "Director:",
+      "upload": "UPLOAD or drop image here"
+    },
+    "editQuote": {
+      "title": "Edit Quote",
+      "delete": "Delete",
+      "upload": "UPLOAD or drag Photo",
+      "save": "Save Changes"
+    }
+  },
+  "movieList": {
+    "list": "My list of movies",
+    "total": "Total",
+    "search": "Search",
+    "add": "Add Movie",
+    "addMovie": {
+      "separate": "Separate genre with comma",
+      "budget": "Budget",
+      "upload": "Upload or drop image here"
+    },
+    "deleteMovie": {
+      "title": "Delete Movie",
+      "are": "Are you sure?",
+      "yes": "Yes"
+    },
+    "editMovie": {
+      "title": "Edit Movie",
+      "genre": "Genre:",
+      "budget": "Budget:",
+      "upload": "drag and drop or Upload image here"
+    }
+  },
+  "movieDesc": {
+    "title": "Movie description",
+    "director": " Director:",
+    "budget": "Budget:",
+    "quotes": "Quotes",
+    "total": "total",
+    "add": "Add quote"
   }
 }

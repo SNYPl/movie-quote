@@ -18,7 +18,9 @@ exports.addMovieQuote = async (req, res, next) => {
   const addedMovie = await Movie.findOne({
     $or: [{ _id: id }, { name: movieName }],
   });
-  const user = await User.findOne({ username: username });
+  const user = await User.findOne({
+    $or: [{ username: username }, { email: username }],
+  });
   try {
     const quote = new Quote({
       quoteAuthor: user,

@@ -1,16 +1,27 @@
 import React from "react";
 import style from "./style.module.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface movie {
   name: string;
+  nameGeo: string;
   year: string;
   quotesLength: number;
   image: string;
   id: string;
 }
 
-const Movie: React.FC<movie> = ({ name, year, quotesLength, image, id }) => {
+const Movie: React.FC<movie> = ({
+  name,
+  year,
+  quotesLength,
+  image,
+  id,
+  nameGeo,
+}) => {
+  const { i18n } = useTranslation();
+
   return (
     <article className={style.movie}>
       <div className={style.movieImg}>
@@ -21,7 +32,7 @@ const Movie: React.FC<movie> = ({ name, year, quotesLength, image, id }) => {
           className={style.title}
           to={`/dashboard/movie-list/movie/movie=${id}`}
         >
-          {name} ({year}){" "}
+          {i18n.language === "en" ? name : nameGeo} ({year}){" "}
         </Link>
       </h5>
       <div className={style.commentInfo}>

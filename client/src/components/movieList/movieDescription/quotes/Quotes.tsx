@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import QuoteMenu from "./quoteMenu/QuoteMenu";
-import EditQuote from "./edit/EditQuote";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface quoteInfo {
   text: string;
@@ -22,6 +22,7 @@ const Quote: React.FC<quoteInfo> = ({
   id,
 }) => {
   const [quoteMenu, setQuoteMenu] = useState(false);
+  const { i18n } = useTranslation();
 
   return (
     <section className={style.quote}>
@@ -31,7 +32,7 @@ const Quote: React.FC<quoteInfo> = ({
             <div className={style.quotePhoto}>
               <img src={image} alt="img" />
             </div>
-            <h4>" {text} "</h4>
+            <h4>" {i18n.language === "en" ? text : textGeo} "</h4>
           </div>
         </Link>
         <div className={style.menuDot}>

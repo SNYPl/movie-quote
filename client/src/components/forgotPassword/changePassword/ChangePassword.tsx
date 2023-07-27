@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { signUpCtrx } from "../../../store/signUpContx";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   username: string;
@@ -23,6 +24,7 @@ const ChangePassword: React.FC = () => {
   const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
   const navigate = useNavigate();
   let location = useLocation();
+  const { t, i18n } = useTranslation();
 
   const getPath = location.pathname.split("=");
   const token = getPath[1];
@@ -61,13 +63,13 @@ const ChangePassword: React.FC = () => {
   return (
     <div className={style.changePassword}>
       <article className={style.title}>
-        <h3>Create new password</h3>
-        <p>Your new password must be different from previous used passwords</p>
+        <h3>{t("forgotPass.change.title")}</h3>
+        <p>{t("forgotPass.change.enter")}</p>
       </article>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={`${style.input} ${style.password}`}>
           <label htmlFor="">
-            Password{" "}
+            {t("forgotPass.change.password")}
             <svg
               width="6"
               height="6"
@@ -83,7 +85,7 @@ const ChangePassword: React.FC = () => {
           </label>
           <input
             type="password"
-            placeholder="At least 8 & max.15 lower case characters"
+            placeholder={t("forgotPass.change.passwordPlh")}
             {...register("password", {
               required: {
                 value: true,
@@ -108,7 +110,7 @@ const ChangePassword: React.FC = () => {
 
         <div className={`${style.input} ${style.password}`}>
           <label htmlFor="repeatPassword">
-            Confirm Password{" "}
+            {t("forgotPass.change.confPassword")}
             <svg
               width="6"
               height="6"
@@ -125,7 +127,7 @@ const ChangePassword: React.FC = () => {
           <input
             type="password"
             id="repeatPassword"
-            placeholder="Confirm password"
+            placeholder={t("forgotPass.change.confPassword")}
             {...register("repeatPassword", {
               required: {
                 value: true,
@@ -143,7 +145,7 @@ const ChangePassword: React.FC = () => {
         </div>
         {error && <p className={`${style.mainError}`}>{error}</p>}
         <button type="submit" className={`${style.resetBtn}`}>
-          Reset Password
+          {t("forgotPass.change.reset")}
         </button>
       </form>
       <p className={`${style.account}`}>
@@ -168,7 +170,7 @@ const ChangePassword: React.FC = () => {
             setUserMode("loginModal");
           }}
         >
-          Back to login
+          {t("forgotPass.change.back")}
         </a>
       </p>
     </div>

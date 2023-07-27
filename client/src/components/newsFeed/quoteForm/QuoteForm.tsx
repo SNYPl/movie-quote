@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { Oval } from "react-loader-spinner";
 import openSocket from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 interface newQuote {
   setNewQuote: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +23,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
   const [selectMovie, setSelectMovie] = useState<any>("");
   const [errorUser, setErrorUser] = useState("");
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -126,7 +128,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <h4>Write New Quote</h4>
+          <h4> {t("newsFeed.new")}</h4>
           <svg
             width="16"
             height="16"
@@ -208,7 +210,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
                 maxSize="1"
                 required
                 classes={style.dargNdrop}
-                label="UPLOAD or drop image here"
+                label={t("newsFeed.quoteForm.imgLabel")}
               />
             </div>
 
@@ -238,7 +240,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
                 onChange={(e: any) => setSelectMovie(e.target.value)}
               >
                 <option selected disabled defaultValue={"Choose Movie"}>
-                  Choose Movie
+                  {t("newsFeed.quoteForm.choose")}
                 </option>
                 {movieListNames?.data?.data.map((el: any, id: any) => (
                   <option key={id}>{el.name}</option>
@@ -261,7 +263,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
                   strokeWidthSecondary={2}
                 />
               ) : (
-                "Post"
+                t("newsFeed.quoteForm.post")
               )}
             </button>
           </form>

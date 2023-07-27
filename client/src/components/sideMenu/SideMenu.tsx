@@ -4,8 +4,11 @@ import { NavLink, useLocation } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const SideMenu: React.FC = () => {
+  const { t, i18n } = useTranslation();
+
   const { isLoading, error, data } = useQuery(
     "userInfo",
     () =>
@@ -62,14 +65,14 @@ const SideMenu: React.FC = () => {
           )}
         </div>
         <article className={`${style.profileInfo} `}>
-          <h3>{ellipsify(data?.data.username)}</h3>
+          <h3>{ellipsify(data?.data.username || "")}</h3>
           <NavLink
             to="/dashboard/profile"
             onClick={(e: any) => {
               setDashboardNav("profileBorder");
             }}
           >
-            Edit your profile
+            {t("sideNav.profile")}
           </NavLink>
         </article>
       </section>
@@ -104,7 +107,7 @@ const SideMenu: React.FC = () => {
             setDashboardNav("newsFeed");
           }}
         >
-          News feed
+          {t("sideNav.feed")}
         </NavLink>
       </section>
       <section
@@ -146,7 +149,7 @@ const SideMenu: React.FC = () => {
             setDashboardNav("movieList");
           }}
         >
-          List of movies
+          {t("sideNav.list")}
         </NavLink>
       </section>
     </section>

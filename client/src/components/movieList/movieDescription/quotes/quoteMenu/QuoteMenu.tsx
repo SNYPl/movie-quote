@@ -25,6 +25,7 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getMovieQuotes");
+        queryClient.invalidateQueries("quotesInfo");
       },
       onError: (err) => {
         if (err instanceof AxiosError) {

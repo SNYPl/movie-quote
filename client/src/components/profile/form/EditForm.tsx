@@ -5,6 +5,7 @@ import axios from "axios";
 import { DashbCtrx } from "../../../store/dashboardContext";
 import Cookies from "universal-cookie";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   username: string;
@@ -25,6 +26,7 @@ type InputsEdit = {
 const ProfileForm: React.FC = () => {
   const [erroR, setErroR] = useState<string>("");
   const [success, setSuccess] = useState("");
+  const { t, i18n } = useTranslation();
   const { profileImage, setProfileImage } = useContext(DashbCtrx);
   const [editInputs, setEditInputs] = useState<InputsEdit>({
     username: false,
@@ -79,6 +81,8 @@ const ProfileForm: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("userInfo");
+        queryClient.invalidateQueries("quotesInfo");
+
         if (res.data.token) {
           cookies.remove("token");
           const expiration = new Date();
@@ -117,7 +121,7 @@ const ProfileForm: React.FC = () => {
     <div className={style.profileForm}>
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
         <div className={`${style.input} ${style.username}`}>
-          <label htmlFor="username">Username </label>
+          <label htmlFor="username">{t("myProfile.username")} </label>
           <div className={style.inputContainer}>
             <input
               type="text"
@@ -132,14 +136,14 @@ const ProfileForm: React.FC = () => {
               className={style.editBtn}
               onClick={() => setEditInputs({ ...editInputs, username: true })}
             >
-              Edit
+              {t("myProfile.edit")}
             </p>
           </div>
         </div>
 
         {editInputs.username && (
           <div className={`${style.input} ${style.username}`}>
-            <label htmlFor="NewUsername">New Username </label>
+            <label htmlFor="NewUsername">{t("myProfile.newUsername")} </label>
             <div className={style.inputContainer}>
               <input
                 type="text"
@@ -157,7 +161,9 @@ const ProfileForm: React.FC = () => {
                   },
                 })}
               />
-              <p className={`${style.editBtn} ${style.hide}`}>Edit</p>
+              <p className={`${style.editBtn} ${style.hide}`}>
+                {t("myProfile.edit")}
+              </p>
             </div>
             {errors.NewUsername && (
               <p className={`${style.errMsg}`}>{errors.NewUsername.message}</p>
@@ -166,7 +172,7 @@ const ProfileForm: React.FC = () => {
         )}
 
         <div className={`${style.input} ${style.email}`}>
-          <label htmlFor="email">Email </label>
+          <label htmlFor="email">{t("myProfile.email")} </label>
           <div className={style.inputContainer}>
             <input
               type="text"
@@ -182,14 +188,14 @@ const ProfileForm: React.FC = () => {
               className={style.editBtn}
               onClick={() => setEditInputs({ ...editInputs, email: true })}
             >
-              Edit
+              {t("myProfile.edit")}
             </p>
           </div>
         </div>
 
         {editInputs.email && (
           <div className={`${style.input} ${style.email}`}>
-            <label htmlFor="newEmail">New Email </label>
+            <label htmlFor="newEmail">{t("myProfile.newEmail")} </label>
             <div className={style.inputContainer}>
               <input
                 type="text"
@@ -207,7 +213,9 @@ const ProfileForm: React.FC = () => {
                   },
                 })}
               />
-              <p className={`${style.editBtn} ${style.hide}`}>Edit</p>
+              <p className={`${style.editBtn} ${style.hide}`}>
+                {t("myProfile.edit")}
+              </p>
             </div>
             {errors.newEmail && (
               <p className={`${style.errMsg}`}>{errors.newEmail.message}</p>
@@ -216,7 +224,7 @@ const ProfileForm: React.FC = () => {
         )}
 
         <div className={`${style.input} ${style.password}`}>
-          <label htmlFor="">Password </label>
+          <label htmlFor="">{t("myProfile.password")} </label>
           <div className={style.inputContainer}>
             <input
               type="password"
@@ -234,7 +242,7 @@ const ProfileForm: React.FC = () => {
               className={style.editBtn}
               onClick={() => setEditInputs({ ...editInputs, password: true })}
             >
-              Edit
+              {t("myProfile.edit")}
             </p>
           </div>
         </div>
@@ -242,7 +250,7 @@ const ProfileForm: React.FC = () => {
         {editInputs.password && (
           <>
             <div className={`${style.input} ${style.password}`}>
-              <label htmlFor="newPassword">New Password </label>
+              <label htmlFor="newPassword">{t("myProfile.newPassword")} </label>
               <div className={style.inputContainer}>
                 <input
                   type="password"
@@ -267,7 +275,9 @@ const ProfileForm: React.FC = () => {
                     },
                   })}
                 />
-                <p className={`${style.editBtn} ${style.hide}`}>Edit</p>
+                <p className={`${style.editBtn} ${style.hide}`}>
+                  {t("myProfile.edit")}
+                </p>
               </div>
               {errors.newPassword && (
                 <p className={`${style.errMsg}`}>
@@ -277,7 +287,9 @@ const ProfileForm: React.FC = () => {
             </div>
 
             <div className={`${style.input} ${style.password}`}>
-              <label htmlFor="newPassword">Confirm New Password </label>
+              <label htmlFor="newPassword">
+                {t("myProfile.confNewPassword")}{" "}
+              </label>
               <div className={style.inputContainer}>
                 <input
                   type="password"
@@ -296,7 +308,9 @@ const ProfileForm: React.FC = () => {
                     },
                   })}
                 />
-                <p className={`${style.editBtn} ${style.hide}`}>Edit</p>
+                <p className={`${style.editBtn} ${style.hide}`}>
+                  {t("myProfile.edit")}
+                </p>
               </div>
               {errors.confNewPassword && (
                 <p className={`${style.errMsg}`}>
@@ -320,10 +334,10 @@ const ProfileForm: React.FC = () => {
               setEditInputs({ username: false, email: false, password: false });
             }}
           >
-            Cancel
+            {t("myProfile.cancel")}
           </button>
           <button className={style.saveBtn} type="submit">
-            Save changes
+            {t("myProfile.save")}
           </button>
         </article>
       </form>

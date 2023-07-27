@@ -8,10 +8,12 @@ import { useLocation } from "react-router";
 import axios from "axios";
 import { MagnifyingGlass } from "react-loader-spinner";
 import openSocket from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 const Description: React.FC = () => {
   const [addQuote, setAddQuote] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   let location = useLocation();
   const movieId = location.pathname.split("=")[1];
@@ -77,7 +79,7 @@ const Description: React.FC = () => {
       {addQuote && <AddQuote add={setAddQuote} movie={movie} />}
 
       <section className={style.descriptionContainer}>
-        <h4>Movie description</h4>
+        <h4>{t("movieDesc.title")}</h4>
         {isLoading && (
           <MagnifyingGlass
             visible={true}

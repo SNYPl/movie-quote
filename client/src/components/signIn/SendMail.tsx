@@ -3,8 +3,10 @@ import style from "./send.module.css";
 import axios from "axios";
 import { loginContx } from "../../store/LoginContext";
 import Cookies from "universal-cookie";
+import { useTranslation } from "react-i18next";
 
 const SendMail: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const cookies = new Cookies();
   const { username } = useContext(loginContx);
   const [success, setSuccess] = useState<boolean>(false);
@@ -57,14 +59,12 @@ const SendMail: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        <h3>Check you mail or send email again</h3>
-        <p>For verify account</p>
+        <h3>{t("login.check.check")}</h3>
+        <p>{t("login.check.verify")}</p>
       </article>
-      {success && (
-        <p className={style.mailTitle}>Email Sent, check your mail</p>
-      )}
+      {success && <p className={style.mailTitle}>{t("login.check.sent")}</p>}
       <button className={`${style.emailBtn} `} onClick={sendMail}>
-        Send
+        {t("login.check.send")}
       </button>
     </div>
   );

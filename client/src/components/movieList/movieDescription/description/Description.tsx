@@ -5,6 +5,7 @@ import DeleteMovie from "../../deleteMovie/DeleteMovie";
 import { useLocation } from "react-router";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ interface addBtn {
 const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
   const [editMovie, setEditMovie] = useState(false);
   const [deleteMovie, setDeleteMovie] = useState(false);
+  const { t, i18n } = useTranslation();
 
   let location = useLocation();
   const movieId = location.pathname.split("=")[1];
@@ -51,7 +53,10 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
         <article className={style.movieDesc}>
           <div className={style.title}>
             <h3>
-              {data?.data.movie.name} ({data?.data.movie.year})
+              {i18n.language === "en"
+                ? data?.data.movie.name
+                : data?.data.movie.nameGeo}{" "}
+              ({data?.data.movie.year})
             </h3>
             <div className={style.titleIcon}>
               <svg
@@ -100,22 +105,31 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
           </div>
 
           <p className={style.director}>
-            Director: <span>{data?.data.movie.director}</span>
+            {t("movieDesc.director")}{" "}
+            <span>
+              {" "}
+              {i18n.language === "en"
+                ? data?.data.movie.director
+                : data?.data.movie.directorGeo}
+            </span>
           </p>
 
           <p className={style.director}>
-            Budget: <span>{data?.data.movie.budget}</span>
+            {t("movieDesc.budget")} <span>{data?.data.movie.budget}</span>
           </p>
 
           <pre className={style.descriptionText}>
-            {data?.data.movie.description}
+            {i18n.language === "en"
+              ? data?.data.movie.description
+              : data?.data.movie.descriptionGeo}
           </pre>
         </article>
       </article>
 
       <article className={style.addBtns}>
         <p>
-          Quotes (total <span>{quotesLength}</span>)
+          {t("movieDesc.quotes")} ( {t("movieDesc.total")}{" "}
+          <span>{quotesLength}</span>)
         </p>
         <div className={style.hXazz}></div>
         <button className={style.quoteBtn} onClick={() => add(true)}>
@@ -150,7 +164,7 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
               </defs>
             </svg>
           </span>{" "}
-          Add quote
+          {t("movieDesc.add")}
         </button>
       </article>
     </section>

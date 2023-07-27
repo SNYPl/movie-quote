@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../../store/signUpContx";
+import { useTranslation } from "react-i18next";
 
 const Finish: React.FC = () => {
   const navigate = useNavigate();
-  const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
+  const { setUserMode } = useContext(signUpCtrx);
+  const { t, i18n } = useTranslation();
 
   return (
     <div className={style.thanks}>
@@ -23,9 +25,8 @@ const Finish: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        <h3>Thank You!</h3>
-        {/* <p>Your email changed successfully.</p> */}
-        <p>Your password changed successfully.</p>
+        <h3>{t("forgotPass.success.title")}</h3>
+        <p>{t("forgotPass.success.enter")}</p>
       </article>
 
       <button
@@ -36,7 +37,7 @@ const Finish: React.FC = () => {
           setUserMode("loginModal");
         }}
       >
-        Log in
+        {t("forgotPass.success.login")}
       </button>
     </div>
   );

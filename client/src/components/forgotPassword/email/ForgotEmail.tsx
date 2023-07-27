@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import style from "./style.module.css";
 import { signUpCtrx } from "../../../store/signUpContx";
+import { useTranslation } from "react-i18next";
 
 const RegEmailSent: React.FC = () => {
   const { forgotPasswordEmail, setUserMode } = useContext(signUpCtrx);
+  const { t, i18n } = useTranslation();
 
   const email = forgotPasswordEmail?.split("@")[1];
 
@@ -31,8 +33,8 @@ const RegEmailSent: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        <h3>Check your email</h3>
-        <p>We have sent a password recover instructions to your email</p>
+        <h3>{t("forgotPass.check.title")}</h3>
+        <p>{t("forgotPass.check.enter")}</p>
       </article>
       <div className={`${style.emailBtnCont}`}>
         <a
@@ -40,11 +42,11 @@ const RegEmailSent: React.FC = () => {
           className={`${style.emailBtn} `}
           target="_blank"
         >
-          Go to my email
+          {t("forgotPass.check.go")}
         </a>
       </div>
       <p className={`${style.skip} `} onClick={() => setUserMode("")}>
-        Skip, I'll confirm later
+        {t("forgotPass.check.skip")}
       </p>
     </div>
   );

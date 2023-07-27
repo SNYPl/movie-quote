@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router";
 import { RotatingLines } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 interface deleteMovie {
   setDeleteMovie: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
   const [err, setErr] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { mutate, isLoading } = useMutation(
     (movie: any) => {
@@ -46,7 +48,7 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <h4>Delete Movie</h4>
+          <h4>{t("movieList.deleteMovie.title")}</h4>
           <svg
             width="16"
             height="16"
@@ -61,7 +63,7 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
             />
           </svg>
         </div>
-        <p>are you sure?</p>
+        <p>{t("movieList.deleteMovie.are")}</p>
         <div className={style.btns}>
           <button className={style.addBtn} onClick={deleteHandler}>
             {isLoading ? (
@@ -73,7 +75,7 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
                 visible={true}
               />
             ) : (
-              "Yes"
+              t("movieList.deleteMovie.yes")
             )}
           </button>
         </div>

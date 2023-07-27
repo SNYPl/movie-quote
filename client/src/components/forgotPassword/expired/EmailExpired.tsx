@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import style from "./style.module.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const EmailExpired: React.FC = () => {
   let location = useLocation();
   const getPath = location.pathname.split("=");
   const [success, setSuccess] = useState("");
+  const { t } = useTranslation();
 
   const email = getPath[3];
 
@@ -70,12 +72,12 @@ const EmailExpired: React.FC = () => {
       </svg>
 
       <article className={style.title}>
-        <h3>Link expired!</h3>
-        <p>password change link has expired, because you haven't used it</p>
+        <h3>{t("forgotPass.expired.title")}</h3>
+        <p>{t("forgotPass.expired.enter")}</p>
       </article>
       {success && <p className={style.succesText}>{success}</p>}
       <button className={`${style.newsFd} `} onClick={sendMail}>
-        Request another link
+        {t("forgotPass.expired.req")}
       </button>
     </div>
   );

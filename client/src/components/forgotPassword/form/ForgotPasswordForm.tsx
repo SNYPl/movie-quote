@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { signUpCtrx } from "../../../store/signUpContx";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   email: string;
@@ -10,8 +11,12 @@ type FormValues = {
 
 const ForgotEmail: React.FC = () => {
   const [error, setError] = useState<string>("");
-  const { setUserMode, setForgotPasswordMode, setForgotPasswordEmail } =
-    useContext(signUpCtrx);
+  const {
+    setUserMode,
+    setForgotPasswordMode,
+    setForgotPasswordEmail,
+  } = useContext(signUpCtrx);
+  const { t, i18n } = useTranslation();
 
   const {
     register,
@@ -46,18 +51,15 @@ const ForgotEmail: React.FC = () => {
   return (
     <div className={style.email}>
       <article className={style.title}>
-        <h3>Forgot password?</h3>
-        <p>
-          Enter the email and we'll send an email with instructions to reset
-          your password
-        </p>
+        <h3>{t("forgotPass.form.title")}</h3>
+        <p>{t("forgotPass.form.enter")}</p>
       </article>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={`${style.input} ${style.username}`}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t("forgotPass.form.email")}</label>
           <input
             type="text"
-            placeholder="Enter your email"
+            placeholder={t("forgotPass.form.emailPlh")}
             id="email"
             {...register("email", {
               onChange: () => setError(""),
@@ -70,8 +72,7 @@ const ForgotEmail: React.FC = () => {
                 message: "minimum length 3",
               },
               pattern: {
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message: "wrong email format",
               },
             })}
@@ -82,7 +83,7 @@ const ForgotEmail: React.FC = () => {
         {error && <p className={style.errorText}>{error}</p>}
 
         <button className={`${style.sendEmail}`} type="submit">
-          Send Instructions
+          {t("forgotPass.form.send")}
         </button>
       </form>
       <p className={`${style.account}`}>
@@ -107,7 +108,7 @@ const ForgotEmail: React.FC = () => {
           }}
         >
           {" "}
-          Back to login
+          {t("forgotPass.form.back")}
         </a>
       </p>
     </div>

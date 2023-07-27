@@ -5,6 +5,7 @@ import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { RotatingLines } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 type movie = {
   name: string;
@@ -25,7 +26,9 @@ interface addMovie {
 const fileTypes = ["JPG", "PNG", "JPEG"];
 
 const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
-  const { isLoading, error, data } = useQuery(
+  const { t, i18n } = useTranslation();
+
+  const { error, data } = useQuery(
     "userInfo",
     () =>
       axios.get("http://localhost:3001/dashboard", {
@@ -66,7 +69,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
     Accept: "application/json",
   };
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (userInfo: typeof formData) => {
       return axios.patch(
         "http://localhost:3001/movie-list/add-movie",
@@ -113,7 +116,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <h4>Add Movie</h4>
+          <h4> {t("movieList.add")}</h4>
           <svg
             width="16"
             height="16"
@@ -184,7 +187,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
             <div className={`${style.input} `}>
               <input
                 type="text"
-                placeholder="Separate genre with comma"
+                placeholder={t("movieList.addMovie.separate")}
                 id="genre"
                 {...register("genre", {
                   required: {
@@ -258,7 +261,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
             <div className={`${style.input} `}>
               <input
                 type="text"
-                placeholder="Budget"
+                placeholder={t("movieList.addMovie.budget")}
                 id="budget"
                 {...register("budget", {
                   required: {
@@ -322,7 +325,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                 required
                 maxSize="1"
                 classes={style.dargNdrop}
-                label="Upload or drop image here"
+                label={t("movieList.addMovie.upload")}
               />
             </div>
 
@@ -339,7 +342,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                   visible={true}
                 />
               ) : (
-                "Add Movie"
+                t("movieList.add")
               )}
             </button>
           </form>

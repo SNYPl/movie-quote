@@ -62,6 +62,7 @@ const List: React.FC = () => {
               image={el.image}
               id={el._id}
               key={el._id}
+              nameGeo={el.nameGeo}
             />
           ))}
         </article>

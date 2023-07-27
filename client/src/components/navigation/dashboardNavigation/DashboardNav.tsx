@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import { loginContx } from "../../../store/LoginContext";
+import { signUpCtrx } from "../../../store/signUpContx";
 import Cookies from "universal-cookie";
 import Notifications from "../notifications/Notifications";
 import { useQuery } from "react-query";
@@ -9,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 const DashboardNavigation: React.FC = () => {
   const { setLogin } = useContext(loginContx);
+  const { setUserMode } = useContext(signUpCtrx);
   const cookies = new Cookies();
   const [not, setNot] = useState(false);
   const { t, i18n } = useTranslation();
@@ -18,6 +20,7 @@ const DashboardNavigation: React.FC = () => {
     cookies.remove("token", { path: "/" });
     cookies.remove("isLoggedIn", { path: "/" });
 
+    setUserMode("");
     setLogin(false);
   };
 
@@ -82,7 +85,7 @@ const DashboardNavigation: React.FC = () => {
         </div>
       </section>
       <button className={style.lgtBtn} onClick={logout}>
-        Log out
+        {t("sideNav.logout")}
       </button>
     </div>
   );

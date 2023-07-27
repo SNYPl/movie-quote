@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router";
 import axios, { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 type movie = {
   quotes: string;
@@ -40,6 +41,7 @@ const ViewQuote: React.FC = () => {
 
   let location = useLocation();
   const quoteId = location.pathname.split("=")[1];
+  const { t, i18n } = useTranslation();
 
   const { error, isLoading, data } = useQuery(
     "getQuote",
@@ -228,7 +230,7 @@ const ViewQuote: React.FC = () => {
                   </svg>
                 </div>
               )}
-              <h4>View Quote</h4>
+              <h4>{t("quote.view")}</h4>
               <svg
                 width="16"
                 height="16"
@@ -350,7 +352,7 @@ const ViewQuote: React.FC = () => {
                   ></div>
                   <input
                     type="text"
-                    placeholder="Write a comment"
+                    placeholder={t("quote.commentPlh")}
                     value={comment}
                     onChange={(e) => {
                       setComment(e.target.value);

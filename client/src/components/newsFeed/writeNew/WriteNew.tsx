@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
+import { useTranslation } from "react-i18next";
 
 interface newQuote {
   setNewQuote: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,6 +9,7 @@ interface newQuote {
 
 const WriteNew: React.FC<newQuote> = ({ setNewQuote, setSearch }) => {
   const [focused, setFocused] = useState("button");
+  const { t } = useTranslation();
 
   return (
     <div className={style.writeNew}>
@@ -33,7 +35,7 @@ const WriteNew: React.FC<newQuote> = ({ setNewQuote, setSearch }) => {
             fill="white"
           />
         </svg>
-        Write new quote
+        {t("newsFeed.new")}
       </button>
       <div
         className={`${style.searchInp} ${
@@ -55,7 +57,7 @@ const WriteNew: React.FC<newQuote> = ({ setNewQuote, setSearch }) => {
 
         <input
           type="search"
-          placeholder="Enter @ to search movies, Enter # to search quotes "
+          placeholder={t("newsFeed.search")}
           onFocus={() => setFocused("search")}
           onBlur={() => setFocused("button")}
           className={`${focused === "search" ? style.writeBtn : ""}`}

@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
 import { Oval } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +28,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const [quoteImg, setQuoteImg] = useState<any>("");
   const queryClient = useQueryClient();
   const [errorUser, setErrorUser] = useState("");
+  const { t, i18n } = useTranslation();
 
   const handleChange = (file: any) => {
     let reader = new FileReader();
@@ -52,12 +54,13 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
       }),
     { refetchOnWindowFocus: false }
   );
-
   const movieImg = movie.image;
   const movieName = movie.name;
+  const movieNameGeo = movie.nameGeo;
   const genres = movie.genre;
   const movieYear = movie.year;
   const movieDirector = movie.director;
+  const movieDirectorGeo = movie.directorGeo;
   const id = movie._id;
 
   const { mutate, isLoading } = useMutation(
@@ -103,7 +106,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <h4>Add Quote</h4>
+          <h4>{t("quote.addQuote.title")}</h4>
           <svg
             onClick={() => add(false)}
             width="16"
@@ -134,7 +137,8 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
             <article className={style.movieDesc}>
               <div className={style.descTitle}>
                 <h3>
-                  {movieName} ({movieYear})
+                  {i18n.language === "en" ? movieName : movieNameGeo} (
+                  {movieYear})
                 </h3>
               </div>
 
@@ -145,7 +149,10 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
               </div>
 
               <p className={style.director}>
-                Director: <span>{movieDirector}</span>
+                {t("quote.addQuote.director")}{" "}
+                <span>
+                  {i18n.language === "en" ? movieDirector : movieDirectorGeo}
+                </span>
               </p>
             </article>
           </article>
@@ -218,7 +225,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
                 maxSize="1"
                 required
                 classes={style.dargNdrop}
-                label="UPLOAD or drop image here"
+                label={t("quote.addQuote.upload")}
               />
             </div>
 
@@ -237,7 +244,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
                   strokeWidthSecondary={2}
                 />
               ) : (
-                "Add Quote"
+                t("quote.addQuote.title")
               )}
             </button>
           </form>

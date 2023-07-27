@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { useLocation } from "react-router";
 import { RotatingLines } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 type movie = {
   updatedName: string;
@@ -34,6 +35,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   } = useForm<movie>();
 
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   //useState
   const [editedImage, setEditedImage] = useState<any>(image);
@@ -152,7 +154,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
     <section className={style.overlay}>
       <article className={style.popUp}>
         <div className={style.title}>
-          <h4>Edit Movie</h4>
+          <h4>{t("movieList.editMovie.title")}</h4>
           <svg
             width="16"
             height="16"
@@ -229,7 +231,9 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
             )}
 
             <div className={`${style.input} `}>
-              <p className={`${style.valueText}`}>{`Genre:`}</p>
+              <p className={`${style.valueText}`}>
+                {t("movieList.editMovie.genre")}
+              </p>
 
               <input
                 type="text"
@@ -402,7 +406,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                 types={fileTypes}
                 maxSize="1"
                 classes={style.dargNdrop}
-                label="drag and drop or Upload image here"
+                label={t("movieList.editMovie.upload")}
               />
             </div>
             {succ && <p className={style.scrMsg}>{succ}</p>}
@@ -417,7 +421,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                   visible={true}
                 />
               ) : (
-                "Edit Movie"
+                t("movieList.editMovie.title")
               )}
             </button>
           </form>

@@ -2,6 +2,7 @@ import React from "react";
 import style from "./style.module.css";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface addMovie {
   setAddMovie: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +10,8 @@ interface addMovie {
 }
 
 const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
+  const { t, i18n } = useTranslation();
+
   const { isLoading, error, data } = useQuery(
     "moviesList",
     () =>
@@ -29,7 +32,8 @@ const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
   return (
     <section className={style.search}>
       <h2 className={style.title}>
-        My list of movies (Total <span>{movieLength}</span>)
+        {t("movieList.list")} ( {t("movieList.total")}{" "}
+        <span>{movieLength}</span>)
       </h2>
       <div className={style.addCont}>
         <div className={`${style.searchInp}`}>
@@ -48,7 +52,7 @@ const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
 
           <input
             type="search"
-            placeholder="Search"
+            placeholder={t("movieList.search")}
             onChange={(e: any) => setSearchMovie(e.target.value)}
           />
         </div>
@@ -84,7 +88,7 @@ const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
               </defs>
             </svg>
           </span>
-          Add movie
+          {t("movieList.add")}
         </button>
       </div>
     </section>

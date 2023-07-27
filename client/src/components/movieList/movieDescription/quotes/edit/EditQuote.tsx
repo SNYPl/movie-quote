@@ -8,6 +8,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useNavigate } from "react-router-dom";
 import { Oval, RotatingLines } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type quote = {
   editQuoteText: string;
@@ -22,6 +23,7 @@ const EditQuote: React.FC = () => {
 
   let location = useLocation();
   const quoteId = location.pathname.split("=")[1].split("/")[0];
+  const { t, i18n } = useTranslation();
 
   const { error, isLoading, data } = useQuery(
     "getQuote",
@@ -181,11 +183,11 @@ const EditQuote: React.FC = () => {
                   strokeWidthSecondary={2}
                 />
               ) : (
-                "Delete"
+                t("quote.editQuote.delete")
               )}
             </p>
           </div>
-          <h4>Edit Quote</h4>
+          <h4> {t("quote.editQuote.title")}</h4>
           <svg
             width="16"
             height="16"
@@ -308,11 +310,11 @@ const EditQuote: React.FC = () => {
                 maxSize="1"
                 fileTypes={fileTypes}
                 classes={style.dargNdrop}
-                label="UPLOAD or drag Photo"
+                label={t("quote.editQuote.upload")}
               />
             </div>
             <button type="submit" className={style.addBtn}>
-              Save Changes
+              {t("quote.editQuote.save")}
             </button>
           </form>
           {errorUser && <p className={style.errMsg}>{errorUser}</p>}

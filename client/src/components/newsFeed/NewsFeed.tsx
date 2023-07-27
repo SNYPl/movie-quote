@@ -32,7 +32,6 @@ const NewsFeed: React.FC = () => {
       staleTime: 0,
       enabled: true,
       keepPreviousData: true,
-      // refetchOnMount: true,
     }
   );
 
