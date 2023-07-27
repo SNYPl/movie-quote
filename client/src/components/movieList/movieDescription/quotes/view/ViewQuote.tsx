@@ -283,7 +283,7 @@ const ViewQuote: React.FC = () => {
                     type="textarea"
                     placeholder="ციტატა ქართულ ენაზე"
                     id="descriptionGeo"
-                    value={data?.data.quote.text}
+                    value={data?.data.quote.textGeo}
                     {...register("quotesGeo", {
                       disabled: true,
                     })}

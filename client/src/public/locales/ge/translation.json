@@ -34,10 +34,10 @@
     "account": "არ გაქვს ანგარიში?",
     "signUP": "რეგისტრაცია",
     "check": {
-      "check": "Check you mail or send email again",
-      "verify": "For verify account",
-      "sent": "Email Sent, check your mail",
-      "send": "Send"
+      "check": "შეამოწმეთ თქვენი ფოსტა ან ხელახლა გაგზავნეთ ელ.წერილი",
+      "verify": "ანგარიშის გასააქტიურებლად",
+      "sent": "ელ.ფოსტა გაიგზავნა, შეამოწმეთ თქვენი ფოსტა",
+      "send": "გაგზავნა"
     }
   },
   "signUp": {
@@ -68,37 +68,37 @@
   },
   "forgotPass": {
     "form": {
-      "title": "Forgot password?",
-      "enter": "Enter the email and we'll send an email with instructions to reset your password",
-      "email": "Email",
-      "emailPlh": "Enter your email",
-      "send": "Send Instructions",
-      "back": "Back to login"
+      "title": "დაგავიწყდა შენი პაროლი?",
+      "enter": "შეიყვანეთ ელფოსტა და ჩვენ გამოგიგზავნით ელფოსტას თქვენი პაროლის აღდგენის ინსტრუქციებით",
+      "email": "ელ.ფოსტა",
+      "emailPlh": "Შეიყვანეთ თქვენი ელ.ფოსტა",
+      "send": "ინსტრუქციების გაგზავნა",
+      "back": "უკან კაბინეტში შესვლა"
     },
     "check": {
-      "title": "Check your email",
-      "enter": "We have sent a password recover instructions to your email",
-      "go": "Go to my email",
-      "skip": " Skip, I'll confirm later"
+      "title": "გადაამოწმეთ ელ.ფოსტა",
+      "enter": "ჩვენ გამოგიგზავნეთ პაროლის აღდგენის ინსტრუქციები თქვენს ელ.ფოსტაზე",
+      "go": "გადადით ჩემს მეილზე",
+      "skip": "გამოტოვეთ, მოგვიანებით დავადასტურებ"
     },
     "change": {
-      "title": "Create new password",
-      "enter": "Your new password must be different from previous used passwords",
-      "password": "Password",
-      "passwordPlh": "At least 8 & max.15 lower case characters",
-      "confPassword": "Confirm Password",
-      "reset": " Reset Password",
-      "back": " Back to login"
+      "title": "შექმენით ახალი პაროლი",
+      "enter": "თქვენი ახალი პაროლი უნდა განსხვავდებოდეს წინა გამოყენებული პაროლებისგან",
+      "password": "პაროლი",
+      "passwordPlh": "მინიმუმ 8 და მაქსიმუმ 15 პატარა ასო",
+      "confPassword": "პაროლის დადასტურება",
+      "reset": "პაროლის აღდგენა",
+      "back": "უკან კაბინეტში შესვლა"
     },
     "success": {
-      "title": "Thank You!",
-      "enter": "Your password changed successfully.",
-      "login": " Log in"
+      "title": "მადლობა!",
+      "enter": "თქვენი პაროლი წარმატებით შეიცვალა.",
+      "login": "შესვლა"
     },
     "expired": {
-      "title": "Link expired!",
-      "enter": "password change link has expired, because you haven't used it",
-      "req": "Request another link"
+      "title": "ლინკს ვადა გაუვიდა!",
+      "enter": "პაროლის შეცვლის ლინკს ვადა გაუვიდა, რადგან თქვენ ის არ გამოგიყენებიათ",
+      "req": "მოითხოვეთ სხვა ბმული"
     }
   },
   "sideNav": {
@@ -111,70 +111,72 @@
     "new": "ახალი ციტატის დამატება",
     "search": "დაწერე @ ფილმების მიხედვით საძებნელად, # ციტატის ",
     "quoteForm": {
-      "choose": "Choose Movie",
-      "imgLabel": "UPLOAD or drop image here",
-      "post": "Post"
+      "choose": "აირჩიეთ ფილმი",
+      "imgLabel": "ატვირთეთ ან ჩააგდეთ სურათი აქ",
+      "post": "პოსტი"
     }
   },
 
   "myProfile": {
-    "title": "My Profile",
-    "upload": "Upload new photo",
-    "edit": "Edit",
-    "username": "Username",
-    "newUsername": "New Username",
-    "email": "Email",
-    "newEmail": "New Email",
-    "password": "Password",
-    "newPassword": "New Password",
-    "ConfNewPassword": "Confirm New Password",
-    "cancel": "Cancel",
-    "save": "Save changes"
+    "title": "ჩემი პროფილი",
+    "upload": "ატვირთეთ ახალი ფოტო",
+    "edit": "რედაქტირება",
+    "username": "მომხმარებლის სახელი",
+    "newUsername": "ახალი მომხმარებელი",
+    "email": "ელ.ფოსტა",
+    "newEmail": "ახალი ელ.ფოსტა",
+    "password": "პაროლი",
+    "newPassword": "ახალი პროლი",
+    "ConfNewPassword": "ახალი პაროლის დადასტურება",
+    "cancel": "გაუქმება",
+    "save": "ცვლილებების შენახვა"
   },
   "quote": {
     "movie": "ფილმი",
     "commentPlh": "დაწერე კომენტარი",
-    "view": "View Quote",
+    "view": "ციტატის ნახვა",
+    "edit": "რედაქტირება",
+    "delete": "წაშლა",
     "addQuote": {
-      "title": "Add Quote",
-      "director": "Director:",
-      "upload": "UPLOAD or drop image here"
+      "title": "ციტატის დამატება",
+      "director": "დირექტორი:",
+      "upload": "ატვირთეთ ან ჩააგდეთ სურათი აქ"
     },
     "editQuote": {
-      "title": "Edit Quote",
-      "delete": "Delete",
-      "upload": "UPLOAD or drag Photo",
-      "save": "Save Changes"
+      "title": "ციტატის რედაქტირება",
+      "delete": "წაშლა",
+      "upload": "ატვირთეთ ან გადაიტანეთ ფოტო",
+      "save": "ცვლილებების შენახვა"
     }
   },
   "movieList": {
-    "list": "My list of movies",
-    "total": "Total",
-    "search": "Search",
-    "add": "Add Movie",
+    "list": "ჩემი ფილმების სია",
+    "total": "სულ",
+    "search": "ძებნა",
+    "add": "ფილმის დამატება",
     "addMovie": {
-      "separate": "Separate genre with comma",
-      "budget": "Budget",
-      "upload": "Upload or drop image here"
+      "separate": "გამოყავით ჟანრი მძიმით",
+      "budget": "ბიუჯეტი",
+      "upload": "ატვირთეთ ან ჩააგდეთ სურათი აქ"
     },
     "deleteMovie": {
-      "title": "Delete Movie",
-      "are": "Are you sure?",
-      "yes": "Yes"
+      "title": "ფილმის წაშლა",
+      "are": "დარწმუნებული ხარ?",
+      "yes": "დიახ"
     },
     "editMovie": {
-      "title": "Edit Movie",
-      "genre": "Genre:",
-      "budget": "Budget:",
-      "upload": "drag and drop or Upload image here"
+      "title": "ფილმის რედაქტირება",
+      "genre": "ჟანრი:",
+      "budget": "ბიუჯეტი:",
+      "upload": "გადაიტანეთ და ჩააგდეთ ან ატვირთეთ სურათი აქ"
     }
   },
   "movieDesc": {
-    "title": "Movie description",
-    "director": " Director:",
-    "budget": "Budget:",
-    "quotes": "Quotes",
-    "total": "total",
-    "add": "Add quote"
+    "title": "ფილმის აღწერა",
+    "director": " დირექტორი:",
+    "budget": "ბიუჯეტი:",
+    "quotes": "ციტატები",
+    "total": "სულ",
+    "add": "ციტატის დამატება"
   }
 }

@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { Oval } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface quoteMode {
   id: string;
@@ -11,6 +12,7 @@ interface quoteMode {
 
 const Menu: React.FC<quoteMode> = ({ id }) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { mutate, isLoading } = useMutation(
     (movie: any) => {
@@ -60,7 +62,7 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
         </svg>
 
         <Link to={`/dashboard/movie-list/quote/quote=${id}`}>
-          <h4>View Quote</h4>
+          <h4>{t("quote.view")}</h4>
         </Link>
       </div>
       <div
@@ -88,7 +90,7 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
         </svg>
 
         <Link to={`/dashboard/movie-list/quote/quote=${id}/edit-quote`}>
-          <h4>Edit</h4>
+          <h4>{t("quote.edit")}</h4>
         </Link>
       </div>
 
@@ -124,7 +126,7 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
               strokeWidthSecondary={2}
             />
           ) : (
-            "Delete"
+            t("quote.delete")
           )}
         </h4>
       </div>

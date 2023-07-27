@@ -26,7 +26,7 @@ type InputsEdit = {
 const ProfileForm: React.FC = () => {
   const [erroR, setErroR] = useState<string>("");
   const [success, setSuccess] = useState("");
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { profileImage, setProfileImage } = useContext(DashbCtrx);
   const [editInputs, setEditInputs] = useState<InputsEdit>({
     username: false,
@@ -132,12 +132,14 @@ const ProfileForm: React.FC = () => {
                 disabled: true,
               })}
             />
-            <p
-              className={style.editBtn}
-              onClick={() => setEditInputs({ ...editInputs, username: true })}
-            >
-              {t("myProfile.edit")}
-            </p>
+            {!data?.data.googleId && (
+              <p
+                className={style.editBtn}
+                onClick={() => setEditInputs({ ...editInputs, username: true })}
+              >
+                {t("myProfile.edit")}
+              </p>
+            )}
           </div>
         </div>
 
@@ -184,12 +186,14 @@ const ProfileForm: React.FC = () => {
                 disabled: true,
               })}
             />
-            <p
-              className={style.editBtn}
-              onClick={() => setEditInputs({ ...editInputs, email: true })}
-            >
-              {t("myProfile.edit")}
-            </p>
+            {!data?.data.googleId && (
+              <p
+                className={style.editBtn}
+                onClick={() => setEditInputs({ ...editInputs, email: true })}
+              >
+                {t("myProfile.edit")}
+              </p>
+            )}
           </div>
         </div>
 
@@ -228,7 +232,6 @@ const ProfileForm: React.FC = () => {
           <div className={style.inputContainer}>
             <input
               type="password"
-              // placeholder="At least 8 & max.15 lower case characters"
               value={"datadasamasiaragveli"}
               {...register("password", {
                 required: {
@@ -238,12 +241,14 @@ const ProfileForm: React.FC = () => {
                 disabled: true,
               })}
             />
-            <p
-              className={style.editBtn}
-              onClick={() => setEditInputs({ ...editInputs, password: true })}
-            >
-              {t("myProfile.edit")}
-            </p>
+            {!data?.data.googleId && (
+              <p
+                className={style.editBtn}
+                onClick={() => setEditInputs({ ...editInputs, password: true })}
+              >
+                {t("myProfile.edit")}
+              </p>
+            )}
           </div>
         </div>
 

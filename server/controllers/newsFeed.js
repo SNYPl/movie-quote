@@ -68,6 +68,7 @@ exports.dashboardGetStats = async (req, res, next) => {
     image: user.image,
     movies: user.movies,
     username: user.username,
+    googleId: user?.googleId || null,
   });
 };
 

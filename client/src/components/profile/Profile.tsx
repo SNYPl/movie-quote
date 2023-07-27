@@ -5,7 +5,7 @@ import EditForm from "./form/EditForm";
 import { useTranslation } from "react-i18next";
 
 const MyProfile: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className={style.profile}>

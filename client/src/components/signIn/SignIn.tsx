@@ -186,7 +186,7 @@ const SignIn: React.FC = () => {
           {t("login.enter")}
         </button>
         <a
-          className={`${style.signBtn} `}
+          className={`${style.signInGoogle} `}
           href="http://localhost:3001/auth/google"
         >
           {t("login.enterChrome")}

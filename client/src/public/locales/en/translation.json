@@ -23,7 +23,7 @@
   },
   "login": {
     "enter": "Sign In",
-    "enterChrome": "Sign Chrome",
+    "enterChrome": "Sign in with Google",
     "welcome": "Log in to your account",
     "details": "Welcome back! Please enter your details.",
     "email": "Email",
@@ -43,7 +43,7 @@
 
   "signUp": {
     "enter": "Get Started",
-    "enterChrome": "Sign Up Chrome",
+    "enterChrome": "Sign up with Google",
     "welcome": "Create an account",
     "details": "Start your journey!",
     "name": "Name",
@@ -137,6 +137,8 @@
     "movie": "movie",
     "commentPlh": "Write a comment",
     "view": "View Quote",
+    "edit": "Edit",
+    "delete": "Delete",
     "addQuote": {
       "title": "Add Quote",
       "director": "Director:",

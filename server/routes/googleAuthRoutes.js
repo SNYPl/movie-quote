@@ -17,11 +17,14 @@ router.get(
     failureRedirect: "/errors",
   }),
   function (req, res) {
-    const secret = "loginSecret";
     const user = req.user;
-    const token = jwt.sign({ username: user.username }, secret, {
-      expiresIn: "180m",
-    });
+    const token = jwt.sign(
+      { username: user.username },
+      process.env.SECRET_LOGIN,
+      {
+        expiresIn: "180m",
+      }
+    );
 
     res.redirect(
       302,
