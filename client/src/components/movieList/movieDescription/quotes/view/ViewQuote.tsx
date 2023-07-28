@@ -239,9 +239,10 @@ const ViewQuote: React.FC = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 className={style.closeIcon}
                 onClick={() =>
-                  navigate(
-                    `/dashboard/movie-list/movie/movie=${data?.data.movie}`
-                  )
+                  // navigate(
+                  //   `/dashboard/movie-list/movie/movie=${data?.data.movie}`
+                  // )
+                  navigate(`/dashboard`)
                 }
               >
                 <path
