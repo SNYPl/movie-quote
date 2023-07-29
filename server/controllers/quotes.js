@@ -9,7 +9,7 @@ exports.addMovieQuote = async (req, res, next) => {
 
   const quoteText = req.body.text;
   const quoteTextGeo = req.body.textGeo;
-  const image = req.body.quoteImage;
+  const image = req.file.filename;
   const movieName = req.body.movie;
 
   const movieId = req.url.split("=");
@@ -122,7 +122,7 @@ exports.editMovieQuote = async (req, res, next) => {
   const id = quoteId[1];
   const text = req.body.text;
   const textGeo = req.body.textGeo;
-  const image = req.body.image;
+  const image = req?.file?.filename;
 
   let payload = {
     text,

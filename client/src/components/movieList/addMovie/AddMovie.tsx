@@ -47,14 +47,11 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
 
   const [errorUser, setErrorUser] = useState("");
   const [succ, setSucc] = useState("");
+
   const [image, setImage] = useState<any>();
 
   const handleChange = (file: any) => {
-    let reader = new FileReader();
-    reader?.readAsDataURL(file);
-    reader.onload = () => {
-      setImage(reader?.result);
-    };
+    setImage(file);
   };
 
   const {
@@ -134,7 +131,9 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
         <article className={style.author}>
           <div
             className={style.photo}
-            style={{ backgroundImage: `url(${data?.data.image})` }}
+            style={{
+              backgroundImage: `url(http://localhost:3001/uploads/images/${data?.data.image})`,
+            }}
           ></div>
           <h4>{data?.data.username}</h4>
         </article>

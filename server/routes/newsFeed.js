@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const newsFeedControllers = require("../controllers/newsFeed");
 const isAuth = require("../middleware/isAuth");
-const fileUpload = require("../middleware/file-upload");
+const { fileUpload, resizeImage } = require("../middleware/file-upload");
 
 router.get("/dashboard", isAuth, newsFeedControllers.dashboardGetStats);
 
@@ -16,8 +16,9 @@ router.get(
 
 router.patch(
   "/dashboard/newsFeed/add-quote",
-  fileUpload.single("image"),
   isAuth,
+  fileUpload.single("image"),
+  resizeImage,
   newsFeedControllers.dashboardAddQuote
 );
 

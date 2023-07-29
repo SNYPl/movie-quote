@@ -63,7 +63,7 @@ exports.dashboardGetStats = async (req, res, next) => {
 
   if (!user) return res.status(401).send("something problem");
 
-  return res.status(200).send({
+  return res.status(200).json({
     email: user.email,
     image: user.image,
     movies: user.movies,
@@ -97,7 +97,7 @@ exports.dashboardAddQuote = async (req, res, next) => {
 
   const text = req.body.text;
   const textGeo = req.body.textGeo;
-  const img = req.body.quoteImage;
+  const image = req.file.filename;
   const movie = req.body.movie;
 
   const quoteMovie = await Movie.findOne({ name: movie });
@@ -106,7 +106,7 @@ exports.dashboardAddQuote = async (req, res, next) => {
       quoteAuthor: user,
       text: text,
       textGeo: textGeo,
-      image: img,
+      image: image,
       likes: [],
       movie: quoteMovie,
       comments: [],

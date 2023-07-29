@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const movieListControllers = require("../controllers/movieList");
 const isAuth = require("../middleware/isAuth");
-const fileUpload = require("../middleware/file-upload");
+const { fileUpload, resizeImage } = require("../middleware/file-upload");
 
 router.patch(
   "/movie-list/add-movie",
   isAuth,
   fileUpload.single("image"),
+  resizeImage,
   movieListControllers.addMovie
 );
 
@@ -15,6 +16,7 @@ router.patch(
   "/movie-list/edit-movie",
   isAuth,
   fileUpload.single("image"),
+  resizeImage,
   movieListControllers.editMovie
 );
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import style from "./style.module.css";
 import { DashbCtrx } from "../../../store/dashboardContext";
 import { RotatingLines } from "react-loader-spinner";
@@ -8,7 +8,8 @@ import { useTranslation } from "react-i18next";
 
 const UploadPhoto: React.FC = () => {
   const { setProfileImage, profileImage } = useContext(DashbCtrx);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [curImg, setCurImg] = useState<any | null>("");
 
   const { isLoading, error, data } = useQuery(
     "userInfo",
@@ -16,7 +17,7 @@ const UploadPhoto: React.FC = () => {
       axios.get("http://localhost:3001/dashboard", {
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "http://localhost:3000/",
           " Access-Control-Allow-Credentials": true,
         },
@@ -27,30 +28,35 @@ const UploadPhoto: React.FC = () => {
 
   const onChangeInput = (e: any) => {
     let reader = new FileReader();
-    if (!e.target.files[0]) {
+
+    const file = e?.target?.files[0];
+    if (!file) {
       return;
     }
 
-    reader?.readAsDataURL(e?.target?.files[0]);
-    reader.onload = () => {
-      setProfileImage(reader?.result);
-    };
+    if (!file.type.startsWith("image/")) {
+      return;
+    }
 
-    reader.onerror = (error) => {
-      console.log("error" + " " + error);
+    setProfileImage(file);
+
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      setCurImg(reader?.result);
     };
   };
 
+  const image = !data?.data?.image
+    ? ""
+    : isLoading
+    ? ""
+    : `http://localhost:3001/uploads/images/${data?.data.image}`;
+
   return (
     <div className={style.photo}>
-      <article
-        className={style.hiddenFileInput}
-        style={{
-          backgroundImage: `url(${
-            profileImage ? profileImage : data?.data.image
-          })`,
-        }}
-      >
+      <article className={style.hiddenFileInput}>
+        <img src={curImg ? curImg : image} className={style.hiddenFileInput} />
         {isLoading && !profileImage ? (
           <RotatingLines
             strokeColor="grey"
@@ -64,7 +70,7 @@ const UploadPhoto: React.FC = () => {
         )}
         <input
           type="file"
-          name="profilePhoto"
+          name="image"
           accept="image/png, image/jpeg,image/jpg"
           onChange={onChangeInput}
         />

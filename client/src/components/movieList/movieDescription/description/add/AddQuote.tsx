@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import quoteImg from "../../../../../assets/img/desc1.png";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
@@ -31,11 +30,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const { t, i18n } = useTranslation();
 
   const handleChange = (file: any) => {
-    let reader = new FileReader();
-    reader?.readAsDataURL(file);
-    reader.onload = () => {
-      setQuoteImg(reader?.result);
-    };
+    setQuoteImg(file);
   };
 
   const fileTypes = ["JPG", "PNG", "JPEG"];
@@ -97,7 +92,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const onSubmit = (data: any) => {
     formData.append("text", data.quotes);
     formData.append("textGeo", data.quotesGeo);
-    formData.append("quoteImage", quoteImg);
+    formData.append("image", quoteImg);
     formData.append("movie", movieName);
 
     mutate(formData);
@@ -125,14 +120,19 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
           <article className={style.author}>
             <div
               className={style.photo}
-              style={{ backgroundImage: `url(${username.data?.data.image})` }}
+              style={{
+                backgroundImage: `url(http://localhost:3001/uploads/images/${username.data?.data.image})`,
+              }}
             ></div>
             <h4>{username.data?.data.username}</h4>
           </article>
 
           <article className={style.movie}>
             <div className={style.moviePhoto}>
-              <img src={movieImg} alt="movie" />
+              <img
+                src={`http://localhost:3001/uploads/images/${movieImg}`}
+                alt="movie"
+              />
             </div>
             <article className={style.movieDesc}>
               <div className={style.descTitle}>

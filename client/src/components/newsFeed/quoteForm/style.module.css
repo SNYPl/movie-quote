@@ -206,3 +206,7 @@
   font-family: helveticaGeoLight;
   text-align: center;
 }
+
+.inpErr {
+  color: red;
+}

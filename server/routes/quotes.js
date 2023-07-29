@@ -2,26 +2,27 @@ const express = require("express");
 const router = express.Router();
 const quotesControllers = require("../controllers/quotes");
 const isAuth = require("../middleware/isAuth");
-const fileUpload = require("../middleware/file-upload");
+const { fileUpload, resizeImage } = require("../middleware/file-upload");
 
 router.patch(
   "/movie-list/movie/:movie/add-quote",
-  fileUpload.single("image"),
   isAuth,
+  fileUpload.single("image"),
+  resizeImage,
   quotesControllers.addMovieQuote
 );
 
 router.get(
   "/movie-list/quote/:quoteId/get-quote",
-  fileUpload.single("image"),
   isAuth,
   quotesControllers.getQuoteById
 );
 
 router.patch(
   "/movie-list/quote/:quoteId/edit-quote",
-  fileUpload.single("image"),
   isAuth,
+  fileUpload.single("image"),
+  resizeImage,
   quotesControllers.editMovieQuote
 );
 

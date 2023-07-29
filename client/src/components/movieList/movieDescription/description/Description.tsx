@@ -48,7 +48,10 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
       )}
       <article className={style.movie}>
         <div className={style.moviePhoto}>
-          <img src={data?.data.movie.image} alt="movieImg" />
+          <img
+            src={`http://localhost:3001/uploads/images/${data?.data.movie.image}`}
+            alt="movieImg"
+          />
         </div>
         <article className={style.movieDesc}>
           <div className={style.title}>

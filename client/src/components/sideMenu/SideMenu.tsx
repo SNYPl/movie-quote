@@ -45,6 +45,10 @@ const SideMenu: React.FC = () => {
     }
   }
 
+  const image = isLoading
+    ? ""
+    : `http://localhost:3001/uploads/images/${data?.data.image}`;
+
   return (
     <section className={style.menu}>
       <section className={style.profile}>
@@ -52,7 +56,7 @@ const SideMenu: React.FC = () => {
           className={`${style.profileImg} ${
             dashBoardNav === "profileBorder" && style.profileBorder
           }`}
-          style={{ backgroundImage: `url(${data?.data.image})` }}
+          style={{ backgroundImage: data?.data.image && `url(${image})` }}
         >
           {isLoading && (
             <RotatingLines

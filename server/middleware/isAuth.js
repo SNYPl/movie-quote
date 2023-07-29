@@ -8,6 +8,7 @@ const withAuth = function (req, res, next) {
   try {
     decodedToken = jwt.verify(token, process.env.SECRET_LOGIN);
     req.user = decodedToken;
+
     next();
   } catch (err) {
     res.status(400).send("Invalid token.");

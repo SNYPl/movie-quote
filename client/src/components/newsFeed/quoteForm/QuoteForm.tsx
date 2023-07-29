@@ -64,11 +64,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
   );
 
   const handleChange = (file: any) => {
-    let reader = new FileReader();
-    reader?.readAsDataURL(file);
-    reader.onload = () => {
-      setQuoteImg(reader?.result);
-    };
+    setQuoteImg(file);
   };
 
   const fileTypes = ["JPG", "PNG", "JPEG"];
@@ -118,7 +114,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
 
     formData.append("text", data.quotes);
     formData.append("textGeo", data.quotesGeo);
-    formData.append("quoteImage", quoteImg);
+    formData.append("image", quoteImg);
     formData.append("movie", selectMovie);
 
     mutate(formData);

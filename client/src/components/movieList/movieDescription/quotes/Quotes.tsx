@@ -30,7 +30,10 @@ const Quote: React.FC<quoteInfo> = ({
         <Link to={`/dashboard/movie-list/quote/quote=${id}`}>
           <div className={style.imgTextInfo}>
             <div className={style.quotePhoto}>
-              <img src={image} alt="img" />
+              <img
+                src={`http://localhost:3001/uploads/images/${image}`}
+                alt="img"
+              />
             </div>
             <h4>" {i18n.language === "en" ? text : textGeo} "</h4>
           </div>

@@ -257,7 +257,7 @@ const ViewQuote: React.FC = () => {
                 <div
                   className={style.photo}
                   style={{
-                    backgroundImage: `url(${data?.data.quoteAuthorData.image})`,
+                    backgroundImage: `url(http://localhost:3001/uploads/images/${data?.data.quoteAuthorData.image})`,
                   }}
                 ></div>
                 <h4>{data?.data.quoteAuthorData.name}</h4>
@@ -292,7 +292,10 @@ const ViewQuote: React.FC = () => {
                 </div>
 
                 <div className={style.photoQuot}>
-                  <img src={data?.data.quote.image} alt="img" />
+                  <img
+                    src={`http://localhost:3001/uploads/images/${data?.data.quote.image}`}
+                    alt="img"
+                  />
                 </div>
                 <article className={style.reactions}>
                   <div className={style.commentsCount}>
@@ -329,12 +332,12 @@ const ViewQuote: React.FC = () => {
                 </article>
 
                 <section className={style.comments}>
-                  {data?.data.quote.comments.map((el: any) => (
-                    <article className={style.comment}>
+                  {data?.data.quote.comments.map((el: any, id: any) => (
+                    <article className={style.comment} key={id}>
                       <div
                         className={style.commentPhoto}
                         style={{
-                          backgroundImage: `url(${el.commentAuthor.image})`,
+                          backgroundImage: `url(http://localhost:3001/uploads/images/${el.commentAuthor.image})`,
                         }}
                       ></div>
                       <div className={style.commentInfo}>
@@ -348,7 +351,7 @@ const ViewQuote: React.FC = () => {
                   <div
                     className={style.writeAuthorPhoto}
                     style={{
-                      backgroundImage: `url(${user.data?.data.image})`,
+                      backgroundImage: `url(http://localhost:3001/uploads/images/${user.data?.data.image})`,
                     }}
                   ></div>
                   <input

@@ -26,7 +26,7 @@ exports.addMovie = async (req, res, next) => {
       description: req.body.description,
       descriptionGeo: req.body.descriptionGeo,
       budget: req.body.budget,
-      image: req.body.image,
+      image: req.file.filename,
     });
 
     await movie.save();
@@ -85,7 +85,7 @@ exports.editMovie = async (req, res, next) => {
       description: req.body.description,
       descriptionGeo: req.body.descriptionGeo,
       budget: req.body.budget,
-      image: req.body.image,
+      image: req.file.filename,
     }).then();
 
     res.status(200).send({ message: "movie edited" });

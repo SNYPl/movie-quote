@@ -7,7 +7,6 @@ import { To, useLocation } from "react-router";
 import { FileUploader } from "react-drag-drop-files";
 import { useNavigate } from "react-router-dom";
 import { Oval, RotatingLines } from "react-loader-spinner";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 type quote = {
@@ -23,7 +22,8 @@ const EditQuote: React.FC = () => {
 
   let location = useLocation();
   const quoteId = location.pathname.split("=")[1].split("/")[0];
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [curImg, setCurImg] = useState<any | null>("");
 
   const { error, isLoading, data } = useQuery(
     "getQuote",
@@ -72,10 +72,13 @@ const EditQuote: React.FC = () => {
   const updatedTextGeo = watch("editQuoteTextGeo", data?.data.quote.textGeo);
 
   const handleChange = (file: any) => {
+    setEditedImage(file);
     let reader = new FileReader();
-    reader?.readAsDataURL(file);
+
+    reader.readAsDataURL(file);
+
     reader.onload = () => {
-      setEditedImage(reader?.result);
+      setCurImg(reader?.result);
     };
   };
 
@@ -137,7 +140,9 @@ const EditQuote: React.FC = () => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getMovieQuotes");
-        navigate(`/dashboard/movie-list/movie/movie=${res.data.movie}`);
+        if (res.status === 200) {
+          navigate(`/dashboard/movie-list/movie/movie=${res.data.movie}`);
+        }
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
@@ -210,7 +215,7 @@ const EditQuote: React.FC = () => {
             <div
               className={style.photo}
               style={{
-                backgroundImage: `url(${data?.data.quoteAuthorData?.image})`,
+                backgroundImage: `url(http://localhost:3001/uploads/images/${data?.data.quoteAuthorData?.image})`,
               }}
             >
               {" "}
@@ -300,7 +305,11 @@ const EditQuote: React.FC = () => {
                 />
               ) : (
                 <img
-                  src={!editedImage ? data?.data.quote.image : editedImage}
+                  src={
+                    curImg
+                      ? curImg
+                      : `http://localhost:3001/uploads/images/${data?.data.quote.image}`
+                  }
                   alt="img"
                 />
               )}

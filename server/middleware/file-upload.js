@@ -1,4 +1,6 @@
 const multer = require("multer");
+const sharp = require("sharp");
+const path = require("path");
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
@@ -7,10 +9,10 @@ const MIME_TYPE_MAP = {
 };
 
 const fileUpload = multer({
-  limits: 500000,
-  storage: multer.diskStorage({
+  limits: 1000000,
+  storage: multer.memoryStorage({
     destination: (req, file, cb) => {
-      cb(null, "uploads/images");
+      cb(null, path.join(__dirname, "..", "uploads", "images"));
     },
     filename: (req, file, cb) => {
       const ext = MIME_TYPE_MAP[file.mimetype];
@@ -24,4 +26,29 @@ const fileUpload = multer({
   },
 });
 
-module.exports = fileUpload;
+const resizeImage = (req, res, next) => {
+  if (!req.file) {
+    return next();
+  }
+
+  req.file.filename = `user-${req.user.username}-${Date.now()}.jpeg`;
+
+  const filePath = req.file.buffer;
+
+  sharp(filePath)
+    .resize(500, 500)
+    // .toBuffer()
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toFile(`./uploads/images/${req.file.filename}`, (err) => {
+      if (err) {
+        return next(err);
+      }
+      next();
+    });
+};
+
+module.exports = {
+  fileUpload,
+  resizeImage,
+};

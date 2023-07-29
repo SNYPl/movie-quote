@@ -90,7 +90,10 @@ const Notifications: React.FC<notifications> = ({ data }) => {
                   className={style.notUserImg}
                   style={{
                     backgroundImage: `url(${
-                      el?.author?.image ? el?.author?.image : ""
+                      el?.author?.image
+                        ? "http://localhost:3001/uploads/images/" +
+                          el?.author?.image
+                        : ""
                     })`,
                   }}
                 ></div>

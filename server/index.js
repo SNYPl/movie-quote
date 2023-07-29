@@ -9,11 +9,21 @@ const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
 const googleSetup = require("./googlePassport");
+const path = require("path");
+const fs = require("fs");
 
 app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
+
+app.use((error, req, res, next) => {
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => console.log(err));
+  }
+});
 
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
@@ -67,7 +77,7 @@ mongoose
     const server = app.listen(port);
     const io = require("./socket").init(server);
     io.on("connection", (socket) => {
-      // console.log("client connected");
+      // console.log(socket);
     });
   })
   .catch((error) => {

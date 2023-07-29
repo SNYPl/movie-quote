@@ -97,7 +97,11 @@ const News: React.FC<quote> = ({ quote }) => {
       <article className={style.author}>
         <div
           className={style.photo}
-          style={{ backgroundImage: `url(${quote.quoteAuthor.image})` }}
+          style={{
+            backgroundImage:
+              quote.quoteAuthor.image &&
+              `url(http://localhost:3001/uploads/images/${quote.quoteAuthor.image})`,
+          }}
         ></div>
         <h4>{quote.quoteAuthor.authorName}</h4>
       </article>
@@ -112,7 +116,13 @@ const News: React.FC<quote> = ({ quote }) => {
           ." ({quote.movie.year})
         </p>
         <div className={style.newsImg}>
-          <img src={quote.quote.image} alt="quoteImg" />
+          <img
+            src={
+              quote.quote.image &&
+              `http://localhost:3001/uploads/images/${quote.quote.image}`
+            }
+            alt="quoteImg"
+          />
         </div>
       </Link>
       <article className={style.reactions}>
@@ -154,7 +164,11 @@ const News: React.FC<quote> = ({ quote }) => {
           <article className={style.comment} key={id}>
             <div
               className={style.commentPhoto}
-              style={{ backgroundImage: `url(${el.commentAuthor.image})` }}
+              style={{
+                backgroundImage:
+                  el.commentAuthor.image &&
+                  `url(http://localhost:3001/uploads/images/${el.commentAuthor.image})`,
+              }}
             ></div>
             <div className={style.commentInfo}>
               <h4>{el.commentAuthor.username}</h4>
@@ -168,7 +182,9 @@ const News: React.FC<quote> = ({ quote }) => {
       <section className={style.commentWrite}>
         <div
           className={style.writeAuthorPhoto}
-          style={{ backgroundImage: `url(${quote.user.image})` }}
+          style={{
+            backgroundImage: `url(http://localhost:3001/uploads/images/${quote.user.image})`,
+          }}
         ></div>
         <input
           type="text"

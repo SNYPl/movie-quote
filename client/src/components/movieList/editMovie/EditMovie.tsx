@@ -41,6 +41,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const [editedImage, setEditedImage] = useState<any>(image);
   const [errorUser, setErrorUser] = useState("");
   const [succ, setSucc] = useState("");
+  const [curImg, setCurImg] = useState<any | null>("");
 
   //get data
   let location = useLocation();
@@ -85,8 +86,10 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
     let reader = new FileReader();
     reader?.readAsDataURL(file);
     reader.onload = () => {
-      setEditedImage(reader?.result);
+      setCurImg(reader?.result);
     };
+
+    setEditedImage(file);
   };
 
   const updatedName = watch("updatedName", movie.name);
@@ -172,7 +175,9 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
         <article className={style.author}>
           <div
             className={style.photo}
-            style={{ backgroundImage: `url(${username.data?.data.image})` }}
+            style={{
+              backgroundImage: `url(http://localhost:3001/uploads/images/${username.data?.data.image})`,
+            }}
           ></div>
           <h4>{username.data?.data.username}</h4>
         </article>
@@ -399,7 +404,13 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
             )}
 
             <div className={style.uploadPhoto}>
-              <img src={editedImage ? editedImage : image}></img>
+              <img
+                src={
+                  curImg
+                    ? curImg
+                    : `http://localhost:3001/uploads/images/${movie.image}`
+                }
+              ></img>
               <FileUploader
                 handleChange={handleChange}
                 name="file"

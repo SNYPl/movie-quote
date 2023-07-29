@@ -25,7 +25,10 @@ const Movie: React.FC<movie> = ({
   return (
     <article className={style.movie}>
       <div className={style.movieImg}>
-        <img src={image} alt="movie" />
+        <img
+          src={`http://localhost:3001/uploads/images/${image}`}
+          alt="movie"
+        />
       </div>
       <h5 className={style.movieTitle}>
         <Link

@@ -42,7 +42,7 @@ const ProfileForm: React.FC = () => {
       axios.get("http://localhost:3001/dashboard", {
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "http://localhost:3000/",
           " Access-Control-Allow-Credentials": true,
         },
