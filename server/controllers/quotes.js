@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Movie = require("../models/movie");
 const Quote = require("../models/quotes");
 const io = require("../socket");
+const { deleteUnusedImages } = require("../helper/deleteOldImages");
 
 exports.addMovieQuote = async (req, res, next) => {
   const username = req.user.username;
@@ -122,7 +123,7 @@ exports.editMovieQuote = async (req, res, next) => {
   const id = quoteId[1];
   const text = req.body.text;
   const textGeo = req.body.textGeo;
-  const image = req?.file?.filename;
+  const image = req?.file?.filename ? req.file.filename : req.body.image;
 
   let payload = {
     text,
@@ -144,6 +145,7 @@ exports.editMovieQuote = async (req, res, next) => {
       ignoreUndefined: true,
     }).then();
 
+    deleteUnusedImages();
     io.getIo().emit("quote", { action: "editQuote" });
     return res.status(200).send("quote edited");
   } catch (err) {

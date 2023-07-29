@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Movie = require("../models/movie");
+const { deleteUnusedImages } = require("../helper/deleteOldImages");
 
 exports.addMovie = async (req, res, next) => {
   const username = req.user.username;
@@ -73,7 +74,7 @@ exports.editMovie = async (req, res, next) => {
   if (!username) return res.status(401).send("invalid username or token");
 
   const genres = req.body.genre.split(",");
-
+  const img = req.file?.filename ? req.file.filename : req.body.image;
   try {
     await Movie.findByIdAndUpdate(movieId, {
       name: req.body.updatedName,
@@ -85,9 +86,9 @@ exports.editMovie = async (req, res, next) => {
       description: req.body.description,
       descriptionGeo: req.body.descriptionGeo,
       budget: req.body.budget,
-      image: req.file.filename,
+      image: img,
     }).then();
-
+    deleteUnusedImages();
     res.status(200).send({ message: "movie edited" });
   } catch (err) {
     res.status(403).send(err.message);

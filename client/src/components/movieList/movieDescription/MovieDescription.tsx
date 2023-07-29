@@ -98,7 +98,8 @@ const Description: React.FC = () => {
             quotesLength={quotes?.data?.data.quotes.length}
           />
         )}
-        {!isLoading &&
+        {!quotes.isLoading &&
+          !isLoading &&
           quotes.data?.data.quotes.map((el: any) => (
             <Quote
               text={el.text}
