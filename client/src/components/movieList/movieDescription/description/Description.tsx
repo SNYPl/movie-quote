@@ -23,15 +23,18 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
   const { isLoading, error, data } = useQuery(
     "getMovie",
     () =>
-      axios.get(`http://localhost:3001/movie-list/movie/movie=${movieId}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
+      axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/movie=${movieId}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
     { refetchOnWindowFocus: false }
   );
 
@@ -49,7 +52,7 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
       <article className={style.movie}>
         <div className={style.moviePhoto}>
           <img
-            src={`http://localhost:3001/uploads/images/${data?.data.movie.image}`}
+            src={`${process.env.REACT_APP_BACKEND_URL}/uploads/images/${data?.data.movie.image}`}
             alt="movieImg"
           />
         </div>

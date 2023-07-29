@@ -38,11 +38,11 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const username = useQuery(
     "userInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
@@ -61,7 +61,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const { mutate, isLoading } = useMutation(
     (movieInfo: typeof formData) => {
       return axios.patch(
-        `http://localhost:3001/movie-list/movie/movie=${id}/add-quote`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/movie=${id}/add-quote`,
         movieInfo,
         {
           headers: {
@@ -121,7 +121,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
             <div
               className={style.photo}
               style={{
-                backgroundImage: `url(http://localhost:3001/uploads/images/${username.data?.data.image})`,
+                backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${username.data?.data.image})`,
               }}
             ></div>
             <h4>{username.data?.data.username}</h4>
@@ -130,7 +130,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
           <article className={style.movie}>
             <div className={style.moviePhoto}>
               <img
-                src={`http://localhost:3001/uploads/images/${movieImg}`}
+                src={`${process.env.REACT_APP_BACKEND_URL}/uploads/images/${movieImg}`}
                 alt="movie"
               />
             </div>

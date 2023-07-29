@@ -18,15 +18,18 @@ const NewsFeed: React.FC = () => {
   const { isLoading, error, data, isFetching } = useQuery(
     ["quotesInfo", queryLimit],
     () =>
-      axios.get(`http://localhost:3001/newsFeed?limit=${queryLimit}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
+      axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/newsFeed?limit=${queryLimit}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
     {
       refetchOnWindowFocus: false,
       staleTime: 0,
@@ -36,7 +39,7 @@ const NewsFeed: React.FC = () => {
   );
 
   useEffect(() => {
-    const socket = openSocket(`http://localhost:3001`, {
+    const socket = openSocket(`${process.env.REACT_APP_BACKEND_URL}`, {
       transports: ["websocket"],
     });
 

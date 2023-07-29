@@ -29,12 +29,12 @@ const EditQuote: React.FC = () => {
     "getQuote",
     () =>
       axios.get(
-        `http://localhost:3001/movie-list/quote/quote=${quoteId}/get-quote`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteId}/get-quote`,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            "Access-Control-Allow-Origin": "*",
             " Access-Control-Allow-Credentials": true,
           },
           withCredentials: true,
@@ -85,7 +85,7 @@ const EditQuote: React.FC = () => {
   const { mutate } = useMutation(
     (quoteEdit: typeof formData) => {
       return axios.patch(
-        `http://localhost:3001/movie-list/quote/quote=${quoteId}/edit-quote`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteId}/edit-quote`,
         quoteEdit,
         {
           headers: {
@@ -130,7 +130,7 @@ const EditQuote: React.FC = () => {
   const deleteQuote = useMutation(
     (movie: any) => {
       return axios.delete(
-        "http://localhost:3001/movie-list/movie/delete-quote",
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/delete-quote`,
         {
           data: { id: quoteId },
           withCredentials: true,
@@ -215,7 +215,7 @@ const EditQuote: React.FC = () => {
             <div
               className={style.photo}
               style={{
-                backgroundImage: `url(http://localhost:3001/uploads/images/${data?.data.quoteAuthorData?.image})`,
+                backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${data?.data.quoteAuthorData?.image})`,
               }}
             >
               {" "}
@@ -308,7 +308,7 @@ const EditQuote: React.FC = () => {
                   src={
                     curImg
                       ? curImg
-                      : `http://localhost:3001/uploads/images/${data?.data.quote.image}`
+                      : `${process.env.REACT_APP_BACKEND_URL}/uploads/images/${data?.data.quote.image}`
                   }
                   alt="img"
                 />

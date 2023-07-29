@@ -39,11 +39,11 @@ const ProfileForm: React.FC = () => {
   const { isLoading, error, data } = useQuery(
     "userInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
@@ -70,7 +70,7 @@ const ProfileForm: React.FC = () => {
   const { mutate } = useMutation(
     (userInfo: typeof formData) => {
       return axios.patch(
-        "http://localhost:3001/profile/upload-photo",
+        `${process.env.REACT_APP_BACKEND_URL}/profile/upload-photo`,
         userInfo,
         {
           headers,

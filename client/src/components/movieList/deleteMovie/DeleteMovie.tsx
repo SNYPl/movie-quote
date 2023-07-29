@@ -19,10 +19,13 @@ const EditMovie: React.FC<deleteMovie> = ({ setDeleteMovie, id }) => {
 
   const { mutate, isLoading } = useMutation(
     (movie: any) => {
-      return axios.delete("http://localhost:3001/movie-list/delete-movie", {
-        data: { id: id },
-        withCredentials: true,
-      });
+      return axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/delete-movie`,
+        {
+          data: { id: id },
+          withCredentials: true,
+        }
+      );
     },
     {
       onSuccess: (res) => {

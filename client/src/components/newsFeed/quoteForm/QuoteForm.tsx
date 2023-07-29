@@ -36,11 +36,11 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
   const username = useQuery(
     "userInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
@@ -51,15 +51,18 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
   const movieListNames = useQuery(
     "movielistNames",
     () =>
-      axios.get("http://localhost:3001/dashboard/movieListNames", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
+      axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/dashboard/movieListNames`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
     { refetchOnWindowFocus: false }
   );
 
@@ -74,7 +77,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
   const { mutate, isLoading } = useMutation(
     (movieInfo: typeof formData) => {
       return axios.patch(
-        `http://localhost:3001/dashboard/newsFeed/add-quote`,
+        `${process.env.REACT_APP_BACKEND_URL}/dashboard/newsFeed/add-quote`,
         movieInfo,
         {
           headers: {

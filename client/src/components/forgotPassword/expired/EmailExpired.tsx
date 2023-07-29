@@ -15,7 +15,7 @@ const EmailExpired: React.FC = () => {
   const sendMail = () => {
     axios
       .post(
-        "http://localhost:3001/forget/password/:token/change/repeat",
+        `${process.env.REACT_APP_BACKEND_URL}/forget/password/:token/change/repeat`,
         {
           email,
         },

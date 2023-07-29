@@ -49,7 +49,7 @@ const SignIn: React.FC = () => {
   const onSubmit = (data: any) => {
     axios
       .post<axiosReq>(
-        "http://localhost:3001/login",
+        `${process.env.REACT_APP_BACKEND_URL}/login`,
         {
           username: data.username,
           password: data.password,
@@ -67,7 +67,7 @@ const SignIn: React.FC = () => {
         };
 
         return axios.post(
-          "http://localhost:3001/login",
+          `${process.env.REACT_APP_BACKEND_URL}/login`,
           {
             username: data.username,
             password: data.password,
@@ -187,7 +187,7 @@ const SignIn: React.FC = () => {
         </button>
         <a
           className={`${style.signInGoogle} `}
-          href="http://localhost:3001/auth/google"
+          href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`}
         >
           {t("login.enterChrome")}
         </a>

@@ -31,7 +31,7 @@ const Quote: React.FC<quoteInfo> = ({
           <div className={style.imgTextInfo}>
             <div className={style.quotePhoto}>
               <img
-                src={`http://localhost:3001/uploads/images/${image}`}
+                src={`${process.env.REACT_APP_BACKEND_URL}/uploads/images/${image}`}
                 alt="img"
               />
             </div>

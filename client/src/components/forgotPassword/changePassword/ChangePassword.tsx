@@ -45,7 +45,7 @@ const ChangePassword: React.FC = () => {
   const onSubmit = (data: any) => {
     axios
       .post<axiosReq>(
-        "http://localhost:3001/forgot/password/:token/change",
+        `${process.env.REACT_APP_BACKEND_URL}/forgot/password/:token/change`,
         {
           password: data.password,
           token,

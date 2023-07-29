@@ -26,7 +26,7 @@ const Movie: React.FC<movie> = ({
     <article className={style.movie}>
       <div className={style.movieImg}>
         <img
-          src={`http://localhost:3001/uploads/images/${image}`}
+          src={`${process.env.REACT_APP_BACKEND_URL}/uploads/images/${image}`}
           alt="movie"
         />
       </div>

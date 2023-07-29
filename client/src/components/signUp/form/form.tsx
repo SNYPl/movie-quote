@@ -47,7 +47,7 @@ const Registration: React.FC<signUpMode> = ({
   const onSubmit = (data: any) => {
     axios
       .post<axiosReq>(
-        "http://localhost:3001/registration",
+        `${process.env.REACT_APP_BACKEND_URL}/registration`,
         {
           username: data.username,
           email: data.email,
@@ -258,7 +258,7 @@ const Registration: React.FC<signUpMode> = ({
         </button>
         <a
           className={`${style.signUpGoogle}`}
-          href="http://localhost:3001/auth/google"
+          href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`}
         >
           <svg
             width="16"

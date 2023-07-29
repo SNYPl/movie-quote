@@ -50,15 +50,18 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const { isLoading, error, data } = useQuery(
     "getMovie",
     () =>
-      axios.get(`http://localhost:3001/movie-list/movie/movie=${movieId}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
+      axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/movie=${movieId}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": `*`,
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
     { refetchOnWindowFocus: false }
   );
 
@@ -68,11 +71,11 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const username = useQuery(
     "userInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
@@ -105,7 +108,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const editmovie = useMutation(
     (userInfo: typeof formData) => {
       return axios.patch(
-        "http://localhost:3001/movie-list/edit-movie",
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/edit-movie`,
         userInfo,
         {
           headers: {
@@ -121,9 +124,6 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
       onSuccess: (res) => {
         queryClient.invalidateQueries("getMovie");
         queryClient.refetchQueries("getMovie");
-        // queryClient.invalidateQueries("moviesList");
-        // queryClient.refetchQueries("moviesList");
-
         if (res.status === 200) setSucc(res.data.message);
         setEditMovie(false);
       },
@@ -176,7 +176,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
           <div
             className={style.photo}
             style={{
-              backgroundImage: `url(http://localhost:3001/uploads/images/${username.data?.data.image})`,
+              backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${username.data?.data.image})`,
             }}
           ></div>
           <h4>{username.data?.data.username}</h4>
@@ -408,7 +408,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                 src={
                   curImg
                     ? curImg
-                    : `http://localhost:3001/uploads/images/${movie.image}`
+                    : `${process.env.REACT_APP_BACKEND_URL}/uploads/images/${movie.image}`
                 }
               ></img>
               <FileUploader

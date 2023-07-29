@@ -27,7 +27,9 @@ const Finish: React.FC = () => {
 
   useEffect(() => {
     axios
-      .put("http://localhost:3001/verify/:token", { token: tokenUrl })
+      .put(`${process.env.REACT_APP_BACKEND_URL}/verify/:token`, {
+        token: tokenUrl,
+      })
       .then((res) => setSuccess(res.status === 200))
       .catch((err) => setError(err.response.data.message));
   });

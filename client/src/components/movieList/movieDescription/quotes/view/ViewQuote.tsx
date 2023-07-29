@@ -27,11 +27,11 @@ const ViewQuote: React.FC = () => {
   const user = useQuery(
     "userInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
@@ -47,12 +47,12 @@ const ViewQuote: React.FC = () => {
     "getQuote",
     () =>
       axios.get(
-        `http://localhost:3001/movie-list/quote/quote=${quoteId}/get-quote`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteId}/get-quote`,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            "Access-Control-Allow-Origin": "*",
             " Access-Control-Allow-Credentials": true,
           },
           withCredentials: true,
@@ -66,7 +66,7 @@ const ViewQuote: React.FC = () => {
   const deleteQuote = useMutation(
     (movie: any) => {
       return axios.delete(
-        "http://localhost:3001/movie-list/movie/delete-quote",
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/delete-quote`,
         {
           data: { id: quoteId },
           withCredentials: true,
@@ -96,7 +96,7 @@ const ViewQuote: React.FC = () => {
   const likeQuote = useMutation(
     (quoteLike: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteLike.id}/like`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteLike.id}/like`,
         quoteLike,
         {
           headers: {
@@ -134,7 +134,7 @@ const ViewQuote: React.FC = () => {
   const commentAdd = useMutation(
     (quoteComment: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteComment.id}/add-comment`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteComment.id}/add-comment`,
         quoteComment,
         {
           headers: {
@@ -257,7 +257,7 @@ const ViewQuote: React.FC = () => {
                 <div
                   className={style.photo}
                   style={{
-                    backgroundImage: `url(http://localhost:3001/uploads/images/${data?.data.quoteAuthorData.image})`,
+                    backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${data?.data.quoteAuthorData.image})`,
                   }}
                 ></div>
                 <h4>{data?.data.quoteAuthorData.name}</h4>
@@ -293,7 +293,7 @@ const ViewQuote: React.FC = () => {
 
                 <div className={style.photoQuot}>
                   <img
-                    src={`http://localhost:3001/uploads/images/${data?.data.quote.image}`}
+                    src={`${process.env.REACT_APP_BACKEND_URL}/uploads/images/${data?.data.quote.image}`}
                     alt="img"
                   />
                 </div>
@@ -337,7 +337,7 @@ const ViewQuote: React.FC = () => {
                       <div
                         className={style.commentPhoto}
                         style={{
-                          backgroundImage: `url(http://localhost:3001/uploads/images/${el.commentAuthor.image})`,
+                          backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${el.commentAuthor.image})`,
                         }}
                       ></div>
                       <div className={style.commentInfo}>
@@ -351,7 +351,7 @@ const ViewQuote: React.FC = () => {
                   <div
                     className={style.writeAuthorPhoto}
                     style={{
-                      backgroundImage: `url(http://localhost:3001/uploads/images/${user.data?.data.image})`,
+                      backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${user.data?.data.image})`,
                     }}
                   ></div>
                   <input

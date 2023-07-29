@@ -28,7 +28,7 @@ const ForgotEmail: React.FC = () => {
   const onSubmit = (data: any) => {
     axios
       .post(
-        "http://localhost:3001/forgot/password",
+        `${process.env.REACT_APP_BACKEND_URL}/forgot/password`,
         {
           email: data.email,
         },

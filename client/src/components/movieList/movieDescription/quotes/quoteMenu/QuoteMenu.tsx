@@ -17,7 +17,7 @@ const Menu: React.FC<quoteMode> = ({ id }) => {
   const { mutate, isLoading } = useMutation(
     (movie: any) => {
       return axios.delete(
-        "http://localhost:3001/movie-list/movie/delete-quote",
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/delete-quote`,
         {
           data: { id: id },
           withCredentials: true,

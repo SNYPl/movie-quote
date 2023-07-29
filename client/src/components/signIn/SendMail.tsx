@@ -23,7 +23,7 @@ const SendMail: React.FC = () => {
   const sendMail = () => {
     axios
       .post(
-        "http://localhost:3001/sendmail",
+        `${process.env.REACT_APP_BACKEND_URL}/sendmail`,
         { user: username },
         { headers, withCredentials: true }
       )

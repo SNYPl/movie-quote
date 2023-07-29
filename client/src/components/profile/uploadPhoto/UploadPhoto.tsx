@@ -14,11 +14,11 @@ const UploadPhoto: React.FC = () => {
   const { isLoading, error, data } = useQuery(
     "userInfo",
     () =>
-      axios.get("http://localhost:3001/dashboard", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
@@ -51,7 +51,7 @@ const UploadPhoto: React.FC = () => {
     ? ""
     : isLoading
     ? ""
-    : `http://localhost:3001/uploads/images/${data?.data.image}`;
+    : `${process.env.REACT_APP_BACKEND_URL}/uploads/images/${data?.data.image}`;
 
   return (
     <div className={style.photo}>

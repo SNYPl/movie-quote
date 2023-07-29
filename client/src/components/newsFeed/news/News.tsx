@@ -20,7 +20,7 @@ const News: React.FC<quote> = ({ quote }) => {
   const likeQuote = useMutation(
     (quoteLike: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteLike.id}/like`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteLike.id}/like`,
         quoteLike,
         {
           headers: {
@@ -58,7 +58,7 @@ const News: React.FC<quote> = ({ quote }) => {
   const commentAdd = useMutation(
     (quoteComment: any) => {
       return axios.post(
-        `http://localhost:3001/movie-list/quote/quote=${quoteComment.id}/add-comment`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/quote/quote=${quoteComment.id}/add-comment`,
         quoteComment,
         {
           headers: {
@@ -100,7 +100,7 @@ const News: React.FC<quote> = ({ quote }) => {
           style={{
             backgroundImage:
               quote.quoteAuthor.image &&
-              `url(http://localhost:3001/uploads/images/${quote.quoteAuthor.image})`,
+              `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${quote.quoteAuthor.image})`,
           }}
         ></div>
         <h4>{quote.quoteAuthor.authorName}</h4>
@@ -119,7 +119,7 @@ const News: React.FC<quote> = ({ quote }) => {
           <img
             src={
               quote.quote.image &&
-              `http://localhost:3001/uploads/images/${quote.quote.image}`
+              `${process.env.REACT_APP_BACKEND_URL}/uploads/images/${quote.quote.image}`
             }
             alt="quoteImg"
           />
@@ -167,7 +167,7 @@ const News: React.FC<quote> = ({ quote }) => {
               style={{
                 backgroundImage:
                   el.commentAuthor.image &&
-                  `url(http://localhost:3001/uploads/images/${el.commentAuthor.image})`,
+                  `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${el.commentAuthor.image})`,
               }}
             ></div>
             <div className={style.commentInfo}>
@@ -183,7 +183,7 @@ const News: React.FC<quote> = ({ quote }) => {
         <div
           className={style.writeAuthorPhoto}
           style={{
-            backgroundImage: `url(http://localhost:3001/uploads/images/${quote.user.image})`,
+            backgroundImage: `url(${process.env.REACT_APP_BACKEND_URL}/uploads/images/${quote.user.image})`,
           }}
         ></div>
         <input

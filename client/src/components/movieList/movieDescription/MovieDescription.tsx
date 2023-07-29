@@ -21,15 +21,18 @@ const Description: React.FC = () => {
   const { isLoading, error, data } = useQuery(
     "getMovie",
     () =>
-      axios.get(`http://localhost:3001/movie-list/movie/movie=${movieId}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
+      axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/movie=${movieId}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
     { refetchOnWindowFocus: false }
   );
 
@@ -39,12 +42,12 @@ const Description: React.FC = () => {
     "getMovieQuotes",
     () =>
       axios.get(
-        `http://localhost:3001/movie-list/movie/movie=${movieId}/get-quotes`,
+        `${process.env.REACT_APP_BACKEND_URL}/movie-list/movie/movie=${movieId}/get-quotes`,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
+            "Access-Control-Allow-Origin": "*",
             " Access-Control-Allow-Credentials": true,
           },
           withCredentials: true,
@@ -57,7 +60,7 @@ const Description: React.FC = () => {
   );
 
   useEffect(() => {
-    const socket = openSocket(`http://localhost:3001`, {
+    const socket = openSocket(`${process.env.REACT_APP_BACKEND_URL}`, {
       transports: ["websocket"],
     });
 

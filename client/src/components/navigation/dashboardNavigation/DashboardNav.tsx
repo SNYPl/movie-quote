@@ -27,15 +27,18 @@ const DashboardNavigation: React.FC = () => {
   const { isLoading, error, data } = useQuery(
     "notifications",
     () =>
-      axios.get("http://localhost:3001/dashboard/notifications/quotes", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
-          " Access-Control-Allow-Credentials": true,
-        },
-        withCredentials: true,
-      }),
+      axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/dashboard/notifications/quotes`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            " Access-Control-Allow-Credentials": true,
+          },
+          withCredentials: true,
+        }
+      ),
     { refetchOnWindowFocus: false }
   );
   const concatenatedNotifications = data?.data.reduce(

@@ -14,7 +14,7 @@ const Notifications: React.FC<notifications> = ({ data }) => {
   const { mutate } = useMutation(
     (readNotf: any) => {
       return axios.post(
-        `http://localhost:3001/dashboard/notifications/quotes/read-all`,
+        `${process.env.REACT_APP_BACKEND_URL}/dashboard/notifications/quotes/read-all`,
         readNotf,
         {
           headers: {
@@ -91,7 +91,7 @@ const Notifications: React.FC<notifications> = ({ data }) => {
                   style={{
                     backgroundImage: `url(${
                       el?.author?.image
-                        ? "http://localhost:3001/uploads/images/" +
+                        ? `${process.env.REACT_APP_BACKEND_URL}/uploads/images/` +
                           el?.author?.image
                         : ""
                     })`,

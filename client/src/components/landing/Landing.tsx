@@ -43,7 +43,10 @@ const Landing: React.FC = () => {
       const email = getPath[3];
 
       axios
-        .post("http://localhost:3001/forgot/password/:token", { token, email })
+        .post(`${process.env.REACT_APP_BACKEND_URL}/forgot/password/:token`, {
+          token,
+          email,
+        })
         .then((res) => {
           if (res.status === 200) {
             setForgotPasswordMode("step3");

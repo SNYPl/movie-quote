@@ -14,11 +14,11 @@ const List: React.FC = () => {
   const { isLoading, error, data } = useQuery(
     "moviesList",
     () =>
-      axios.get("http://localhost:3001/movie-list", {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/movie-list`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Origin": "*",
           " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
