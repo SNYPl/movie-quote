@@ -28,7 +28,7 @@ router.get(
 
     res.redirect(
       302,
-      `http://localhost:3000/auth/google/success?token=${token}`
+      `https://chemifilmebisquotebi.web.app/auth/google/success?token=${token}`
     );
   }
 );

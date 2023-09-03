@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 
 const withAuth = function (req, res, next) {
   let token = req.cookies.token;
+  console.log(token);
 
+  if (!token) throw new Error("token is not defined from cookies");
   let decodedToken;
 
   try {
@@ -11,7 +13,7 @@ const withAuth = function (req, res, next) {
 
     next();
   } catch (err) {
-    res.status(400).send("Invalid token.");
+    res.status(400).send({ msg: err.message });
   }
 };
 

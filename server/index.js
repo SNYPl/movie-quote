@@ -12,19 +12,6 @@ const googleSetup = require("./googlePassport");
 const path = require("path");
 const fs = require("fs");
 
-app.use(cookieParser());
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
-
-app.use((error, req, res, next) => {
-  if (req.file) {
-    fs.unlink(req.file.path, (err) => console.log(err));
-  }
-});
-
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
 const forgotPassword = require("./routes/forgotPasswordRoutes");
@@ -35,12 +22,27 @@ const quotesRoutes = require("./routes/quotes");
 const googleAuths = require("./routes/googleAuthRoutes");
 
 const corsOptions = {
-  // origin: "*",
+  origin: ["https://chemifilmebisquotebi.web.app"],
   credentials: true,
-  origin: "http://localhost:3000",
-  // optionSuccessStatus: 200,
-  // exposedHeaders: ["set-cookie"],
+  "Access-Control-Allow-Credentials": true,
 };
+app.use(cors(corsOptions));
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials, true");
+  res.setHeader(
+    "Access-Control-Allow-Origin: https://chemifilmebisquotebi.web.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+
+  res.setHeader("Access-Control-Allow-Headers: Content-Type, *");
+  next();
+});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 app.use(
   session({
@@ -49,7 +51,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-app.use(cors(corsOptions));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -74,7 +75,7 @@ mongoose
     "mongodb+srv://snypisia:NvImgwQIMEo16cnw@moviequote.xfabptr.mongodb.net/?retryWrites=true&w=majority"
   )
   .then((result) => {
-    const server = app.listen(port);
+    const server = app.listen(process.env.PORT || port);
     const io = require("./socket").init(server);
     io.on("connection", (socket) => {
       // console.log(socket);

@@ -35,7 +35,7 @@ exports.sendForgotMail = async (req, res, next) => {
             <body style="font-family: sans-serif;">
               <div style="display: block; margin: auto; max-width: 600px;" class="main">
                 <h1 style="font-size: 18px; font-weight: bold; margin-top: 20px">Hello ${user.email}</h1>
-                <a href="http://localhost:3000/forgot/password/token=${accessToken}=&email=${user.email}">Click here to reset password</a>
+                <a href="https://chemifilmebisquotebi.web.app/forgot/password/token=${accessToken}=&email=${user.email}">Click here to reset password</a>
               </div>
               <style>
                 .main { background-color: white; }
@@ -143,7 +143,7 @@ exports.sendVerifyRepeat = async (req, res, next) => {
               <body style="font-family: sans-serif;">
                 <div style="display: block; margin: auto; max-width: 600px;" class="main">
                   <h1 style="font-size: 18px; font-weight: bold; margin-top: 20px">Hello ${user.email}</h1>
-                  <a href="http://localhost:3000/forgot/password/token=${accessToken}=&email=${user.email}">Click here to reset password</a>
+                  <a href="https://chemifilmebisquotebi.web.app/forgot/password/token=${accessToken}=&email=${user.email}">Click here to reset password</a>
                 </div>
                 <style>
                   .main { background-color: white; }
