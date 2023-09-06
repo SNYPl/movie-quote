@@ -41,7 +41,8 @@ const Registration: React.FC<signUpMode> = ({
 
   let headers = {
     "Content-Type": "application/json; charset=UTF-9",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://chemifilmebisquotebi.web.app/",
+    "Access-Control-Allow-Credentials": true,
   };
 
   const onSubmit = (data: any) => {

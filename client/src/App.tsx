@@ -16,6 +16,8 @@ import SendVerifyMail from "./components/signIn/SendMail";
 // import MovieDescription from "./components/movieList/movieDescription/MovieDescription";
 // import ViewQuote from "./components/movieList/movieDescription/quotes/view/ViewQuote";
 // import EditQuote from "./components/movieList/movieDescription/quotes/edit/EditQuote";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const MyProfile = React.lazy(() => import("./components/profile/Profile"));
 const NewsFeed = React.lazy(() => import("./components/newsFeed/NewsFeed"));

@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
-import { To, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { FileUploader } from "react-drag-drop-files";
 import { useNavigate } from "react-router-dom";
 import { Oval, RotatingLines } from "react-loader-spinner";
@@ -34,8 +34,9 @@ const EditQuote: React.FC = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            " Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
           },
           withCredentials: true,
         }
@@ -90,7 +91,9 @@ const EditQuote: React.FC = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },
           withCredentials: true,

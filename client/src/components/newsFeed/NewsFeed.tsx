@@ -7,6 +7,7 @@ import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import openSocket from "socket.io-client";
+import Cookies from "universal-cookie";
 
 const NewsFeed: React.FC = () => {
   const [newQuote, setNewQuote] = useState<boolean>(false);
@@ -14,20 +15,26 @@ const NewsFeed: React.FC = () => {
   const [queryLimit, setQueryLimit] = useState(5);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const queryClient = useQueryClient();
+  const cookies = new Cookies();
+
+  const token = cookies.get("token");
 
   const { isLoading, error, data, isFetching } = useQuery(
     ["quotesInfo", queryLimit],
     () =>
       axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/newsFeed?limit=${queryLimit}`,
+
         {
+          withCredentials: true,
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            " Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app",
+            "Access-Control-Allow-Credentials": true,
+            // Cookie: `token=${token};`,
           },
-          withCredentials: true,
         }
       ),
     {

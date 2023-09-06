@@ -42,8 +42,9 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          " Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin":
+            "https://chemifilmebisquotebi.web.app/",
+          "Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
       }),
@@ -66,7 +67,9 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },
           withCredentials: true,

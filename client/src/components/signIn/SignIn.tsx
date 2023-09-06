@@ -36,7 +36,9 @@ const SignIn: React.FC = () => {
 
   let headers = {
     "Content-Type": "application/json; charset=UTF-9",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://chemifilmebisquotebi.web.app/",
+    "Access-Control-Allow-Credentials": true,
+    withCredentials: true,
     Accept: "application/json",
   };
 
@@ -89,6 +91,9 @@ const SignIn: React.FC = () => {
           cookies.set("token", res.data.token, {
             path: "/",
             expires: expiration,
+            // domain: "https://qutoeserver.onrender.com/",
+            sameSite: false,
+            secure: true,
           });
           if (!res.data.verified) {
             cookies.set("isLoggedIn", "unVerified", {

@@ -15,7 +15,8 @@ const SendMail: React.FC = () => {
 
   let headers = {
     "Content-Type": "application/json; charset=UTF-9",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://chemifilmebisquotebi.web.app/",
+    "Access-Control-Allow-Credentials": true,
     Accept: "application/json",
     Authorization: `Bearer ${token}`,
   };

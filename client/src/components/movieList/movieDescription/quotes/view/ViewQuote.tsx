@@ -31,8 +31,9 @@ const ViewQuote: React.FC = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          " Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin":
+            "https://chemifilmebisquotebi.web.app/",
+          "Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
       }),
@@ -52,8 +53,9 @@ const ViewQuote: React.FC = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            " Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
           },
           withCredentials: true,
         }
@@ -101,7 +103,9 @@ const ViewQuote: React.FC = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },
           withCredentials: true,
@@ -139,7 +143,9 @@ const ViewQuote: React.FC = () => {
         {
           headers: {
             "Content-Type": "application/json; charset=UTF-9",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },
           withCredentials: true,

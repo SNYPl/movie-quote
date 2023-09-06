@@ -25,7 +25,9 @@ const News: React.FC<quote> = ({ quote }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },
           withCredentials: true,
@@ -63,7 +65,9 @@ const News: React.FC<quote> = ({ quote }) => {
         {
           headers: {
             "Content-Type": "application/json; charset=UTF-9",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin":
+              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },
           withCredentials: true,
