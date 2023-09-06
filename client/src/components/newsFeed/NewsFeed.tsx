@@ -32,7 +32,7 @@ const NewsFeed: React.FC = () => {
             "Content-Type": "application/json",
             // "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             // "Access-Control-Allow-Credentials": true,
-            // Cookie: `token=${token};`,
+            Cookie: `tokens=${token};`,
           },
         }
       ),
