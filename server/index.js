@@ -11,6 +11,13 @@ const session = require("express-session");
 const googleSetup = require("./googlePassport");
 const path = require("path");
 const fs = require("fs");
+app.use(cookieParser());
+
+const corsOptions = {
+  origin: ["https://chemifilmebisquotebi.web.app"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/loginRoutes");
@@ -21,24 +28,16 @@ const movieListRoutes = require("./routes/movieList");
 const quotesRoutes = require("./routes/quotes");
 const googleAuths = require("./routes/googleAuthRoutes");
 
-const corsOptions = {
-  origin: ["https://chemifilmebisquotebi.web.app"],
-  credentials: true,
-  "Access-Control-Allow-Credentials": true,
-};
-app.use(cors(corsOptions));
-app.use(cookieParser());
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Credentials, true");
+//   res.setHeader(
+//     "Access-Control-Allow-Origin: https://chemifilmebisquotebi.web.app"
+//   );
+//   res.setHeader("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials, true");
-  res.setHeader(
-    "Access-Control-Allow-Origin: https://chemifilmebisquotebi.web.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-
-  res.setHeader("Access-Control-Allow-Headers: Content-Type, *");
-  next();
-});
+//   res.setHeader("Access-Control-Allow-Headers: Content-Type, *");
+//   next();
+// });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -46,7 +45,7 @@ app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 app.use(
   session({
-    secret: "testingChrome", // Replace with a strong, random secret key
+    secret: "testingChrome",
     resave: false,
     saveUninitialized: false,
   })
