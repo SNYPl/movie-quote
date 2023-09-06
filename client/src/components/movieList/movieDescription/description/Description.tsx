@@ -4,7 +4,7 @@ import EditMovie from "../../editMovie/EditMovie";
 import DeleteMovie from "../../deleteMovie/DeleteMovie";
 import { useLocation } from "react-router";
 import { useQuery } from "react-query";
-import axios from "axios";
+import axios from "../../../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 interface addBtn {

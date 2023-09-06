@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import style from "./style.module.css";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { signUpCtrx } from "../../../store/signUpContx";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";

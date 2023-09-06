@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "react-query";
-import axios from "axios";
+import axios from "../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 const SideMenu: React.FC = () => {

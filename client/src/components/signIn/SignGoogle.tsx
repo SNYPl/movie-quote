@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import style from "./send.module.css";
-import axios from "axios";
+import axios from "../../helper/axios";
 import Cookies from "universal-cookie";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router";

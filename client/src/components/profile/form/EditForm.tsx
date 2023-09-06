@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { DashbCtrx } from "../../../store/dashboardContext";
 import Cookies from "universal-cookie";
 import { useQuery, useMutation, useQueryClient } from "react-query";

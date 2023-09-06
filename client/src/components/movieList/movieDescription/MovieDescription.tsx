@@ -5,7 +5,7 @@ import AddQuote from "./description/add/AddQuote";
 import Quote from "./quotes/Quotes";
 import { useQuery, useQueryClient } from "react-query";
 import { useLocation } from "react-router";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { MagnifyingGlass } from "react-loader-spinner";
 import openSocket from "socket.io-client";
 import { useTranslation } from "react-i18next";

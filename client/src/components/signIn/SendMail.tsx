@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import style from "./send.module.css";
-import axios from "axios";
+import axios from "../../helper/axios";
 import { loginContx } from "../../store/LoginContext";
 import Cookies from "universal-cookie";
 import { useTranslation } from "react-i18next";

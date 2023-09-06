@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 const EmailExpired: React.FC = () => {

@@ -5,7 +5,7 @@ import { signUpCtrx } from "../../../store/signUpContx";
 import Cookies from "universal-cookie";
 import Notifications from "../notifications/Notifications";
 import { useQuery } from "react-query";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 const DashboardNavigation: React.FC = () => {

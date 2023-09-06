@@ -13,7 +13,7 @@ import ForgetPassword from "../forgotPassword/Forgot";
 import { useLocation, useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../store/signUpContx";
 
-import axios from "axios";
+import axios from "../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 const Landing: React.FC = () => {

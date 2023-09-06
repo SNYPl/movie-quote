@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../../helper/axios";
 import { signUpCtrx } from "../../../store/signUpContx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";

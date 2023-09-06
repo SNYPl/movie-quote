@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { signUpCtrx } from "../../../store/signUpContx";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 type FormValues = {

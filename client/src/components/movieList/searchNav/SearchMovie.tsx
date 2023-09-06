@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 import { useQuery } from "react-query";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { useTranslation } from "react-i18next";
 
 interface addMovie {

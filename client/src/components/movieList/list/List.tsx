@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import Movie from "./movie/Movie";
 import AddMovie from "../addMovie/AddMovie";
 import SearchMovie from "../searchNav/SearchMovie";
-import axios from "axios";
+import axios from "../../../helper/axios";
 import { useQuery } from "react-query";
 import { MagnifyingGlass } from "react-loader-spinner";
 

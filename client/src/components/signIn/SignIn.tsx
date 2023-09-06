@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "../../helper/axios";
 import { loginContx } from "../../store/LoginContext";
 // import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
