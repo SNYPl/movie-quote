@@ -92,8 +92,8 @@ const SignIn: React.FC = () => {
           Cookies.set("token", res.data.token, {
             path: "/",
             expires: expiration,
-            sameSite: "none",
-            secure: true,
+            // sameSite: "none",
+            // secure: true,
           });
           if (!res.data.verified) {
             Cookies.set("isLoggedIn", "unVerified", {
