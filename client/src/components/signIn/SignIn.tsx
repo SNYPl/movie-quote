@@ -92,8 +92,8 @@ const SignIn: React.FC = () => {
             path: "/",
             expires: expiration,
             // domain: "https://qutoeserver.onrender.com/",
-            sameSite: "none",
-            secure: true,
+            // sameSite: "none",
+            // secure: true,
           });
           if (!res.data.verified) {
             cookies.set("isLoggedIn", "unVerified", {
