@@ -6,7 +6,7 @@ const axiosDef = axios.create({
   headers: {
     "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
     "Access-Control-Allow-Credentials": true,
-    Cookie: "token=dwadawdawdawdaw;",
+    Cookie: "tokens=dwadawdawdawdaw;",
     // Cookie: `token=${token};`,
   },
 });
