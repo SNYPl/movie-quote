@@ -14,7 +14,7 @@ const fs = require("fs");
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: ["https://movie-quote-uaxr.vercel.app/"],
+  origin: "https://movie-quote-uaxr.vercel.app",
   credentials: true,
 };
 app.use(cors(corsOptions));
