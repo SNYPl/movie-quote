@@ -3,10 +3,11 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { loginContx } from "../../store/LoginContext";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../store/signUpContx";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 type FormValues = {
   username: string;
@@ -26,7 +27,7 @@ const SignIn: React.FC = () => {
   const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
   const { t, i18n } = useTranslation();
 
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
   const navigate = useNavigate();
 
@@ -88,7 +89,7 @@ const SignIn: React.FC = () => {
           const expiration = new Date();
 
           expiration.setHours(expiration.getHours() + 3);
-          cookies.set("token", res.data.token, {
+          Cookies.set("token", res.data.token, {
             path: "/",
             expires: expiration,
             // domain: "https://qutoeserver.onrender.com/",
@@ -96,19 +97,19 @@ const SignIn: React.FC = () => {
             // secure: true,
           });
           if (!res.data.verified) {
-            cookies.set("isLoggedIn", "unVerified", {
+            Cookies.set("isLoggedIn", "unVerified", {
               path: "/",
               expires: expiration,
             });
           } else {
-            cookies.set("isLoggedIn", "true", {
+            Cookies.set("isLoggedIn", "true", {
               path: "/",
               expires: expiration,
             });
           }
 
           if (remember) {
-            cookies.set("remember", true, {
+            Cookies.set("remember", "true", {
               path: "/",
               expires: expiration,
             });
