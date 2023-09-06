@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 // const cookies = new Cookies();
 
-// console.log(Cookies.get("token"));
+console.log(Cookies.get("token"));
 
 const axiosDef = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
