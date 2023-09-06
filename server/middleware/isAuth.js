@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 const withAuth = function (req, res, next) {
-  let token = req.cookies.token;
-  console.log(token);
+  // let token = req.cookies.token;
+  const token = req.headers["authorization"].split(" ")[1];
 
   if (!token) throw new Error("token is not defined from cookies");
   let decodedToken;
