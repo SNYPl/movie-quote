@@ -4,10 +4,11 @@ import WriteNew from "./writeNew/WriteNew";
 import News from "./news/News";
 import QuoteForm from "./quoteForm/QuoteForm";
 import { useQuery, useQueryClient } from "react-query";
-import axios from "axios";
+// import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import openSocket from "socket.io-client";
 import Cookies from "universal-cookie";
+import axDef from "../../helper/axios";
 
 const NewsFeed: React.FC = () => {
   const [newQuote, setNewQuote] = useState<boolean>(false);
@@ -22,16 +23,15 @@ const NewsFeed: React.FC = () => {
   const { isLoading, error, data, isFetching } = useQuery(
     ["quotesInfo", queryLimit],
     () =>
-      axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/newsFeed?limit=${queryLimit}`,
+      axDef.get(
+        `/newsFeed?limit=${queryLimit}`,
 
         {
-          withCredentials: true,
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-            "Access-Control-Allow-Credentials": true,
+            // "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
+            // "Access-Control-Allow-Credentials": true,
             // Cookie: `token=${token};`,
           },
         }
