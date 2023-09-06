@@ -40,10 +40,8 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":
-            "https://chemifilmebisquotebi.web.app/",
+          "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
           "Access-Control-Allow-Credentials": true,
-          " Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
       }),
@@ -59,10 +57,8 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin":
-              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
-            " Access-Control-Allow-Credentials": true,
           },
           withCredentials: true,
         }
@@ -86,8 +82,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin":
-              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },

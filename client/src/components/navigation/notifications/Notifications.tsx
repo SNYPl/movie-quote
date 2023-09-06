@@ -19,8 +19,7 @@ const Notifications: React.FC<notifications> = ({ data }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin":
-              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
             Accept: "application/json",
           },

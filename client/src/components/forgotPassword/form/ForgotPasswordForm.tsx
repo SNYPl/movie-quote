@@ -35,8 +35,7 @@ const ForgotEmail: React.FC = () => {
         {
           headers: {
             "Content-Type": "application/json; charset=UTF-9",
-            "Access-Control-Allow-Origin":
-              "https://chemifilmebisquotebi.web.app/",
+            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
           },
         }
