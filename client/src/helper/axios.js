@@ -1,4 +1,9 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+
+// const cookies = new Cookies();
+
+// console.log(Cookies.get("token"));
 
 const axiosDef = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -6,7 +11,7 @@ const axiosDef = axios.create({
   headers: {
     "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
     "Access-Control-Allow-Credentials": true,
-    Cookie: "tokens=dwadawdawdawdaw;",
+    // Cookie: "tokens=dwadawdawdawdaw;",
     // Cookie: `token=${token};`,
   },
 });
