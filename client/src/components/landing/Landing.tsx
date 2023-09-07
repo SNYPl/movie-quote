@@ -106,7 +106,13 @@ const Landing: React.FC = () => {
           <h2>
             {t("landing.title")} <br /> {t("landing.title1")}
           </h2>
-          <button className={style.startBtn}> {t("landing.start")}</button>
+          <button
+            className={style.startBtn}
+            onClick={() => setUserMode("loginModal")}
+          >
+            {" "}
+            {t("landing.start")}
+          </button>
         </section>
         <div
           className={style.bgrPhoto}

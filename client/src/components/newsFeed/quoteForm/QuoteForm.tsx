@@ -153,7 +153,9 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
           <div
             className={style.photo}
             style={{ backgroundImage: `url(${username.data?.data.image})` }}
-          ></div>
+          >
+            <img src={username.data?.data.image} alt="profile" />
+          </div>
           <h4>{username.data?.data.username}</h4>
         </article>
 
@@ -176,7 +178,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
                   },
 
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -202,7 +204,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
                     message: "minimum length 3",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF_ ]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართული ასოები !",
                   },
                 })}

@@ -209,7 +209,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                   },
 
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -303,7 +303,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -375,7 +375,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -398,7 +398,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}

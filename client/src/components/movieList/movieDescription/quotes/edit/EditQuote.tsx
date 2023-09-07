@@ -259,7 +259,7 @@ const EditQuote: React.FC = () => {
                   },
 
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -288,7 +288,7 @@ const EditQuote: React.FC = () => {
                     message: "minimum length 3",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF_ ]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართული ასოები !",
                   },
                 })}

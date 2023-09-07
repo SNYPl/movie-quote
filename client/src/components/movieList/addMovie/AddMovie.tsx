@@ -162,7 +162,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "minimum length 3",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -181,7 +181,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
@@ -235,7 +235,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -255,7 +255,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}
@@ -294,7 +294,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -314,7 +314,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
                     message: "Fill field",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართულად ასოები !",
                   },
                 })}

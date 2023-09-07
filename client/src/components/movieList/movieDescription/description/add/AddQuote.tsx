@@ -183,7 +183,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
                   },
 
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]*$/,
+                    value: /^[a-zA-Z0-9_, ]*$/,
                     message: "only english words !",
                   },
                 })}
@@ -209,7 +209,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
                     message: "minimum length 3",
                   },
                   pattern: {
-                    value: /^[\u10A0-\u10FF_ ]*$/,
+                    value: /^[\u10A0-\u10FF_ ,]*$/,
                     message: "მხოლოდ ქართული ასოები !",
                   },
                 })}
