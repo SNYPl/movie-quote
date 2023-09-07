@@ -14,8 +14,8 @@ const fs = require("fs");
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "https://movie-quote-uaxr.vercel.app",
-  // origin: "http://localhost:3000",
+  // origin: "https://movie-quote-uaxr.vercel.app",
+  origin: "http://localhost:3000",
 
   credentials: true,
 };
@@ -79,7 +79,7 @@ mongoose
     const server = app.listen(process.env.PORT || port);
     const io = require("./socket").init(server);
     io.on("connection", (socket) => {
-      // console.log(socket);
+      console.log(socket);
     });
   })
   .catch((error) => {
