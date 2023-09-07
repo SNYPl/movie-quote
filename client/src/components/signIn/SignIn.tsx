@@ -1,7 +1,9 @@
 import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
-import axios from "../../helper/axios";
+// import axios from "../../helper/axios";
+import axios from "axios";
+
 import { loginContx } from "../../store/LoginContext";
 // import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
@@ -92,8 +94,8 @@ const SignIn: React.FC = () => {
           Cookies.set("token", res.data.token, {
             path: "/",
             expires: expiration,
-            // sameSite: "none",
-            // secure: true,
+            sameSite: "none",
+            secure: true,
           });
           if (!res.data.verified) {
             Cookies.set("isLoggedIn", "unVerified", {
