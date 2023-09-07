@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 import { loginContx } from "../../store/LoginContext";
-// import Cookies from "universal-cookie";
+import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { signUpCtrx } from "../../store/signUpContx";
 import { useTranslation } from "react-i18next";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 type FormValues = {
   username: string;
@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
   const { setUserMode, setForgotPasswordMode } = useContext(signUpCtrx);
   const { t, i18n } = useTranslation();
 
-  // const cookies = new Cookies();
+  const cookies = new Cookies();
 
   const navigate = useNavigate();
 
@@ -91,26 +91,27 @@ const SignIn: React.FC = () => {
           const expiration = new Date();
 
           expiration.setHours(expiration.getHours() + 3);
-          Cookies.set("token", res.data.token, {
+          cookies.set("token", res.data.token, {
             path: "/",
             expires: expiration,
             sameSite: "none",
             secure: true,
           });
+          localStorage.setItem("token", res.data.token);
           if (!res.data.verified) {
-            Cookies.set("isLoggedIn", "unVerified", {
+            cookies.set("isLoggedIn", "unVerified", {
               path: "/",
               expires: expiration,
             });
           } else {
-            Cookies.set("isLoggedIn", "true", {
+            cookies.set("isLoggedIn", "true", {
               path: "/",
               expires: expiration,
             });
           }
 
           if (remember) {
-            Cookies.set("remember", "true", {
+            cookies.set("remember", "true", {
               path: "/",
               expires: expiration,
             });

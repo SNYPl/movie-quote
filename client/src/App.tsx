@@ -9,7 +9,7 @@ import { DashboardProvider } from "./store/dashboardContext";
 import NotFound from "./components/error/404";
 import GoogleSuccess from "./components/signIn/SignGoogle";
 import SendVerifyMail from "./components/signIn/SendMail";
-// import NewsFeed from "./components/newsFeed/NewsFeed";
+import NewsFeed from "./components/newsFeed/NewsFeed";
 // import MyProfile from "./components/profile/Profile";
 // import MovieList from "./components/movieList/MovieList";
 // import List from "./components/movieList/list/List";
@@ -21,7 +21,7 @@ import axios from "./helper/axios";
 axios.defaults.withCredentials = true;
 
 const MyProfile = React.lazy(() => import("./components/profile/Profile"));
-const NewsFeed = React.lazy(() => import("./components/newsFeed/NewsFeed"));
+// const NewsFeed = React.lazy(() => import("./components/newsFeed/NewsFeed"));
 const MovieList = React.lazy(() => import("./components/movieList/MovieList"));
 const List = React.lazy(() => import("./components/movieList/list/List"));
 const MovieDescription = React.lazy(() =>

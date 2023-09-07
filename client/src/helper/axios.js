@@ -1,9 +1,9 @@
 import axios from "axios";
-import Cookies from "js-cookie";
-const token = Cookies.get("token");
-// const cookies = new Cookies();
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-console.log(token);
+// const token = cookies.get("token");
+const token = localStorage.getItem("token");
 
 const axiosDef = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
