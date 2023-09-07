@@ -6,6 +6,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { RotatingLines } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 type movie = {
   name: string;
@@ -27,6 +28,8 @@ const fileTypes = ["JPG", "PNG", "JPEG"];
 
 const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
   const { t, i18n } = useTranslation();
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const { error, data } = useQuery(
     "userInfo",
@@ -37,6 +40,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
           "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),
@@ -64,6 +68,7 @@ const AddMovie: React.FC<addMovie> = ({ setAddMovie }) => {
     "Content-Type": "multipart/form-data",
     "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
     "Access-Control-Allow-Credentials": true,
+    Authorization: `Bearer ${token}`,
     Accept: "application/json",
   };
 

@@ -8,6 +8,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useNavigate } from "react-router-dom";
 import { Oval, RotatingLines } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 type quote = {
   editQuoteText: string;
@@ -24,6 +25,8 @@ const EditQuote: React.FC = () => {
   const quoteId = location.pathname.split("=")[1].split("/")[0];
   const { t } = useTranslation();
   const [curImg, setCurImg] = useState<any | null>("");
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const { error, isLoading, data } = useQuery(
     "getQuote",
@@ -36,6 +39,7 @@ const EditQuote: React.FC = () => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -92,6 +96,7 @@ const EditQuote: React.FC = () => {
             "Content-Type": "multipart/form-data",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,

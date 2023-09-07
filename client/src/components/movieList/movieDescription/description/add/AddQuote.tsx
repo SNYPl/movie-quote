@@ -6,6 +6,7 @@ import axios, { AxiosError } from "axios";
 import { FileUploader } from "react-drag-drop-files";
 import { Oval } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,6 +29,8 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
   const queryClient = useQueryClient();
   const [errorUser, setErrorUser] = useState("");
   const { t, i18n } = useTranslation();
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const handleChange = (file: any) => {
     setQuoteImg(file);
@@ -44,6 +47,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
           "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),
@@ -68,6 +72,7 @@ const AddQuote: React.FC<addBtn> = ({ add, movie }) => {
             "Content-Type": "multipart/form-data",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,

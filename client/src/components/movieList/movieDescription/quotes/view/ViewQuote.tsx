@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 type movie = {
   quotes: string;
@@ -23,6 +24,8 @@ const ViewQuote: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [commentErr, setCommentErr] = useState("");
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const user = useQuery(
     "userInfo",
@@ -33,6 +36,7 @@ const ViewQuote: React.FC = () => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
           "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),
@@ -54,6 +58,7 @@ const ViewQuote: React.FC = () => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -103,6 +108,7 @@ const ViewQuote: React.FC = () => {
             "Content-Type": "multipart/form-data",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,
@@ -142,6 +148,7 @@ const ViewQuote: React.FC = () => {
             "Content-Type": "application/json; charset=UTF-9",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,

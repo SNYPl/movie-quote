@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { Oval } from "react-loader-spinner";
 import openSocket from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 interface newQuote {
   setNewQuote: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,6 +25,8 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
   const [errorUser, setErrorUser] = useState("");
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const {
     register,
@@ -42,6 +45,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
           "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),
@@ -59,6 +63,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -84,6 +89,7 @@ const QuoteForm: React.FC<newQuote> = ({ setNewQuote }) => {
             "Content-Type": "multipart/form-data",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,
