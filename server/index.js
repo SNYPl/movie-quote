@@ -79,7 +79,7 @@ mongoose
     const server = app.listen(process.env.PORT || port);
     const io = require("./socket").init(server);
     io.on("connection", (socket) => {
-      console.log(socket);
+      // console.log(socket);
     });
   })
   .catch((error) => {
