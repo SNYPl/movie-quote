@@ -61,6 +61,7 @@ const SignIn: React.FC = () => {
         },
         {
           headers,
+          withCredentials: true,
         }
       )
       .then((res) => {
@@ -68,6 +69,7 @@ const SignIn: React.FC = () => {
           headers: {
             ...headers,
             Authorization: `Bearer ${res.data.token}`,
+            withCredentials: true,
           },
         };
 

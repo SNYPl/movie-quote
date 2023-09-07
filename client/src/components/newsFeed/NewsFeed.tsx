@@ -17,7 +17,6 @@ const NewsFeed: React.FC = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const queryClient = useQueryClient();
   const cookies = new Cookies();
-
   const token = cookies.get("token");
 
   const { isLoading, error, data, isFetching } = useQuery(
@@ -30,8 +29,7 @@ const NewsFeed: React.FC = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-            // "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
         }
       ),
