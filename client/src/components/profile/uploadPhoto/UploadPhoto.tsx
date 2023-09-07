@@ -5,11 +5,14 @@ import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import axios from "../../../helper/axios";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 const UploadPhoto: React.FC = () => {
   const { setProfileImage, profileImage } = useContext(DashbCtrx);
   const { t } = useTranslation();
   const [curImg, setCurImg] = useState<any | null>("");
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const { isLoading, error, data } = useQuery(
     "userInfo",
@@ -18,8 +21,7 @@ const UploadPhoto: React.FC = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-          "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),

@@ -13,8 +13,8 @@ const DashboardNavigation: React.FC = () => {
   const { setUserMode } = useContext(signUpCtrx);
   const cookies = new Cookies();
   const [not, setNot] = useState(false);
-  const { t, i18n } = useTranslation();
-
+  const { t } = useTranslation();
+  const token = cookies.get("token");
   const logout = () => {
     cookies.remove("remember", { path: "/" });
     cookies.remove("token", { path: "/" });
@@ -33,8 +33,7 @@ const DashboardNavigation: React.FC = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-            "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }

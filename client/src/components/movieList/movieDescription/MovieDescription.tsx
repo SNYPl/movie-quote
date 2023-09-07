@@ -9,11 +9,14 @@ import axios from "../../../helper/axios";
 import { MagnifyingGlass } from "react-loader-spinner";
 import openSocket from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 const Description: React.FC = () => {
   const [addQuote, setAddQuote] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   let location = useLocation();
   const movieId = location.pathname.split("=")[1];
@@ -27,8 +30,7 @@ const Description: React.FC = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-            "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -47,8 +49,7 @@ const Description: React.FC = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-            "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }

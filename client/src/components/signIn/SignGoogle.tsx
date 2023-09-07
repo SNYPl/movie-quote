@@ -19,8 +19,7 @@ const GoogleSignSuccess: React.FC = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-          "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),

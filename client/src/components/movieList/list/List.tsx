@@ -6,10 +6,13 @@ import SearchMovie from "../searchNav/SearchMovie";
 import axios from "../../../helper/axios";
 import { useQuery } from "react-query";
 import { MagnifyingGlass } from "react-loader-spinner";
+import Cookies from "universal-cookie";
 
 const List: React.FC = () => {
   const [addMovie, setAddMovie] = useState(false);
   const [searchMovie, setSearchMovie] = useState("");
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const { isLoading, error, data } = useQuery(
     "moviesList",
@@ -18,8 +21,7 @@ const List: React.FC = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-          "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),

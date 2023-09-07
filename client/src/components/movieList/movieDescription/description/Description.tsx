@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import { useQuery } from "react-query";
 import axios from "../../../../helper/axios";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 interface addBtn {
   add: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +17,8 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
   const [editMovie, setEditMovie] = useState(false);
   const [deleteMovie, setDeleteMovie] = useState(false);
   const { t, i18n } = useTranslation();
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   let location = useLocation();
   const movieId = location.pathname.split("=")[1];
@@ -29,8 +32,7 @@ const Description: React.FC<addBtn> = ({ add, quotesLength }) => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-            "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }

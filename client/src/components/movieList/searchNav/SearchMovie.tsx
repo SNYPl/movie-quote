@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import { useQuery } from "react-query";
 import axios from "../../../helper/axios";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 interface addMovie {
   setAddMovie: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,6 +12,8 @@ interface addMovie {
 
 const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
   const { t, i18n } = useTranslation();
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const { isLoading, error, data } = useQuery(
     "moviesList",
@@ -19,8 +22,7 @@ const SearchMovie: React.FC<addMovie> = ({ setAddMovie, setSearchMovie }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-          "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),

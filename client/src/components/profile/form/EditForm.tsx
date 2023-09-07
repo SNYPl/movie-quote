@@ -33,6 +33,8 @@ const ProfileForm: React.FC = () => {
     email: false,
     password: false,
   });
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   const queryClient = useQueryClient();
 
@@ -43,8 +45,7 @@ const ProfileForm: React.FC = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-          "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),
@@ -61,12 +62,9 @@ const ProfileForm: React.FC = () => {
 
   let headers = {
     "Content-Type": "multipart/form-data",
-    "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
-    "Access-Control-Allow-Credentials": true,
+    Authorization: `Bearer ${token}`,
     Accept: "application/json",
   };
-
-  const cookies = new Cookies();
 
   const { mutate } = useMutation(
     (userInfo: typeof formData) => {
