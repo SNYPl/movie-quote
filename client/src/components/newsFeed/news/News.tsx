@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import axios, { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 interface quote {
   quote: any;
@@ -14,7 +15,8 @@ const News: React.FC<quote> = ({ quote }) => {
   const queryClient = useQueryClient();
   const [commentErr, setCommentErr] = useState("");
   const { t, i18n } = useTranslation();
-
+  const cookies = new Cookies();
+  const token = cookies.get("token");
   //like quote
 
   const likeQuote = useMutation(
@@ -27,6 +29,7 @@ const News: React.FC<quote> = ({ quote }) => {
             "Content-Type": "multipart/form-data",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,
@@ -66,6 +69,7 @@ const News: React.FC<quote> = ({ quote }) => {
             "Content-Type": "application/json; charset=UTF-9",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,

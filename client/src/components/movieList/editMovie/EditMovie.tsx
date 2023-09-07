@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 import { useLocation } from "react-router";
 import { RotatingLines } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import Cookies from "universal-cookie";
 
 type movie = {
   updatedName: string;
@@ -42,6 +43,8 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
   const [errorUser, setErrorUser] = useState("");
   const [succ, setSucc] = useState("");
   const [curImg, setCurImg] = useState<any | null>("");
+  const cookies = new Cookies();
+  const token = cookies.get("token");
 
   //get data
   let location = useLocation();
@@ -58,6 +61,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -77,6 +81,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
           "Access-Control-Allow-Credentials": true,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }),
@@ -115,6 +120,7 @@ const EditMovie: React.FC<editMovieTypes> = ({ setEditMovie, image }) => {
             "Content-Type": "multipart/form-data",
             "Access-Control-Allow-Origin": process.env.ACCESS_ALLOW_URL,
             "Access-Control-Allow-Credentials": true,
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
           withCredentials: true,
